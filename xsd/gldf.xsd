@@ -586,17 +586,6 @@
 											</xs:restriction>
 										</xs:simpleType>
 									</xs:element>
-									<xs:element name="UpwardLightRatio" minOccurs="0">
-										<xs:annotation>
-											<xs:documentation>Ratio of the total luminaire flux that is emitted above the horizontal to the total luminaire flux</xs:documentation>
-										</xs:annotation>
-										<xs:simpleType>
-											<xs:restriction base="xs:double">
-												<xs:minInclusive value="0"/>
-												<xs:maxInclusive value="1"/>
-											</xs:restriction>
-										</xs:simpleType>
-									</xs:element>
 									<xs:element name="UpwardLightOutputRatio" minOccurs="0">
 										<xs:annotation>
 											<xs:documentation>Ratio of the upward luminous flux of the luminaire to the sum of the individual luminous fluxes of the its light source(s). Not valid for absolute photometry</xs:documentation>
