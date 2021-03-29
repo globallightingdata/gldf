@@ -406,57 +406,61 @@
 					<xs:documentation>Definition of a file for reference</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
-					<xs:attribute name="id" type="xs:ID" use="required">
-						<xs:annotation>
-							<xs:documentation>Unique file identifier</xs:documentation>
-						</xs:annotation>
-					</xs:attribute>
-					<xs:attribute name="contentType" use="required">
-						<xs:annotation>
-							<xs:documentation>Kind of the file</xs:documentation>
-						</xs:annotation>
-						<xs:simpleType>
-							<xs:restriction base="xs:string">
-								<xs:enumeration value="ldc/eulumdat"/>
-								<xs:enumeration value="ldc/ies"/>
-								<xs:enumeration value="ldc/iesxml"/>
-								<xs:enumeration value="image/png"/>
-								<xs:enumeration value="image/svg"/>
-								<xs:enumeration value="image/jpg"/>
-								<xs:enumeration value="geo/l3d"/>
-								<xs:enumeration value="geo/r3d"/>
-								<xs:enumeration value="geo/m3d"/>
-								<xs:enumeration value="document/pdf"/>
-								<xs:enumeration value="symbol/dxf"/>
-								<xs:enumeration value="symbol/svg"/>
-								<xs:enumeration value="sensor/sensxml"/>
-								<xs:enumeration value="sensor/sensldt"/>
-								<xs:enumeration value="spectrum/text"/>
-								<xs:enumeration value="other"/>
-							</xs:restriction>
-						</xs:simpleType>
-					</xs:attribute>
-					<xs:attribute name="type" use="required">
-						<xs:annotation>
-							<xs:documentation>File location. A file can be referenced as a path to in the local file system, relative to this document. Do not use absolute paths. Or online as a web url</xs:documentation>
-						</xs:annotation>
-						<xs:simpleType>
-							<xs:restriction base="xs:string">
-								<xs:enumeration value="localpath"/>
-								<xs:enumeration value="url"/>
-							</xs:restriction>
-						</xs:simpleType>
-					</xs:attribute>
-					<xs:attribute name="fileName" type="xs:string" use="required">
-						<xs:annotation>
-							<xs:documentation>Name of the file, excluding path and extension, For display purposes</xs:documentation>
-						</xs:annotation>
-					</xs:attribute>
-					<xs:attribute name="language" type="xs:language">
-						<xs:annotation>
-							<xs:documentation>Language of the file content. For possible translations of the same document. According to RFC1766, e.g. "en", "en-US", "de" or "de-DE"</xs:documentation>
-						</xs:annotation>
-					</xs:attribute>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="id" type="xs:ID" use="required">
+								<xs:annotation>
+									<xs:documentation>Unique file identifier</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+							<xs:attribute name="contentType" use="required">
+								<xs:annotation>
+									<xs:documentation>Kind of the file</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:enumeration value="ldc/eulumdat"/>
+										<xs:enumeration value="ldc/ies"/>
+										<xs:enumeration value="ldc/iesxml"/>
+										<xs:enumeration value="image/png"/>
+										<xs:enumeration value="image/svg"/>
+										<xs:enumeration value="image/jpg"/>
+										<xs:enumeration value="geo/l3d"/>
+										<xs:enumeration value="geo/r3d"/>
+										<xs:enumeration value="geo/m3d"/>
+										<xs:enumeration value="document/pdf"/>
+										<xs:enumeration value="symbol/dxf"/>
+										<xs:enumeration value="symbol/svg"/>
+										<xs:enumeration value="sensor/sensxml"/>
+										<xs:enumeration value="sensor/sensldt"/>
+										<xs:enumeration value="spectrum/text"/>
+										<xs:enumeration value="other"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+							<xs:attribute name="type" use="required">
+								<xs:annotation>
+									<xs:documentation>File location. A file can be referenced as a path to in the local file system, relative to this document. Do not use absolute paths. Or online as a web url</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:enumeration value="localpath"/>
+										<xs:enumeration value="url"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+							<xs:attribute name="fileName" type="xs:string" use="required">
+								<xs:annotation>
+									<xs:documentation>Name of the file, excluding path and extension, For display purposes</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+							<xs:attribute name="language" type="xs:language">
+								<xs:annotation>
+									<xs:documentation>Language of the file content. For possible translations of the same document. According to RFC1766, e.g. "en", "en-US", "de" or "de-DE"</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
@@ -574,17 +578,6 @@
 									<xs:element name="DownwardLightOutputRatio" minOccurs="0">
 										<xs:annotation>
 											<xs:documentation>Ratio of the downward luminous flux of the luminaire to the sum of the individual luminous fluxes of the its light source(s). Not valid for absolute photometry</xs:documentation>
-										</xs:annotation>
-										<xs:simpleType>
-											<xs:restriction base="xs:double">
-												<xs:minInclusive value="0"/>
-												<xs:maxInclusive value="1"/>
-											</xs:restriction>
-										</xs:simpleType>
-									</xs:element>
-									<xs:element name="UpwardLightRatio" minOccurs="0">
-										<xs:annotation>
-											<xs:documentation>Ratio of the total luminaire flux that is emitted above the horizontal to the total luminaire flux</xs:documentation>
 										</xs:annotation>
 										<xs:simpleType>
 											<xs:restriction base="xs:double">
@@ -2137,29 +2130,434 @@ Note: These types are used in IES photometry files</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="ATEX-Directive" minOccurs="0">
+						<xs:element name="ATEX" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Specifies whether the fitting is intended for installation in an explosive environment. See ATEX directive 2014/34/EU</xs:documentation>
 							</xs:annotation>
-							<xs:simpleType>
-								<xs:restriction base="xs:string">
-									<xs:enumeration value="Zone 0"/>
-									<xs:enumeration value="Zone 1"/>
-									<xs:enumeration value="Zone 2"/>
-									<xs:enumeration value="Zone 20"/>
-									<xs:enumeration value="Zone 21"/>
-									<xs:enumeration value="Zone 22"/>
-									<xs:enumeration value="Zone 0/20"/>
-									<xs:enumeration value="Zone 0/21"/>
-									<xs:enumeration value="Zone 0/22"/>
-									<xs:enumeration value="Zone 1/20"/>
-									<xs:enumeration value="Zone 1/21"/>
-									<xs:enumeration value="Zone 1/22"/>
-									<xs:enumeration value="Zone 2/20"/>
-									<xs:enumeration value="Zone 2/21"/>
-									<xs:enumeration value="Zone 2/22"/>
-								</xs:restriction>
-							</xs:simpleType>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Directives" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Hazardous area classification directives. E.g. European Union’s ATEX Directive, U.S. National Electrical Code (NEC) or Canadian Electrical Code (CEC)</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="Directive" maxOccurs="4">
+													<xs:annotation>
+														<xs:documentation>Hazardous area classification  directive</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:enumeration value="ATEX"/>
+															<xs:enumeration value="IECEx"/>
+															<xs:enumeration value="CEC"/>
+															<xs:enumeration value="NEC"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="Classes" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Classification of substances. Gas, Dust or Fibers/Flyings</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="Class" maxOccurs="3">
+													<xs:annotation>
+														<xs:documentation>Classification of substances. Gas, Dust or Fibers/Flyings</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:enumeration value="I"/>
+															<xs:enumeration value="II"/>
+															<xs:enumeration value="III"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="Divisions" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Division classifications. Corresponds to zones as follows: Zone 0|1 > Division 1. Zone 2 > Division 2</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="Division" maxOccurs="2">
+													<xs:annotation>
+														<xs:documentation>Division classification</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:enumeration value="1"/>
+															<xs:enumeration value="2"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="DivisionGroups" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Hazardous atmosphere category groups A-G</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="Gas" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Gas, fog, steam zones</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="Group" maxOccurs="4">
+																<xs:annotation>
+																	<xs:documentation>Division group A,B,C,D</xs:documentation>
+																</xs:annotation>
+																<xs:simpleType>
+																	<xs:restriction base="xs:string">
+																		<xs:enumeration value="A"/>
+																		<xs:enumeration value="B"/>
+																		<xs:enumeration value="C"/>
+																		<xs:enumeration value="D"/>
+																	</xs:restriction>
+																</xs:simpleType>
+															</xs:element>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+												<xs:element name="Dust" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Dust zones</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="Group" maxOccurs="3">
+																<xs:annotation>
+																	<xs:documentation>Division group E,F,G</xs:documentation>
+																</xs:annotation>
+																<xs:simpleType>
+																	<xs:restriction base="xs:string">
+																		<xs:enumeration value="E"/>
+																		<xs:enumeration value="F"/>
+																		<xs:enumeration value="G"/>
+																	</xs:restriction>
+																</xs:simpleType>
+															</xs:element>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="Zones" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Classification of possible hazardous zones</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="Gas" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Gas, fog, steam zones</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="Zone" maxOccurs="3">
+																<xs:annotation>
+																	<xs:documentation>Zone 0, 1, 2</xs:documentation>
+																</xs:annotation>
+																<xs:simpleType>
+																	<xs:restriction base="xs:string">
+																		<xs:enumeration value="0"/>
+																		<xs:enumeration value="1"/>
+																		<xs:enumeration value="2"/>
+																	</xs:restriction>
+																</xs:simpleType>
+															</xs:element>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+												<xs:element name="Dust" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Dust zones</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="Zone" maxOccurs="3">
+																<xs:annotation>
+																	<xs:documentation>Zone 20, 21, 22</xs:documentation>
+																</xs:annotation>
+																<xs:simpleType>
+																	<xs:restriction base="xs:string">
+																		<xs:enumeration value="20"/>
+																		<xs:enumeration value="21"/>
+																		<xs:enumeration value="22"/>
+																	</xs:restriction>
+																</xs:simpleType>
+															</xs:element>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="ZoneGroups" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Classification of possible hazardous zone groups</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="Gas" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Gas, fog, steam zones</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="Group" maxOccurs="4">
+																<xs:annotation>
+																	<xs:documentation>Group IIC, IIB + H2, IIB, IIA</xs:documentation>
+																</xs:annotation>
+																<xs:simpleType>
+																	<xs:restriction base="xs:string">
+																		<xs:enumeration value="IIC"/>
+																		<xs:enumeration value="IIB + H2"/>
+																		<xs:enumeration value="IIB"/>
+																		<xs:enumeration value="IIA"/>
+																	</xs:restriction>
+																</xs:simpleType>
+															</xs:element>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+												<xs:element name="Dust" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Dust zones</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="Group" maxOccurs="3">
+																<xs:annotation>
+																	<xs:documentation>Group IIIC, IIIB, IIIA</xs:documentation>
+																</xs:annotation>
+																<xs:simpleType>
+																	<xs:restriction base="xs:string">
+																		<xs:enumeration value="IIIC"/>
+																		<xs:enumeration value="IIIB"/>
+																		<xs:enumeration value="IIIA"/>
+																	</xs:restriction>
+																</xs:simpleType>
+															</xs:element>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="MaximumSurfaceTemperature" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Maximum temperature of a surface that can be reached by the ex atmosphere</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="TemperatureClasses" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Temperature classifications. E.g. T3 lower/equal 300°C</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="TemperatureClass" maxOccurs="14">
+													<xs:annotation>
+														<xs:documentation>Temperature classification</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:enumeration value="T1"/>
+															<xs:enumeration value="T2"/>
+															<xs:enumeration value="T2A"/>
+															<xs:enumeration value="T2B"/>
+															<xs:enumeration value="T2C"/>
+															<xs:enumeration value="T2D"/>
+															<xs:enumeration value="T3"/>
+															<xs:enumeration value="T3A"/>
+															<xs:enumeration value="T3B"/>
+															<xs:enumeration value="T3C"/>
+															<xs:enumeration value="T4"/>
+															<xs:enumeration value="T4A"/>
+															<xs:enumeration value="T5"/>
+															<xs:enumeration value="T6"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="ExCodes" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Protection against the occurrence of an ignition source</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="ExCode" maxOccurs="28">
+													<xs:annotation>
+														<xs:documentation>Type of protection short code</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:enumeration value="ia"/>
+															<xs:enumeration value="ib"/>
+															<xs:enumeration value="ic"/>
+															<xs:enumeration value="eb"/>
+															<xs:enumeration value="ec"/>
+															<xs:enumeration value="da"/>
+															<xs:enumeration value="db"/>
+															<xs:enumeration value="dc"/>
+															<xs:enumeration value="q"/>
+															<xs:enumeration value="nC"/>
+															<xs:enumeration value="pxb"/>
+															<xs:enumeration value="pyb"/>
+															<xs:enumeration value="pyc"/>
+															<xs:enumeration value="pzc"/>
+															<xs:enumeration value="ma"/>
+															<xs:enumeration value="mb"/>
+															<xs:enumeration value="mc"/>
+															<xs:enumeration value="nC"/>
+															<xs:enumeration value="nR"/>
+															<xs:enumeration value="ob"/>
+															<xs:enumeration value="oc"/>
+															<xs:enumeration value="op pr"/>
+															<xs:enumeration value="op is"/>
+															<xs:enumeration value="op sh"/>
+															<xs:enumeration value="q"/>
+															<xs:enumeration value="ta"/>
+															<xs:enumeration value="tb"/>
+															<xs:enumeration value="tc"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="EquipmentProtectionLevels" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Equipment Protection Level EPL. "M" Mining - "G" Gas - "D" Dust and respective protection level</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="EquipmentProtectionLevel" maxOccurs="8">
+													<xs:annotation>
+														<xs:documentation>Equipment protection level</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:enumeration value="Ga"/>
+															<xs:enumeration value="Gb"/>
+															<xs:enumeration value="Gc"/>
+															<xs:enumeration value="Da"/>
+															<xs:enumeration value="Db"/>
+															<xs:enumeration value="Dc"/>
+															<xs:enumeration value="Ma"/>
+															<xs:enumeration value="Mb"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="EquipmentGroups" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Equipment Groups. Defines if the equipment can be used under ground (mining) or above ground explosive areas</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="EquipmentGroup" maxOccurs="2">
+													<xs:annotation>
+														<xs:documentation>Possible hazardous area</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:enumeration value="I"/>
+															<xs:enumeration value="II"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="EquipmentCategories" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Defines in which zones the equipment can be used. With protection level from normal to high</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="EquipmentCategory" maxOccurs="8">
+													<xs:annotation>
+														<xs:documentation>Possible equipment hazardous zone. Mining, Gas, Dust and corresponding protection level</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:enumeration value="M1"/>
+															<xs:enumeration value="M2"/>
+															<xs:enumeration value="1G"/>
+															<xs:enumeration value="2G"/>
+															<xs:enumeration value="3G"/>
+															<xs:enumeration value="1D"/>
+															<xs:enumeration value="2D"/>
+															<xs:enumeration value="3D"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="Atmospheres" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Atmosphere classification</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="Atmosphere" maxOccurs="2">
+													<xs:annotation>
+														<xs:documentation>Gas, Dust</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:enumeration value="G"/>
+															<xs:enumeration value="D"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="Groups" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Explosion groups (I Mining, II Gas, III Dust) and sub-group classification</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="Group" maxOccurs="9">
+													<xs:annotation>
+														<xs:documentation>Explosion group. E.g. IIA Gas-Propane</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:enumeration value="I"/>
+															<xs:enumeration value="II"/>
+															<xs:enumeration value="IIA"/>
+															<xs:enumeration value="IIB"/>
+															<xs:enumeration value="IIC"/>
+															<xs:enumeration value="III"/>
+															<xs:enumeration value="IIIA"/>
+															<xs:enumeration value="IIIB"/>
+															<xs:enumeration value="IIIC"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
 						</xs:element>
 						<xs:element name="AmbientTemperature" type="TemperatureRange" minOccurs="0">
 							<xs:annotation>
@@ -2546,8 +2944,18 @@ Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on applic
 							</xs:attribute>
 							<xs:attribute name="region" type="xs:string">
 								<xs:annotation>
-									<xs:documentation>Region if applicable. E.g. Germany or Europa</xs:documentation>
+									<xs:documentation>Individually defined region if applicable. E.g. Germany, or Europe</xs:documentation>
 								</xs:annotation>
+							</xs:attribute>
+							<xs:attribute name="countryCode">
+								<xs:annotation>
+									<xs:documentation>Optional ISO 3166-1 alpha-2 code if applicable</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:pattern value="[a-zA-Z]{2}"/>
+									</xs:restriction>
+								</xs:simpleType>
 							</xs:attribute>
 						</xs:extension>
 					</xs:simpleContent>
