@@ -5,6 +5,7 @@
 GLDF is a flexible and modular **lighting data format**. With a structure, that is capable of supporting simple to complex **luminaires** and **sensors**. Developed by [DIAL](https://dial.de) and [RELUX](https://reluxnet.relux.com) to save efforts in **creation and interpretation of lighting data**.
 
 Want to learn more? Check out our website [gldf.io](https://gldf.io).
+Want to learn about GLDF 3D? Have a look at our L3D repository [github.com/globallightingdata/l3d](https://github.com/globallightingdata/l3d).
 
 ## Features and benefits
 
