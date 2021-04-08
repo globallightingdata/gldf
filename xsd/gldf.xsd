@@ -450,11 +450,6 @@
 									</xs:restriction>
 								</xs:simpleType>
 							</xs:attribute>
-							<xs:attribute name="fileName" type="xs:string" use="required">
-								<xs:annotation>
-									<xs:documentation>Name of the file, excluding path and extension, For display purposes</xs:documentation>
-								</xs:annotation>
-							</xs:attribute>
 							<xs:attribute name="language" type="xs:language">
 								<xs:annotation>
 									<xs:documentation>Language of the file content. For possible translations of the same document. According to RFC1766, e.g. "en", "en-US", "de" or "de-DE"</xs:documentation>
