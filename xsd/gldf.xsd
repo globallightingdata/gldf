@@ -1679,10 +1679,372 @@ Note: These types are used in IES photometry files</xs:documentation>
 								<xs:documentation>Variant order number</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="Mountings" type="Mountings" minOccurs="0">
+						<xs:element name="Mountings" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Luminaire mounting place, type and position if applicable (e.g. pendulum distance, distance above floor, ceilling recessed depth)</xs:documentation>
+								<xs:documentation>Product mounting place, type and position</xs:documentation>
 							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Ceilling" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Mounting place: ceilling</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="Recessed" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Mounting type: recessed (into the ceilling)</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:choice>
+															<xs:element name="RectangularCutout" minOccurs="0">
+																<xs:annotation>
+																	<xs:documentation>Rectangular cutout into the ceilling</xs:documentation>
+																</xs:annotation>
+																<xs:complexType>
+																	<xs:sequence>
+																		<xs:element name="Width">
+																			<xs:annotation>
+																				<xs:documentation>Width of the rectangular cutout into the ceilling</xs:documentation>
+																			</xs:annotation>
+																			<xs:simpleType>
+																				<xs:restriction base="xs:double">
+																					<xs:minInclusive value="0"/>
+																				</xs:restriction>
+																			</xs:simpleType>
+																		</xs:element>
+																		<xs:element name="Length">
+																			<xs:annotation>
+																				<xs:documentation>Length of the rectangular cutout into the ceilling</xs:documentation>
+																			</xs:annotation>
+																			<xs:simpleType>
+																				<xs:restriction base="xs:double">
+																					<xs:minInclusive value="0"/>
+																				</xs:restriction>
+																			</xs:simpleType>
+																		</xs:element>
+																		<xs:element name="Depth">
+																			<xs:annotation>
+																				<xs:documentation>Depth of the rectangular cutout into the ceilling</xs:documentation>
+																			</xs:annotation>
+																			<xs:simpleType>
+																				<xs:restriction base="xs:double">
+																					<xs:minInclusive value="0"/>
+																				</xs:restriction>
+																			</xs:simpleType>
+																		</xs:element>
+																	</xs:sequence>
+																</xs:complexType>
+															</xs:element>
+															<xs:element name="CircularCutout" minOccurs="0">
+																<xs:annotation>
+																	<xs:documentation>Circular cutout into the ceilling</xs:documentation>
+																</xs:annotation>
+																<xs:complexType>
+																	<xs:sequence>
+																		<xs:element name="Diameter">
+																			<xs:annotation>
+																				<xs:documentation>Diameter of the circular cutout into the ceilling</xs:documentation>
+																			</xs:annotation>
+																			<xs:simpleType>
+																				<xs:restriction base="xs:double">
+																					<xs:minInclusive value="0"/>
+																				</xs:restriction>
+																			</xs:simpleType>
+																		</xs:element>
+																		<xs:element name="Depth">
+																			<xs:annotation>
+																				<xs:documentation>Depth of the circular cutout into the ceilling</xs:documentation>
+																			</xs:annotation>
+																			<xs:simpleType>
+																				<xs:restriction base="xs:double">
+																					<xs:minInclusive value="0"/>
+																				</xs:restriction>
+																			</xs:simpleType>
+																		</xs:element>
+																	</xs:sequence>
+																</xs:complexType>
+															</xs:element>
+														</xs:choice>
+														<xs:attribute name="recessedDepth" use="required">
+															<xs:annotation>
+																<xs:documentation>Recessed depth into ceilling</xs:documentation>
+															</xs:annotation>
+															<xs:simpleType>
+																<xs:restriction base="xs:double">
+																	<xs:minInclusive value="0"/>
+																</xs:restriction>
+															</xs:simpleType>
+														</xs:attribute>
+													</xs:complexType>
+												</xs:element>
+												<xs:element name="SurfaceMounted" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Mounting type: surface (of the ceilling)</xs:documentation>
+													</xs:annotation>
+													<xs:complexType/>
+												</xs:element>
+												<xs:element name="Pendant" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Mounting type: suspended (from the ceiling)</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:attribute name="pendantLength" use="required">
+															<xs:annotation>
+																<xs:documentation>Suspension length, measured from ceiling to the pendulum  housing of the product</xs:documentation>
+															</xs:annotation>
+															<xs:simpleType>
+																<xs:restriction base="xs:double">
+																	<xs:minInclusive value="0"/>
+																</xs:restriction>
+															</xs:simpleType>
+														</xs:attribute>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="Wall" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Mounting place: wall</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="Recessed" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Mounting type: recessed (into the wall)</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:choice>
+															<xs:element name="RectangularCutout" minOccurs="0">
+																<xs:annotation>
+																	<xs:documentation>Rectangular cutout into the wall</xs:documentation>
+																</xs:annotation>
+																<xs:complexType>
+																	<xs:sequence>
+																		<xs:element name="Width">
+																			<xs:annotation>
+																				<xs:documentation>Width of the rectangular cutout into the wall</xs:documentation>
+																			</xs:annotation>
+																			<xs:simpleType>
+																				<xs:restriction base="xs:double">
+																					<xs:minInclusive value="0"/>
+																				</xs:restriction>
+																			</xs:simpleType>
+																		</xs:element>
+																		<xs:element name="Length">
+																			<xs:annotation>
+																				<xs:documentation>Length of the rectangular cutout into the wall</xs:documentation>
+																			</xs:annotation>
+																			<xs:simpleType>
+																				<xs:restriction base="xs:double">
+																					<xs:minInclusive value="0"/>
+																				</xs:restriction>
+																			</xs:simpleType>
+																		</xs:element>
+																		<xs:element name="Depth">
+																			<xs:annotation>
+																				<xs:documentation>Depth of the rectangular cutout into the wall</xs:documentation>
+																			</xs:annotation>
+																			<xs:simpleType>
+																				<xs:restriction base="xs:double">
+																					<xs:minInclusive value="0"/>
+																				</xs:restriction>
+																			</xs:simpleType>
+																		</xs:element>
+																	</xs:sequence>
+																</xs:complexType>
+															</xs:element>
+															<xs:element name="CircularCutout" minOccurs="0">
+																<xs:annotation>
+																	<xs:documentation>Circular cutout into the wall</xs:documentation>
+																</xs:annotation>
+																<xs:complexType>
+																	<xs:sequence>
+																		<xs:element name="Diameter">
+																			<xs:annotation>
+																				<xs:documentation>Diameter of the circular cutout into the wall</xs:documentation>
+																			</xs:annotation>
+																			<xs:simpleType>
+																				<xs:restriction base="xs:double">
+																					<xs:minInclusive value="0"/>
+																				</xs:restriction>
+																			</xs:simpleType>
+																		</xs:element>
+																		<xs:element name="Depth">
+																			<xs:annotation>
+																				<xs:documentation>Depth of the circular cutout into the wall</xs:documentation>
+																			</xs:annotation>
+																			<xs:simpleType>
+																				<xs:restriction base="xs:double">
+																					<xs:minInclusive value="0"/>
+																				</xs:restriction>
+																			</xs:simpleType>
+																		</xs:element>
+																	</xs:sequence>
+																</xs:complexType>
+															</xs:element>
+														</xs:choice>
+														<xs:attribute name="recessedDepth" use="required">
+															<xs:annotation>
+																<xs:documentation>Recessed depth into the wall</xs:documentation>
+															</xs:annotation>
+															<xs:simpleType>
+																<xs:restriction base="xs:double">
+																	<xs:minInclusive value="0"/>
+																</xs:restriction>
+															</xs:simpleType>
+														</xs:attribute>
+													</xs:complexType>
+												</xs:element>
+												<xs:element name="SurfaceMounted" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Mounting type: surface (of the wall)</xs:documentation>
+													</xs:annotation>
+													<xs:complexType/>
+												</xs:element>
+											</xs:sequence>
+											<xs:attribute name="mountingHeight" use="required">
+												<xs:annotation>
+													<xs:documentation>Mounting height above ground</xs:documentation>
+												</xs:annotation>
+												<xs:simpleType>
+													<xs:restriction base="xs:double">
+														<xs:minInclusive value="0"/>
+													</xs:restriction>
+												</xs:simpleType>
+											</xs:attribute>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="WorkingPlane" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Mounting place: working plane (e.g. desk or workstation)</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="FreeStanding" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Mounting type: free standing (on working plane)</xs:documentation>
+													</xs:annotation>
+													<xs:complexType/>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="Ground" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Mounting place: ground</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="PoleTop" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Mounting type: top on a pole (standing on the ground)</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:attribute name="poleHeight">
+															<xs:annotation>
+																<xs:documentation>Optional default height of the pole</xs:documentation>
+															</xs:annotation>
+															<xs:simpleType>
+																<xs:restriction base="xs:double">
+																	<xs:minInclusive value="0"/>
+																</xs:restriction>
+															</xs:simpleType>
+														</xs:attribute>
+													</xs:complexType>
+												</xs:element>
+												<xs:element name="PoleIntegrated" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Mounting type: integrated into a pole (standing on the ground)</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:attribute name="poleHeight">
+															<xs:annotation>
+																<xs:documentation>Optional default height of the pole</xs:documentation>
+															</xs:annotation>
+															<xs:simpleType>
+																<xs:restriction base="xs:double">
+																	<xs:minInclusive value="0"/>
+																</xs:restriction>
+															</xs:simpleType>
+														</xs:attribute>
+													</xs:complexType>
+												</xs:element>
+												<xs:element name="FreeStanding" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Mounting type: free standing (on the ground)</xs:documentation>
+													</xs:annotation>
+													<xs:complexType/>
+												</xs:element>
+												<xs:element name="SurfaceMounted" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Mounting type: surface (of the ground)</xs:documentation>
+													</xs:annotation>
+													<xs:complexType/>
+												</xs:element>
+												<xs:element name="Recessed" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Mounting type: recessed (into the ground)</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:choice>
+															<xs:element name="RectangularCutout" minOccurs="0">
+																<xs:annotation>
+																	<xs:documentation>Rectangular cutout into the ground</xs:documentation>
+																</xs:annotation>
+																<xs:complexType>
+																	<xs:sequence>
+																		<xs:element name="Width" type="xs:double">
+																			<xs:annotation>
+																				<xs:documentation>Width of the rectangular cutout into the ground</xs:documentation>
+																			</xs:annotation>
+																		</xs:element>
+																		<xs:element name="Length" type="xs:double">
+																			<xs:annotation>
+																				<xs:documentation>Length of the rectangular cutout into the ground</xs:documentation>
+																			</xs:annotation>
+																		</xs:element>
+																		<xs:element name="Depth" type="xs:double">
+																			<xs:annotation>
+																				<xs:documentation>Depth of the rectangular cutout into the ground</xs:documentation>
+																			</xs:annotation>
+																		</xs:element>
+																	</xs:sequence>
+																</xs:complexType>
+															</xs:element>
+															<xs:element name="CircularCutout" minOccurs="0">
+																<xs:annotation>
+																	<xs:documentation>Circular cutout into the ground</xs:documentation>
+																</xs:annotation>
+																<xs:complexType>
+																	<xs:sequence>
+																		<xs:element name="Diameter" type="xs:double">
+																			<xs:annotation>
+																				<xs:documentation>Diameter of the circular cutout into the ground</xs:documentation>
+																			</xs:annotation>
+																		</xs:element>
+																		<xs:element name="Depth" type="xs:double">
+																			<xs:annotation>
+																				<xs:documentation>Depth of the circular cutout into the ground</xs:documentation>
+																			</xs:annotation>
+																		</xs:element>
+																	</xs:sequence>
+																</xs:complexType>
+															</xs:element>
+														</xs:choice>
+														<xs:attribute name="recessedDepth" use="required">
+															<xs:annotation>
+																<xs:documentation>Recessed depth into the ground</xs:documentation>
+															</xs:annotation>
+														</xs:attribute>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
 						</xs:element>
 						<xs:element name="EmitterReferences">
 							<xs:annotation>
