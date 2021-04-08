@@ -772,20 +772,31 @@ Note: These types are used in IES photometry files</xs:documentation>
 						</xs:element>
 						<xs:element name="ActivePowerTable" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Consumption of the power corresponding to the dim level of the light source. It is described as a table of power (W) in relation to the luminous flux emitted (lm)</xs:documentation>
+								<xs:documentation>Consumption of the power corresponding to the dim level of the light source. It is described as a table of power factor between 0-1 in relation to the luminous flux factor between 0-1</xs:documentation>
 							</xs:annotation>
 							<xs:complexType>
 								<xs:sequence>
-									<xs:element name="Output" maxOccurs="unbounded">
+									<xs:element name="FluxFactor" maxOccurs="unbounded">
 										<xs:annotation>
-											<xs:documentation>Output in lumen (lm)</xs:documentation>
+											<xs:documentation>Output flux factor, e.g 0.75</xs:documentation>
 										</xs:annotation>
 										<xs:complexType>
 											<xs:simpleContent>
-												<xs:extension base="xs:int">
-													<xs:attribute name="wattage" type="xs:double" use="required">
+												<xs:extension base="xs:double">
+													<xs:attribute name="powerFactor" use="required">
 														<xs:annotation>
-															<xs:documentation>Power in absolute Watt (W)</xs:documentation>
+															<xs:documentation>Input power factor, e.g. 0.82</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:double">
+																<xs:minInclusive value="0"/>
+																<xs:maxInclusive value="1"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:attribute>
+													<xs:attribute name="description" type="xs:string">
+														<xs:annotation>
+															<xs:documentation>Optional description, e.g. state of a switch</xs:documentation>
 														</xs:annotation>
 													</xs:attribute>
 												</xs:extension>
@@ -793,6 +804,17 @@ Note: These types are used in IES photometry files</xs:documentation>
 										</xs:complexType>
 									</xs:element>
 								</xs:sequence>
+								<xs:attribute name="type" use="required">
+									<xs:annotation>
+										<xs:documentation>Type of the distribution curve</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:enumeration value="Steps"/>
+											<xs:enumeration value="Continuously"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:attribute>
 							</xs:complexType>
 						</xs:element>
 						<xs:element name="Maintenance" minOccurs="0">
