@@ -61,7 +61,7 @@
 			<xs:field xpath="@id"/>
 		</xs:key>
 		<xs:key name="VariantId">
-			<xs:selector xpath=" ProductDefinitions/Variants/Variant"/>
+			<xs:selector xpath="ProductDefinitions/Variants/Variant"/>
 			<xs:field xpath="@id"/>
 		</xs:key>
 		<xs:keyref name="Sensor-File" refer="FileId">
@@ -109,7 +109,7 @@
 			<xs:field xpath="@fileId"/>
 		</xs:keyref>
 		<xs:keyref name="ProductPictures-File" refer="FileId">
-			<xs:selector xpath=" ProductDefinitions/ProductMetaData/Pictures/Image"/>
+			<xs:selector xpath="ProductDefinitions/ProductMetaData/Pictures/Image"/>
 			<xs:field xpath="@fileId"/>
 		</xs:keyref>
 		<xs:keyref name="DescriptiveProperties-File" refer="FileId">
@@ -145,11 +145,11 @@
 			<xs:field xpath="@sensorId"/>
 		</xs:keyref>
 		<xs:keyref name="VariantPicture-File" refer="FileId">
-			<xs:selector xpath=" ProductDefinitions/Variants/Variant/Pictures/Image"/>
+			<xs:selector xpath="ProductDefinitions/Variants/Variant/Pictures/Image"/>
 			<xs:field xpath="@fileId"/>
 		</xs:keyref>
 		<xs:keyref name="VariantSymbol-File" refer="FileId">
-			<xs:selector xpath=" ProductDefinitions/Variants/Variant/Symbol"/>
+			<xs:selector xpath="ProductDefinitions/Variants/Variant/Symbol"/>
 			<xs:field xpath="@fileId"/>
 		</xs:keyref>
 		<xs:keyref name="VariantDescriptiveProperties-File" refer="FileId">
