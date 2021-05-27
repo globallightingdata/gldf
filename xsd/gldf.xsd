@@ -3004,8 +3004,8 @@ Note: These types are used in IES photometry files</xs:documentation>
 															<xs:documentation>RAL Classic color space system code. E.g. "RAL 3016" (coral-red)</xs:documentation>
 														</xs:annotation>
 														<xs:simpleType>
-															<xs:restriction base="xs:string">
-																<xs:pattern value="RAL\s[1-9][0-9]{3}"/>
+															<xs:restriction base="xs:int">
+																<xs:pattern value="[1-9][0-9]{3}"/>
 															</xs:restriction>
 														</xs:simpleType>
 													</xs:attribute>
