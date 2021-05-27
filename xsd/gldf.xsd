@@ -446,7 +446,7 @@
 								</xs:annotation>
 								<xs:simpleType>
 									<xs:restriction base="xs:string">
-										<xs:enumeration value="localpath"/>
+										<xs:enumeration value="localFileName"/>
 										<xs:enumeration value="url"/>
 									</xs:restriction>
 								</xs:simpleType>
