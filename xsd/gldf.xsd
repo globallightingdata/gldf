@@ -426,6 +426,7 @@
 										<xs:enumeration value="image/png"/>
 										<xs:enumeration value="image/svg"/>
 										<xs:enumeration value="image/jpg"/>
+										<xs:enumeration value="geo/p3d"/>
 										<xs:enumeration value="geo/l3d"/>
 										<xs:enumeration value="geo/r3d"/>
 										<xs:enumeration value="geo/m3d"/>
