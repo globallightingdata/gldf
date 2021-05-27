@@ -1266,7 +1266,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 							</xs:annotation>
 							<xs:complexType>
 								<xs:sequence>
-									<xs:element name="Interface" maxOccurs="10">
+									<xs:element name="Interface" maxOccurs="12">
 										<xs:annotation>
 											<xs:documentation>Determines which communication or control interface is supported by the luminaire or sensing device</xs:documentation>
 										</xs:annotation>
@@ -1282,6 +1282,8 @@ Note: These types are used in IES photometry files</xs:documentation>
 												<xs:enumeration value="WiFi"/>
 												<xs:enumeration value="Bluetooth"/>
 												<xs:enumeration value="Inter-Connection"/>
+												<xs:enumeration value="DMX"/>
+												<xs:enumeration value="DMX/RDM"/>
 											</xs:restriction>
 										</xs:simpleType>
 									</xs:element>
