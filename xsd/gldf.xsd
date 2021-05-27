@@ -61,7 +61,7 @@
 			<xs:field xpath="@id"/>
 		</xs:key>
 		<xs:key name="VariantId">
-			<xs:selector xpath=" ProductDefinitions/Variants/Variant"/>
+			<xs:selector xpath="ProductDefinitions/Variants/Variant"/>
 			<xs:field xpath="@id"/>
 		</xs:key>
 		<xs:keyref name="Sensor-File" refer="FileId">
@@ -101,7 +101,7 @@
 			<xs:field xpath="@fileId"/>
 		</xs:keyref>
 		<xs:keyref name="GeoModelled-File" refer="FileId">
-			<xs:selector xpath="GeneralDefinitions/Geometries/Geometry/ModelledGeometryFileReference"/>
+			<xs:selector xpath="GeneralDefinitions/Geometries/Geometry/ModelledGeometryFileReferences/ModelledGeometryFileReference"/>
 			<xs:field xpath="@fileId"/>
 		</xs:keyref>
 		<xs:keyref name="ProductFamilyPictures-File" refer="FileId">
@@ -109,7 +109,7 @@
 			<xs:field xpath="@fileId"/>
 		</xs:keyref>
 		<xs:keyref name="ProductPictures-File" refer="FileId">
-			<xs:selector xpath=" ProductDefinitions/ProductMetaData/Pictures/Image"/>
+			<xs:selector xpath="ProductDefinitions/ProductMetaData/Pictures/Image"/>
 			<xs:field xpath="@fileId"/>
 		</xs:keyref>
 		<xs:keyref name="DescriptiveProperties-File" refer="FileId">
@@ -145,11 +145,11 @@
 			<xs:field xpath="@sensorId"/>
 		</xs:keyref>
 		<xs:keyref name="VariantPicture-File" refer="FileId">
-			<xs:selector xpath=" ProductDefinitions/Variants/Variant/Pictures/Image"/>
+			<xs:selector xpath="ProductDefinitions/Variants/Variant/Pictures/Image"/>
 			<xs:field xpath="@fileId"/>
 		</xs:keyref>
 		<xs:keyref name="VariantSymbol-File" refer="FileId">
-			<xs:selector xpath=" ProductDefinitions/Variants/Variant/Symbol"/>
+			<xs:selector xpath="ProductDefinitions/Variants/Variant/Symbol"/>
 			<xs:field xpath="@fileId"/>
 		</xs:keyref>
 		<xs:keyref name="VariantDescriptiveProperties-File" refer="FileId">
@@ -426,6 +426,7 @@
 										<xs:enumeration value="image/png"/>
 										<xs:enumeration value="image/svg"/>
 										<xs:enumeration value="image/jpg"/>
+										<xs:enumeration value="geo/p3d"/>
 										<xs:enumeration value="geo/l3d"/>
 										<xs:enumeration value="geo/r3d"/>
 										<xs:enumeration value="geo/m3d"/>
@@ -445,7 +446,7 @@
 								</xs:annotation>
 								<xs:simpleType>
 									<xs:restriction base="xs:string">
-										<xs:enumeration value="localpath"/>
+										<xs:enumeration value="localFileName"/>
 										<xs:enumeration value="url"/>
 									</xs:restriction>
 								</xs:simpleType>
@@ -1265,7 +1266,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 							</xs:annotation>
 							<xs:complexType>
 								<xs:sequence>
-									<xs:element name="Interface" maxOccurs="10">
+									<xs:element name="Interface" maxOccurs="12">
 										<xs:annotation>
 											<xs:documentation>Determines which communication or control interface is supported by the luminaire or sensing device</xs:documentation>
 										</xs:annotation>
@@ -1281,6 +1282,8 @@ Note: These types are used in IES photometry files</xs:documentation>
 												<xs:enumeration value="WiFi"/>
 												<xs:enumeration value="Bluetooth"/>
 												<xs:enumeration value="Inter-Connection"/>
+												<xs:enumeration value="DMX"/>
+												<xs:enumeration value="DMX/RDM"/>
 											</xs:restriction>
 										</xs:simpleType>
 									</xs:element>
@@ -1433,16 +1436,34 @@ Note: These types are used in IES photometry files</xs:documentation>
 								</xs:attribute>
 							</xs:complexType>
 						</xs:element>
-						<xs:element name="ModelledGeometryFileReference" minOccurs="0">
+						<xs:element name="ModelledGeometryFileReferences" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>3D geometry used in this product</xs:documentation>
+								<xs:documentation>3D geometry used in this product, optionally with 3 different level of detail (for the same geometry!)</xs:documentation>
 							</xs:annotation>
 							<xs:complexType>
-								<xs:attribute name="fileId" type="xs:NCName" use="required">
-									<xs:annotation>
-										<xs:documentation>Id reference to a l3d geometry model File element defined under GeneralDefinitions/Files</xs:documentation>
-									</xs:annotation>
-								</xs:attribute>
+								<xs:sequence>
+									<xs:element name="ModelledGeometryFileReference" maxOccurs="3">
+										<xs:annotation>
+											<xs:documentation>3D geometry used in this product. If more than one is specified, provide the level of detail for each</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:attribute name="fileId" type="xs:NCName" use="required">
+												<xs:annotation>
+													<xs:documentation>Id reference to a l3d geometry model File element defined under GeneralDefinitions/Files</xs:documentation>
+												</xs:annotation>
+											</xs:attribute>
+											<xs:attribute name="levelOfDetail">
+												<xs:simpleType>
+													<xs:restriction base="xs:string">
+														<xs:enumeration value="Low"/>
+														<xs:enumeration value="Medium"/>
+														<xs:enumeration value="High"/>
+													</xs:restriction>
+												</xs:simpleType>
+											</xs:attribute>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
 							</xs:complexType>
 						</xs:element>
 					</xs:sequence>
@@ -2561,7 +2582,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 									</xs:element>
 									<xs:element name="Divisions" minOccurs="0">
 										<xs:annotation>
-											<xs:documentation>Division classifications. Corresponds to zones as follows: Zone 0|1 > Division 1. Zone 2 > Division 2</xs:documentation>
+											<xs:documentation>Division classifications. Corresponds to zones as follows: Zone 0|1 &gt; Division 1. Zone 2 &gt; Division 2</xs:documentation>
 										</xs:annotation>
 										<xs:complexType>
 											<xs:sequence>
@@ -2783,20 +2804,14 @@ Note: These types are used in IES photometry files</xs:documentation>
 													</xs:annotation>
 													<xs:simpleType>
 														<xs:restriction base="xs:string">
-															<xs:enumeration value="ia"/>
-															<xs:enumeration value="ib"/>
-															<xs:enumeration value="ic"/>
-															<xs:enumeration value="eb"/>
-															<xs:enumeration value="ec"/>
 															<xs:enumeration value="da"/>
 															<xs:enumeration value="db"/>
 															<xs:enumeration value="dc"/>
-															<xs:enumeration value="q"/>
-															<xs:enumeration value="nC"/>
-															<xs:enumeration value="pxb"/>
-															<xs:enumeration value="pyb"/>
-															<xs:enumeration value="pyc"/>
-															<xs:enumeration value="pzc"/>
+															<xs:enumeration value="eb"/>
+															<xs:enumeration value="ec"/>
+															<xs:enumeration value="ia"/>
+															<xs:enumeration value="ib"/>
+															<xs:enumeration value="ic"/>
 															<xs:enumeration value="ma"/>
 															<xs:enumeration value="mb"/>
 															<xs:enumeration value="mc"/>
@@ -2804,9 +2819,13 @@ Note: These types are used in IES photometry files</xs:documentation>
 															<xs:enumeration value="nR"/>
 															<xs:enumeration value="ob"/>
 															<xs:enumeration value="oc"/>
-															<xs:enumeration value="op pr"/>
 															<xs:enumeration value="op is"/>
+															<xs:enumeration value="op pr"/>
 															<xs:enumeration value="op sh"/>
+															<xs:enumeration value="pxb"/>
+															<xs:enumeration value="pyb"/>
+															<xs:enumeration value="pyc"/>
+															<xs:enumeration value="pzc"/>
 															<xs:enumeration value="q"/>
 															<xs:enumeration value="ta"/>
 															<xs:enumeration value="tb"/>
@@ -3001,8 +3020,8 @@ Note: These types are used in IES photometry files</xs:documentation>
 															<xs:documentation>RAL Classic color space system code. E.g. "RAL 3016" (coral-red)</xs:documentation>
 														</xs:annotation>
 														<xs:simpleType>
-															<xs:restriction base="xs:string">
-																<xs:pattern value="RAL\s[1-9][0-9]{3}"/>
+															<xs:restriction base="xs:int">
+																<xs:pattern value="[1-9][0-9]{3}"/>
 															</xs:restriction>
 														</xs:simpleType>
 													</xs:attribute>
@@ -3387,10 +3406,10 @@ Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on applic
 						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:string">
-								<xs:enumeration value="productPicture"/>
-								<xs:enumeration value="technicalSketch"/>
-								<xs:enumeration value="applicationPicture"/>
-								<xs:enumeration value="other"/>
+								<xs:enumeration value="Product Picture"/>
+								<xs:enumeration value="Application Picture"/>
+								<xs:enumeration value="Technical Sketch"/>
+								<xs:enumeration value="Other"/>
 							</xs:restriction>
 						</xs:simpleType>
 					</xs:attribute>
