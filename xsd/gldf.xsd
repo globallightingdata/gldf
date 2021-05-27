@@ -3388,10 +3388,10 @@ Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on applic
 						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:string">
-								<xs:enumeration value="productPicture"/>
-								<xs:enumeration value="technicalSketch"/>
-								<xs:enumeration value="applicationPicture"/>
-								<xs:enumeration value="other"/>
+								<xs:enumeration value="Product Picture"/>
+								<xs:enumeration value="Application Picture"/>
+								<xs:enumeration value="Technical Sketch"/>
+								<xs:enumeration value="Other"/>
 							</xs:restriction>
 						</xs:simpleType>
 					</xs:attribute>
