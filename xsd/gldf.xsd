@@ -101,7 +101,7 @@
 			<xs:field xpath="@fileId"/>
 		</xs:keyref>
 		<xs:keyref name="GeoModelled-File" refer="FileId">
-			<xs:selector xpath="GeneralDefinitions/Geometries/Geometry/ModelledGeometryFileReference"/>
+			<xs:selector xpath="GeneralDefinitions/Geometries/Geometry/ModelledGeometryFileReferences/ModelledGeometryFileReference"/>
 			<xs:field xpath="@fileId"/>
 		</xs:keyref>
 		<xs:keyref name="ProductFamilyPictures-File" refer="FileId">
@@ -1436,16 +1436,34 @@ Note: These types are used in IES photometry files</xs:documentation>
 								</xs:attribute>
 							</xs:complexType>
 						</xs:element>
-						<xs:element name="ModelledGeometryFileReference" minOccurs="0">
+						<xs:element name="ModelledGeometryFileReferences" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>3D geometry used in this product</xs:documentation>
+								<xs:documentation>3D geometry used in this product, optionally with 3 different level of detail (for the same geometry!)</xs:documentation>
 							</xs:annotation>
 							<xs:complexType>
-								<xs:attribute name="fileId" type="xs:NCName" use="required">
-									<xs:annotation>
-										<xs:documentation>Id reference to a l3d geometry model File element defined under GeneralDefinitions/Files</xs:documentation>
-									</xs:annotation>
-								</xs:attribute>
+								<xs:sequence>
+									<xs:element name="ModelledGeometryFileReference" maxOccurs="3">
+										<xs:annotation>
+											<xs:documentation>3D geometry used in this product. If more than one is specified, provide the level of detail for each</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:attribute name="fileId" type="xs:NCName" use="required">
+												<xs:annotation>
+													<xs:documentation>Id reference to a l3d geometry model File element defined under GeneralDefinitions/Files</xs:documentation>
+												</xs:annotation>
+											</xs:attribute>
+											<xs:attribute name="levelOfDetail">
+												<xs:simpleType>
+													<xs:restriction base="xs:string">
+														<xs:enumeration value="Low"/>
+														<xs:enumeration value="Medium"/>
+														<xs:enumeration value="High"/>
+													</xs:restriction>
+												</xs:simpleType>
+											</xs:attribute>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
 							</xs:complexType>
 						</xs:element>
 					</xs:sequence>
