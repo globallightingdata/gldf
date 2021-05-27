@@ -2786,20 +2786,14 @@ Note: These types are used in IES photometry files</xs:documentation>
 													</xs:annotation>
 													<xs:simpleType>
 														<xs:restriction base="xs:string">
-															<xs:enumeration value="ia"/>
-															<xs:enumeration value="ib"/>
-															<xs:enumeration value="ic"/>
-															<xs:enumeration value="eb"/>
-															<xs:enumeration value="ec"/>
 															<xs:enumeration value="da"/>
 															<xs:enumeration value="db"/>
 															<xs:enumeration value="dc"/>
-															<xs:enumeration value="q"/>
-															<xs:enumeration value="nC"/>
-															<xs:enumeration value="pxb"/>
-															<xs:enumeration value="pyb"/>
-															<xs:enumeration value="pyc"/>
-															<xs:enumeration value="pzc"/>
+															<xs:enumeration value="eb"/>
+															<xs:enumeration value="ec"/>
+															<xs:enumeration value="ia"/>
+															<xs:enumeration value="ib"/>
+															<xs:enumeration value="ic"/>
 															<xs:enumeration value="ma"/>
 															<xs:enumeration value="mb"/>
 															<xs:enumeration value="mc"/>
@@ -2807,9 +2801,13 @@ Note: These types are used in IES photometry files</xs:documentation>
 															<xs:enumeration value="nR"/>
 															<xs:enumeration value="ob"/>
 															<xs:enumeration value="oc"/>
-															<xs:enumeration value="op pr"/>
 															<xs:enumeration value="op is"/>
+															<xs:enumeration value="op pr"/>
 															<xs:enumeration value="op sh"/>
+															<xs:enumeration value="pxb"/>
+															<xs:enumeration value="pyb"/>
+															<xs:enumeration value="pyc"/>
+															<xs:enumeration value="pzc"/>
 															<xs:enumeration value="q"/>
 															<xs:enumeration value="ta"/>
 															<xs:enumeration value="tb"/>
