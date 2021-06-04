@@ -2,13 +2,13 @@
 
 **G**lobal **L**ighting **D**ata **F**ormat
 
-GLDF is a flexible and modular **lighting data format**. With a structure, that is capable of supporting simple to complex **luminaires** and **sensors**. Developed by [DIAL](https://dial.de) and [RELUX](https://reluxnet.relux.com) to save efforts in **creation and interpretation of lighting data**.
+GLDF is a flexible and modular **lighting data format**. With a structure, that is capable of supporting simple to complex **luminaires** and **sensors**. Developed by [DIAL](https://dial.de) and [RELUX](https://relux.com) to save efforts in **creation and interpretation of lighting data**.
 
 Want to learn more? Check out our website [gldf.io](https://gldf.io).
 
 ## Features and benefits
 
-- Allows to maintain data for [DIALux](https://www.dialux.com) and [RELUX](https://reluxnet.relux.com/de/relux-desktop.html)
+- Allows to maintain data for [DIALux](https://www.dialux.com) and [RELUX](https://relux.com/de/relux-desktop.html)
   - Both applications will support this format in the future
   - DIAL and RELUX will provide applications and services, so that only one format and set of tools/libraries needs to be maintained
 - Provides extensive input options, including
