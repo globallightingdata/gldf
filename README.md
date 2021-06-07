@@ -6,6 +6,7 @@ GLDF is a flexible and modular **lighting data format**. With a structure, that 
 
 Want to learn more? Check out our website [gldf.io](https://gldf.io).
 Want to learn about GLDF 3D? Have a look at our L3D repository [github.com/globallightingdata/l3d](https://github.com/globallightingdata/l3d).
+Or browse through our example files here [github.com/globallightingdata/examples](https://github.com/globallightingdata/examples)
 
 ## Features and benefits
 
