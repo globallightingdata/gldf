@@ -104,8 +104,8 @@
 			<xs:selector xpath="GeneralDefinitions/Geometries/Geometry/ModelledGeometryFileReferences/ModelledGeometryFileReference"/>
 			<xs:field xpath="@fileId"/>
 		</xs:keyref>
-		<xs:keyref name="ProductFamilyPictures-File" refer="FileId">
-			<xs:selector xpath="ProductDefinitions/ProductMetaData/ProductSeries/Pictures/Image"/>
+		<xs:keyref name="ProductSeriesPicture-File" refer="FileId">
+			<xs:selector xpath="ProductDefinitions/ProductMetaData/ProductSeries/ProductSerie/Pictures/Image"/>
 			<xs:field xpath="@fileId"/>
 		</xs:keyref>
 		<xs:keyref name="ProductPictures-File" refer="FileId">
@@ -143,6 +143,10 @@
 		<xs:keyref name="VariantSensor-Sensor" refer="SensorId">
 			<xs:selector xpath="ProductDefinitions/Variants/Variant/EmitterReferences/SensorReference"/>
 			<xs:field xpath="@sensorId"/>
+		</xs:keyref>
+		<xs:keyref name="VariantSeriesPicture-File" refer="FileId">
+			<xs:selector xpath="ProductDefinitions/Variants/Variant/ProductSeries/ProductSerie/Pictures/Image"/>
+			<xs:field xpath="@fileId"/>
 		</xs:keyref>
 		<xs:keyref name="VariantPicture-File" refer="FileId">
 			<xs:selector xpath="ProductDefinitions/Variants/Variant/Pictures/Image"/>
@@ -1501,34 +1505,10 @@ Note: These types are used in IES photometry files</xs:documentation>
 					<xs:documentation>A translatable tender text for the product for advertising purposes</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="ProductSeries" minOccurs="0">
+			<xs:element name="ProductSeries" type="ProductSeries" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Global translatable product series. Considered a family, group or product range, depending on individual needs</xs:documentation>
+					<xs:documentation>Global translatable product series.</xs:documentation>
 				</xs:annotation>
-				<xs:complexType>
-					<xs:sequence>
-						<xs:element name="Name" type="Locale">
-							<xs:annotation>
-								<xs:documentation>Translatable name of the series, family, group or range</xs:documentation>
-							</xs:annotation>
-						</xs:element>
-						<xs:element name="Description" type="Locale" minOccurs="0">
-							<xs:annotation>
-								<xs:documentation>Translatable description of the series, family, group or range</xs:documentation>
-							</xs:annotation>
-						</xs:element>
-						<xs:element name="Pictures" type="Images" minOccurs="0">
-							<xs:annotation>
-								<xs:documentation>Images representing the series, family, group or range</xs:documentation>
-							</xs:annotation>
-						</xs:element>
-						<xs:element name="Hyperlinks" type="Hyperlinks" minOccurs="0">
-							<xs:annotation>
-								<xs:documentation>Hyperlink for further information about the series, family, group or range</xs:documentation>
-							</xs:annotation>
-						</xs:element>
-					</xs:sequence>
-				</xs:complexType>
 			</xs:element>
 			<xs:element name="Pictures" type="Images" minOccurs="0">
 				<xs:annotation>
@@ -2132,6 +2112,11 @@ Note: These types are used in IES photometry files</xs:documentation>
 									</xs:element>
 								</xs:choice>
 							</xs:complexType>
+						</xs:element>
+						<xs:element name="ProductSeries" type="ProductSeries" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Product series applicable to a single variant of the product.</xs:documentation>
+							</xs:annotation>
 						</xs:element>
 						<xs:element name="Pictures" type="Images" minOccurs="0">
 							<xs:annotation>
@@ -3400,6 +3385,39 @@ Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on applic
 							</xs:attribute>
 						</xs:extension>
 					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ProductSeries">
+		<xs:sequence>
+			<xs:element name="ProductSerie" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Translatable product series. Considered a family, group or product range, depending on individual needs</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Name" type="Locale">
+							<xs:annotation>
+								<xs:documentation>Translatable name of the series, family, group or range</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Description" type="Locale" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Translatable description of the series, family, group or range</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Pictures" type="Images" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Images representing the series, family, group or range</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Hyperlinks" type="Hyperlinks" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Hyperlink for further information about the series, family, group or range</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
