@@ -2100,20 +2100,35 @@ Note: These types are used in IES photometry files</xs:documentation>
 																</xs:annotation>
 																<xs:complexType>
 																	<xs:sequence>
-																		<xs:element name="Width" type="xs:double">
+																		<xs:element name="Width">
 																			<xs:annotation>
 																				<xs:documentation>Width of the rectangular cutout into the ground</xs:documentation>
 																			</xs:annotation>
+																			<xs:simpleType>
+																				<xs:restriction base="xs:double">
+																					<xs:minInclusive value="0"/>
+																				</xs:restriction>
+																			</xs:simpleType>
 																		</xs:element>
-																		<xs:element name="Length" type="xs:double">
+																		<xs:element name="Length">
 																			<xs:annotation>
 																				<xs:documentation>Length of the rectangular cutout into the ground</xs:documentation>
 																			</xs:annotation>
+																			<xs:simpleType>
+																				<xs:restriction base="xs:double">
+																					<xs:minInclusive value="0"/>
+																				</xs:restriction>
+																			</xs:simpleType>
 																		</xs:element>
-																		<xs:element name="Depth" type="xs:double">
+																		<xs:element name="Depth">
 																			<xs:annotation>
 																				<xs:documentation>Depth of the rectangular cutout into the ground</xs:documentation>
 																			</xs:annotation>
+																			<xs:simpleType>
+																				<xs:restriction base="xs:double">
+																					<xs:minInclusive value="0"/>
+																				</xs:restriction>
+																			</xs:simpleType>
 																		</xs:element>
 																	</xs:sequence>
 																</xs:complexType>
@@ -2124,15 +2139,25 @@ Note: These types are used in IES photometry files</xs:documentation>
 																</xs:annotation>
 																<xs:complexType>
 																	<xs:sequence>
-																		<xs:element name="Diameter" type="xs:double">
+																		<xs:element name="Diameter">
 																			<xs:annotation>
 																				<xs:documentation>Diameter of the circular cutout into the ground</xs:documentation>
 																			</xs:annotation>
+																			<xs:simpleType>
+																				<xs:restriction base="xs:double">
+																					<xs:minInclusive value="0"/>
+																				</xs:restriction>
+																			</xs:simpleType>
 																		</xs:element>
-																		<xs:element name="Depth" type="xs:double">
+																		<xs:element name="Depth">
 																			<xs:annotation>
 																				<xs:documentation>Depth of the circular cutout into the ground</xs:documentation>
 																			</xs:annotation>
+																			<xs:simpleType>
+																				<xs:restriction base="xs:double">
+																					<xs:minInclusive value="0"/>
+																				</xs:restriction>
+																			</xs:simpleType>
 																		</xs:element>
 																	</xs:sequence>
 																</xs:complexType>
@@ -2142,6 +2167,11 @@ Note: These types are used in IES photometry files</xs:documentation>
 															<xs:annotation>
 																<xs:documentation>Recessed depth into the ground</xs:documentation>
 															</xs:annotation>
+															<xs:simpleType>
+																<xs:restriction base="xs:double">
+																	<xs:minInclusive value="0"/>
+																</xs:restriction>
+															</xs:simpleType>
 														</xs:attribute>
 													</xs:complexType>
 												</xs:element>
