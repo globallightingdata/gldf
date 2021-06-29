@@ -784,9 +784,9 @@ Note: These types are used in IES photometry files</xs:documentation>
 										<xs:complexType>
 											<xs:simpleContent>
 												<xs:extension base="xs:double">
-													<xs:attribute name="powerFactor" use="required">
+													<xs:attribute name="inputPower" use="required">
 														<xs:annotation>
-															<xs:documentation>Input power factor, e.g. 0.82</xs:documentation>
+															<xs:documentation>Input power, e.g. 0.82</xs:documentation>
 														</xs:annotation>
 														<xs:simpleType>
 															<xs:restriction base="xs:double">
