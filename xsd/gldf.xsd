@@ -3188,26 +3188,45 @@ Note: These types are used in IES photometry files</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="UsefulLife" minOccurs="0">
+						<xs:element name="UsefulLifeTimes" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Useful lifetime of the luminaire with declaration of Lx, By and ambient temperature. E.g. L80B50 50000h 25°C</xs:documentation>
+								<xs:documentation>Useful lifetimes of the luminaire with declaration of Lx, By and ambient temperature. E.g. L80B50 50000h 25°C</xs:documentation>
 							</xs:annotation>
-							<xs:simpleType>
-								<xs:restriction base="xs:string">
-									<xs:pattern value="L\d{2,3}B\d{2,3}\s\d{1,}h((\s\d{1,}°C)|)"/>
-								</xs:restriction>
-							</xs:simpleType>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="UsefulLife" maxOccurs="unbounded">
+										<xs:annotation>
+											<xs:documentation>Single useful lifetime of the luminaire with declaration of Lx, By and ambient temperature. E.g. L80B50 50000h 25°C</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:pattern value="L\d{2,3}B\d{2,3}\s\d{1,}h((\s\d{1,}°C)|)"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
 						</xs:element>
-						<xs:element name="MedianUsefulLife" minOccurs="0">
+						<xs:element name="MedianUsefulLifeTimes" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Time during which 50% (B50) of a population of operating LED modules of the same type have parametrically failed to provide at least the percentage Lx of the initial luminous flux.
+								<xs:documentation>Median useful lifetimes. Time during which 50% (B50) of a population of operating LED modules of the same type have parametrically failed to provide at least the percentage Lx of the initial luminous flux.
 Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on application). E.g. L80B50 75000h 25°C</xs:documentation>
 							</xs:annotation>
-							<xs:simpleType>
-								<xs:restriction base="xs:string">
-									<xs:pattern value="L\d{2,3}B\d{2,3}\s\d{1,}h((\s\d{1,}°C)|)"/>
-								</xs:restriction>
-							</xs:simpleType>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="MedianUsefulLife" maxOccurs="unbounded">
+										<xs:annotation>
+											<xs:documentation>Single median useful lifetime during which 50% (B50) of a population of operating LED modules of the same type have parametrically failed to provide at least the percentage Lx of the initial luminous flux.
+Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on application). E.g. L80B50 75000h 25°C</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:pattern value="L\d{2,3}B\d{2,3}\s\d{1,}h((\s\d{1,}°C)|)"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
 						</xs:element>
 						<xs:element name="RatedAmbientTemperature" type="xs:int" minOccurs="0">
 							<xs:annotation>
