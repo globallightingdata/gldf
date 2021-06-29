@@ -96,12 +96,8 @@
 			<xs:selector xpath="GeneralDefinitions/Equipments/Equipment/ControlGearReference"/>
 			<xs:field xpath="@controlGearId"/>
 		</xs:keyref>
-		<xs:keyref name="GeoParametric-File" refer="FileId">
-			<xs:selector xpath="GeneralDefinitions/Geometries/Geometry/ParametricGeometryFileReference"/>
-			<xs:field xpath="@fileId"/>
-		</xs:keyref>
 		<xs:keyref name="GeoModelled-File" refer="FileId">
-			<xs:selector xpath="GeneralDefinitions/Geometries/Geometry/ModelledGeometryFileReferences/ModelledGeometryFileReference"/>
+			<xs:selector xpath="GeneralDefinitions/Geometries/Geometry/GeometryFileReference"/>
 			<xs:field xpath="@fileId"/>
 		</xs:keyref>
 		<xs:keyref name="ProductSeriesPicture-File" refer="FileId">
@@ -430,7 +426,6 @@
 										<xs:enumeration value="image/png"/>
 										<xs:enumeration value="image/svg"/>
 										<xs:enumeration value="image/jpg"/>
-										<xs:enumeration value="geo/p3d"/>
 										<xs:enumeration value="geo/l3d"/>
 										<xs:enumeration value="geo/r3d"/>
 										<xs:enumeration value="geo/m3d"/>
@@ -1501,55 +1496,37 @@ Note: These types are used in IES photometry files</xs:documentation>
 	</xs:complexType>
 	<xs:complexType name="Geometries">
 		<xs:annotation>
-			<xs:documentation>Definition of a 3D geometry, either parametric or as L3D model</xs:documentation>
+			<xs:documentation>Definition of 3D geometries. Either recommended l3d or legacy DIAL m3d and/or RELUX r3d</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="Geometry">
 				<xs:annotation>
-					<xs:documentation>Definition of a 3D geometry, either parametric or as L3D model</xs:documentation>
+					<xs:documentation>3D geometries used in this product, optionally with 3 different level of detail (for the same geometry!)</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="ParametricGeometryFileReference" minOccurs="0">
+						<xs:element name="GeometryFileReference" maxOccurs="9">
 							<xs:annotation>
-								<xs:documentation>Parametric geometry used in this product</xs:documentation>
+								<xs:documentation>3D geometry used in this product. If more than one is specified, provide the level of detail for each</xs:documentation>
 							</xs:annotation>
 							<xs:complexType>
 								<xs:attribute name="fileId" type="xs:NCName" use="required">
 									<xs:annotation>
-										<xs:documentation>Id reference to a parametric 3d geometry File element defined under GeneralDefinitions/Files</xs:documentation>
+										<xs:documentation>Id reference to a l3d geometry model File element defined under GeneralDefinitions/Files</xs:documentation>
 									</xs:annotation>
 								</xs:attribute>
-							</xs:complexType>
-						</xs:element>
-						<xs:element name="ModelledGeometryFileReferences" minOccurs="0">
-							<xs:annotation>
-								<xs:documentation>3D geometry used in this product, optionally with 3 different level of detail (for the same geometry!)</xs:documentation>
-							</xs:annotation>
-							<xs:complexType>
-								<xs:sequence>
-									<xs:element name="ModelledGeometryFileReference" maxOccurs="3">
-										<xs:annotation>
-											<xs:documentation>3D geometry used in this product. If more than one is specified, provide the level of detail for each</xs:documentation>
-										</xs:annotation>
-										<xs:complexType>
-											<xs:attribute name="fileId" type="xs:NCName" use="required">
-												<xs:annotation>
-													<xs:documentation>Id reference to a l3d geometry model File element defined under GeneralDefinitions/Files</xs:documentation>
-												</xs:annotation>
-											</xs:attribute>
-											<xs:attribute name="levelOfDetail">
-												<xs:simpleType>
-													<xs:restriction base="xs:string">
-														<xs:enumeration value="Low"/>
-														<xs:enumeration value="Medium"/>
-														<xs:enumeration value="High"/>
-													</xs:restriction>
-												</xs:simpleType>
-											</xs:attribute>
-										</xs:complexType>
-									</xs:element>
-								</xs:sequence>
+								<xs:attribute name="levelOfDetail">
+									<xs:annotation>
+										<xs:documentation>Complexity of the 3D model. Also known as LoD.</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:enumeration value="Low"/>
+											<xs:enumeration value="Medium"/>
+											<xs:enumeration value="High"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:attribute>
 							</xs:complexType>
 						</xs:element>
 					</xs:sequence>
@@ -2201,12 +2178,42 @@ Note: These types are used in IES photometry files</xs:documentation>
 																	<xs:documentation>EmitterObject base type</xs:documentation>
 																</xs:annotation>
 															</xs:element>
+															<xs:element name="ExternalEmitterReferences">
+																<xs:annotation>
+																	<xs:documentation>Information related to the emitter object inside the referenced 3D geometry (referenced by geometryId)</xs:documentation>
+																</xs:annotation>
+																<xs:complexType>
+																	<xs:sequence>
+																		<xs:element name="ExternalEmitterReference" maxOccurs="3">
+																			<xs:annotation>
+																				<xs:documentation>Define external emitter object names for up to three possible 3D models (l3d, m3d, r3d). Or simply one if all models uses the same name for the emitter object</xs:documentation>
+																			</xs:annotation>
+																			<xs:complexType>
+																				<xs:sequence>
+																					<xs:element name="EmitterObjectExternalName" type="xs:string">
+																						<xs:annotation>
+																							<xs:documentation>Name of the radiation emitter object inside the referenced 3D geometry (referenced by geometryId)</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																				</xs:sequence>
+																				<xs:attribute name="targetModelType">
+																					<xs:annotation>
+																						<xs:documentation>Only required if multiple 3D model types (l3d, m3d, r3d) with different emitter object names are defined.</xs:documentation>
+																					</xs:annotation>
+																					<xs:simpleType>
+																						<xs:restriction base="xs:string">
+																							<xs:enumeration value="l3d"/>
+																							<xs:enumeration value="m3d"/>
+																							<xs:enumeration value="r3d"/>
+																						</xs:restriction>
+																					</xs:simpleType>
+																				</xs:attribute>
+																			</xs:complexType>
+																		</xs:element>
+																	</xs:sequence>
+																</xs:complexType>
+															</xs:element>
 														</xs:sequence>
-														<xs:attribute name="emitterObjectExternalName" type="xs:string" use="required">
-															<xs:annotation>
-																<xs:documentation>Name of the radiation emitter object inside the referenced parametric/modelled 3D geometry (referenced by geometryId)</xs:documentation>
-															</xs:annotation>
-														</xs:attribute>
 													</xs:complexType>
 												</xs:element>
 											</xs:sequence>
