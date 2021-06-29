@@ -944,15 +944,37 @@ Note: These types are used in IES photometry files</xs:documentation>
 											</xs:sequence>
 										</xs:complexType>
 									</xs:element>
-									<xs:element name="InitialColorTolerance" type="xs:string" minOccurs="0">
+									<xs:element name="InitialColorTolerance" minOccurs="0">
 										<xs:annotation>
 											<xs:documentation>Initial color tolerance in step McAdam ellipses (SDCM)</xs:documentation>
 										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="1 SDCM"/>
+												<xs:enumeration value="2 SDCM"/>
+												<xs:enumeration value="3 SDCM"/>
+												<xs:enumeration value="4 SDCM"/>
+												<xs:enumeration value="5 SDCM"/>
+												<xs:enumeration value="6 SDCM"/>
+												<xs:enumeration value="7 SDCM"/>
+											</xs:restriction>
+										</xs:simpleType>
 									</xs:element>
-									<xs:element name="MaintainedColorTolerance" type="xs:string" minOccurs="0">
+									<xs:element name="MaintainedColorTolerance" minOccurs="0">
 										<xs:annotation>
 											<xs:documentation>Maintained color tolerance after 6000h in step McAdam ellipses (SDCM)</xs:documentation>
 										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="1 SDCM"/>
+												<xs:enumeration value="2 SDCM"/>
+												<xs:enumeration value="3 SDCM"/>
+												<xs:enumeration value="4 SDCM"/>
+												<xs:enumeration value="5 SDCM"/>
+												<xs:enumeration value="6 SDCM"/>
+												<xs:enumeration value="7 SDCM"/>
+											</xs:restriction>
+										</xs:simpleType>
 									</xs:element>
 									<xs:element name="RatedChromacityCoordinateValues" minOccurs="0">
 										<xs:annotation>
@@ -960,23 +982,41 @@ Note: These types are used in IES photometry files</xs:documentation>
 										</xs:annotation>
 										<xs:complexType>
 											<xs:sequence>
-												<xs:element name="X" type="xs:double">
+												<xs:element name="X">
 													<xs:annotation>
 														<xs:documentation>Chromaticity X coordinate</xs:documentation>
 													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:double">
+															<xs:minInclusive value="0"/>
+															<xs:maxInclusive value="1"/>
+														</xs:restriction>
+													</xs:simpleType>
 												</xs:element>
-												<xs:element name="Y" type="xs:double">
+												<xs:element name="Y">
 													<xs:annotation>
 														<xs:documentation>Chromaticity Y coordinate</xs:documentation>
 													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:double">
+															<xs:minInclusive value="0"/>
+															<xs:maxInclusive value="1"/>
+														</xs:restriction>
+													</xs:simpleType>
 												</xs:element>
 											</xs:sequence>
 										</xs:complexType>
 									</xs:element>
-									<xs:element name="TLCI" type="xs:int" minOccurs="0">
+									<xs:element name="TLCI" minOccurs="0">
 										<xs:annotation>
 											<xs:documentation>Television Lighting Consistency Index (TLCI) . Evaluate the spectral power distribution of luminaires for television purposes. The higher the result the better the color rendering quality. Ranges from 0 to 100. See also EN 12193:2018</xs:documentation>
 										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:int">
+												<xs:minInclusive value="0"/>
+												<xs:maxInclusive value="100"/>
+											</xs:restriction>
+										</xs:simpleType>
 									</xs:element>
 									<xs:element name="IES-TM-30-15" minOccurs="0">
 										<xs:annotation>
@@ -984,23 +1024,40 @@ Note: These types are used in IES photometry files</xs:documentation>
 										</xs:annotation>
 										<xs:complexType>
 											<xs:sequence>
-												<xs:element name="Rf" type="xs:int">
+												<xs:element name="Rf">
 													<xs:annotation>
 														<xs:documentation>Fidelity-Index Rf</xs:documentation>
 													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:int">
+															<xs:minInclusive value="0"/>
+															<xs:maxInclusive value="100"/>
+														</xs:restriction>
+													</xs:simpleType>
 												</xs:element>
-												<xs:element name="Rg" type="xs:int">
+												<xs:element name="Rg">
 													<xs:annotation>
 														<xs:documentation>Gamut-Index Rg</xs:documentation>
 													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:int">
+															<xs:minInclusive value="0"/>
+															<xs:maxInclusive value="140"/>
+														</xs:restriction>
+													</xs:simpleType>
 												</xs:element>
 											</xs:sequence>
 										</xs:complexType>
 									</xs:element>
-									<xs:element name="MelanopicFactor" type="xs:double" minOccurs="0">
+									<xs:element name="MelanopicFactor" minOccurs="0">
 										<xs:annotation>
 											<xs:documentation>Melanopic factor of luminous radiation daylight equivalent. Based on CIE standard illuminant D65. See also CEN/TR 16791:2017</xs:documentation>
 										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:double">
+												<xs:minInclusive value="0"/>
+											</xs:restriction>
+										</xs:simpleType>
 									</xs:element>
 								</xs:sequence>
 							</xs:complexType>
@@ -1056,20 +1113,30 @@ Note: These types are used in IES photometry files</xs:documentation>
 						<xs:documentation>A device which mechanically supports and provides electrical connections for a compatible electric light source. See also IEC60061:2018</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="RatedInputPower" type="xs:double">
+				<xs:element name="RatedInputPower">
 					<xs:annotation>
 						<xs:documentation>Input power consumed by the light source, when the luminaire is turned on (Unit: W)</xs:documentation>
 					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:double">
+							<xs:minInclusive value="0"/>
+						</xs:restriction>
+					</xs:simpleType>
 				</xs:element>
 				<xs:element name="RatedInputVoltage" type="Voltage" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>Voltage at which the light source operates normally</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="RatedLuminousFlux" type="xs:int">
+				<xs:element name="RatedLuminousFlux">
 					<xs:annotation>
 						<xs:documentation>Value of the initial luminous flux, declared by the manufacturer or the responsible vendor. The light source being operated at a ambient temperature of 25 °C. See also 13032-4:2015</xs:documentation>
 					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:int">
+							<xs:minInclusive value="0"/>
+						</xs:restriction>
+					</xs:simpleType>
 				</xs:element>
 				<xs:element name="PowerRange" minOccurs="0">
 					<xs:annotation>
@@ -1077,20 +1144,35 @@ Note: These types are used in IES photometry files</xs:documentation>
 					</xs:annotation>
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="Lower" type="xs:double">
+							<xs:element name="Lower">
 								<xs:annotation>
 									<xs:documentation>Minimal nominal output power of light source</xs:documentation>
 								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:double">
+										<xs:minInclusive value="0"/>
+									</xs:restriction>
+								</xs:simpleType>
 							</xs:element>
-							<xs:element name="Upper" type="xs:double">
+							<xs:element name="Upper">
 								<xs:annotation>
 									<xs:documentation>Maximum nominal output power of light source</xs:documentation>
 								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:double">
+										<xs:minInclusive value="0"/>
+									</xs:restriction>
+								</xs:simpleType>
 							</xs:element>
-							<xs:element name="DefaultLightSourcePower" type="xs:double">
+							<xs:element name="DefaultLightSourcePower">
 								<xs:annotation>
 									<xs:documentation>Recommended light source power by supplier or manufacturer</xs:documentation>
 								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:double">
+										<xs:minInclusive value="0"/>
+									</xs:restriction>
+								</xs:simpleType>
 							</xs:element>
 						</xs:sequence>
 					</xs:complexType>
