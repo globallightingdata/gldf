@@ -808,11 +808,124 @@ Note: These types are used in IES photometry files</xs:documentation>
 								<xs:documentation>Translatable description of the light source</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element ref="LightSourceType">
-							<xs:annotation>
-								<xs:documentation>light source basic type. Choose between Changeable (relative measured, with socket) and Fixed (permanently installed LED without socket)</xs:documentation>
-							</xs:annotation>
-						</xs:element>
+						<xs:choice>
+							<xs:element name="Changeable">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Manufacturer" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Manufacturer name of the light source</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="GTIN" type="GTIN" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The Global Trade Item Number (GTIN)</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="ILCOS" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Light source type definition. According to IEC 61231:2010</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="ZVEI" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>ZVEI code (Zentralverband Elektrotechnik- und Elektronikindustrie e. V.)</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="Socket" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>A device which mechanically supports and provides electrical connections for a compatible electric light source. See also IEC60061:2018</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="RatedInputPower">
+											<xs:annotation>
+												<xs:documentation>Input power consumed by the light source, when the luminaire is turned on (Unit: W)</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:double">
+													<xs:minInclusive value="0"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="RatedInputVoltage" type="Voltage" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Voltage at which the light source operates normally</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="RatedLuminousFlux">
+											<xs:annotation>
+												<xs:documentation>Value of the initial luminous flux, declared by the manufacturer or the responsible vendor. The light source being operated at a ambient temperature of 25 °C. See also 13032-4:2015</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:int">
+													<xs:minInclusive value="0"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="PowerRange" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Minimal, maximal and recommended light source power by supplier or manufacturer of the light source</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="Lower">
+														<xs:annotation>
+															<xs:documentation>Minimal nominal output power of light source</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:double">
+																<xs:minInclusive value="0"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="Upper">
+														<xs:annotation>
+															<xs:documentation>Maximum nominal output power of light source</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:double">
+																<xs:minInclusive value="0"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="DefaultLightSourcePower">
+														<xs:annotation>
+															<xs:documentation>Recommended light source power by supplier or manufacturer</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:double">
+																<xs:minInclusive value="0"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="LightSourcePositionOfUsage" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Light Source usage position (Horizontal/Vertical), possibly with range of angle</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="EnergyLabels" type="EnergyLabels" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>European Union energy label, accoring to the energy consumption labelling scheme. Possible values are e.g. "A+" or "D"</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Fixed">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="ZhagaStandard" type="xs:boolean" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>LED Zhaga interface specification. Zhaga is a consortium of lighting companies, aiming to develop interface specifications that allow LED light sources from different suppliers to be used interchangeably. See zhagastandard.org for further information</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
 						<xs:element name="SpectrumReference" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Spectrum of radiation. It is described as a table of energy intensity (eV) depending on wavelength (nm)</xs:documentation>
@@ -890,10 +1003,88 @@ Note: These types are used in IES photometry files</xs:documentation>
 							</xs:annotation>
 							<xs:complexType>
 								<xs:choice>
-									<xs:element ref="LightSourceMaintenanceType">
+									<xs:element name="Cie97LampType">
 										<xs:annotation>
-											<xs:documentation>Base type for different light source maintenance standards</xs:documentation>
+											<xs:documentation>Lamp type according to CIE 97 for typical example data of LLMF and LSF</xs:documentation>
 										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="Incandescent"/>
+												<xs:enumeration value="Halogen"/>
+												<xs:enumeration value="Flourescent Triphosphor"/>
+												<xs:enumeration value="Flourescent Halophosphate"/>
+												<xs:enumeration value="Compact Fluorescent"/>
+												<xs:enumeration value="Mercury"/>
+												<xs:enumeration value="Metal Halide (250/400W)"/>
+												<xs:enumeration value="Ceramic Metal Halide (50/150W)"/>
+												<xs:enumeration value="High Pressure Sodium (250/400W)"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="CieLampMaintenanceFactors">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="CieLampMaintenanceFactor" maxOccurs="unbounded">
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="LampLumenMaintenanceFactor">
+																<xs:annotation>
+																	<xs:documentation>LLMF. Corresponds to IES "Lamp Lumen Depreciation"</xs:documentation>
+																</xs:annotation>
+																<xs:simpleType>
+																	<xs:restriction base="xs:double">
+																		<xs:minInclusive value="0"/>
+																		<xs:maxInclusive value="1"/>
+																	</xs:restriction>
+																</xs:simpleType>
+															</xs:element>
+															<xs:element name="LampSurvivalFactor">
+																<xs:annotation>
+																	<xs:documentation>LSF. Corresponds to IES "Lamp Burnout"</xs:documentation>
+																</xs:annotation>
+																<xs:simpleType>
+																	<xs:restriction base="xs:double">
+																		<xs:minInclusive value="0"/>
+																		<xs:maxInclusive value="1"/>
+																	</xs:restriction>
+																</xs:simpleType>
+															</xs:element>
+														</xs:sequence>
+														<xs:attribute name="burningTime" use="required">
+															<xs:annotation>
+																<xs:documentation>Corresponds to IES "Burning Time"</xs:documentation>
+															</xs:annotation>
+															<xs:simpleType>
+																<xs:restriction base="xs:int">
+																	<xs:minInclusive value="0"/>
+																</xs:restriction>
+															</xs:simpleType>
+														</xs:attribute>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="LedMaintenanceFactor">
+										<xs:annotation>
+											<xs:documentation>Further values will be linearly interpolated. As LED failure is extremely rare, the LSF (Lamp Survival Factor) is always 1</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:simpleContent>
+												<xs:extension base="xs:double">
+													<xs:attribute name="hours" use="required">
+														<xs:annotation>
+															<xs:documentation>Hours to reach given factor</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:int">
+																<xs:minInclusive value="0"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:attribute>
+												</xs:extension>
+											</xs:simpleContent>
+										</xs:complexType>
 									</xs:element>
 								</xs:choice>
 								<xs:attribute name="lifetime">
@@ -1139,224 +1330,6 @@ Note: These types are used in IES photometry files</xs:documentation>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:element name="LightSourceType" abstract="true">
-		<xs:annotation>
-			<xs:documentation>Basic type of a light source. Choose Changeable or Fixed</xs:documentation>
-		</xs:annotation>
-	</xs:element>
-	<xs:element name="Changeable" substitutionGroup="LightSourceType">
-		<xs:annotation>
-			<xs:documentation>Changable light source. E.g. classical incandescent lamps with socket</xs:documentation>
-		</xs:annotation>
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="Manufacturer" type="xs:string" minOccurs="0">
-					<xs:annotation>
-						<xs:documentation>Manufacturer name of the light source</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-				<xs:element name="GTIN" type="GTIN" minOccurs="0">
-					<xs:annotation>
-						<xs:documentation>The Global Trade Item Number (GTIN)</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-				<xs:element name="ILCOS" type="xs:string" minOccurs="0">
-					<xs:annotation>
-						<xs:documentation>Light source type definition. According to IEC 61231:2010</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-				<xs:element name="ZVEI" type="xs:string" minOccurs="0">
-					<xs:annotation>
-						<xs:documentation>ZVEI code (Zentralverband Elektrotechnik- und Elektronikindustrie e. V.)</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-				<xs:element name="Socket" type="xs:string" minOccurs="0">
-					<xs:annotation>
-						<xs:documentation>A device which mechanically supports and provides electrical connections for a compatible electric light source. See also IEC60061:2018</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-				<xs:element name="RatedInputPower">
-					<xs:annotation>
-						<xs:documentation>Input power consumed by the light source, when the luminaire is turned on (Unit: W)</xs:documentation>
-					</xs:annotation>
-					<xs:simpleType>
-						<xs:restriction base="xs:double">
-							<xs:minInclusive value="0"/>
-						</xs:restriction>
-					</xs:simpleType>
-				</xs:element>
-				<xs:element name="RatedInputVoltage" type="Voltage" minOccurs="0">
-					<xs:annotation>
-						<xs:documentation>Voltage at which the light source operates normally</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-				<xs:element name="RatedLuminousFlux">
-					<xs:annotation>
-						<xs:documentation>Value of the initial luminous flux, declared by the manufacturer or the responsible vendor. The light source being operated at a ambient temperature of 25 °C. See also 13032-4:2015</xs:documentation>
-					</xs:annotation>
-					<xs:simpleType>
-						<xs:restriction base="xs:int">
-							<xs:minInclusive value="0"/>
-						</xs:restriction>
-					</xs:simpleType>
-				</xs:element>
-				<xs:element name="PowerRange" minOccurs="0">
-					<xs:annotation>
-						<xs:documentation>Minimal, maximal and recommended light source power by supplier or manufacturer of the light source</xs:documentation>
-					</xs:annotation>
-					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="Lower">
-								<xs:annotation>
-									<xs:documentation>Minimal nominal output power of light source</xs:documentation>
-								</xs:annotation>
-								<xs:simpleType>
-									<xs:restriction base="xs:double">
-										<xs:minInclusive value="0"/>
-									</xs:restriction>
-								</xs:simpleType>
-							</xs:element>
-							<xs:element name="Upper">
-								<xs:annotation>
-									<xs:documentation>Maximum nominal output power of light source</xs:documentation>
-								</xs:annotation>
-								<xs:simpleType>
-									<xs:restriction base="xs:double">
-										<xs:minInclusive value="0"/>
-									</xs:restriction>
-								</xs:simpleType>
-							</xs:element>
-							<xs:element name="DefaultLightSourcePower">
-								<xs:annotation>
-									<xs:documentation>Recommended light source power by supplier or manufacturer</xs:documentation>
-								</xs:annotation>
-								<xs:simpleType>
-									<xs:restriction base="xs:double">
-										<xs:minInclusive value="0"/>
-									</xs:restriction>
-								</xs:simpleType>
-							</xs:element>
-						</xs:sequence>
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="LightSourcePositionOfUsage" type="xs:string" minOccurs="0">
-					<xs:annotation>
-						<xs:documentation>Light Source usage position (Horizontal/Vertical), possibly with range of angle</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-				<xs:element name="EnergyLabels" type="EnergyLabels" minOccurs="0">
-					<xs:annotation>
-						<xs:documentation>European Union energy label, accoring to the energy consumption labelling scheme. Possible values are e.g. "A+" or "D"</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="Fixed" substitutionGroup="LightSourceType">
-		<xs:annotation>
-			<xs:documentation>Integrated light source, usually LED</xs:documentation>
-		</xs:annotation>
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="ZhagaStandard" type="xs:boolean" minOccurs="0">
-					<xs:annotation>
-						<xs:documentation>LED Zhaga interface specification. Zhaga is a consortium of lighting companies, aiming to develop interface specifications that allow LED light sources from different suppliers to be used interchangeably. See zhagastandard.org for further information</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="LightSourceMaintenanceType" abstract="true">
-		<xs:annotation>
-			<xs:documentation>Base type for different light source maintenance standards</xs:documentation>
-		</xs:annotation>
-	</xs:element>
-	<xs:element name="Cie97LampType" substitutionGroup="LightSourceMaintenanceType">
-		<xs:annotation>
-			<xs:documentation>Lamp type according to CIE 97 for typical example data of LLMF and LSF</xs:documentation>
-		</xs:annotation>
-		<xs:simpleType>
-			<xs:restriction base="xs:string">
-				<xs:enumeration value="Incandescent"/>
-				<xs:enumeration value="Halogen"/>
-				<xs:enumeration value="Flourescent Triphosphor"/>
-				<xs:enumeration value="Flourescent Halophosphate"/>
-				<xs:enumeration value="Compact Fluorescent"/>
-				<xs:enumeration value="Mercury"/>
-				<xs:enumeration value="Metal Halide (250/400W)"/>
-				<xs:enumeration value="Ceramic Metal Halide (50/150W)"/>
-				<xs:enumeration value="High Pressure Sodium (250/400W)"/>
-			</xs:restriction>
-		</xs:simpleType>
-	</xs:element>
-	<xs:element name="CieLampMaintenanceFactors" substitutionGroup="LightSourceMaintenanceType">
-		<xs:annotation>
-			<xs:documentation>LMF. Corresponds to IES "Lamp Light Loss Factor"</xs:documentation>
-		</xs:annotation>
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="CieLampMaintenanceFactor" maxOccurs="unbounded">
-					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="LampLumenMaintenanceFactor">
-								<xs:annotation>
-									<xs:documentation>LLMF. Corresponds to IES "Lamp Lumen Depreciation"</xs:documentation>
-								</xs:annotation>
-								<xs:simpleType>
-									<xs:restriction base="xs:double">
-										<xs:minInclusive value="0"/>
-										<xs:maxInclusive value="1"/>
-									</xs:restriction>
-								</xs:simpleType>
-							</xs:element>
-							<xs:element name="LampSurvivalFactor">
-								<xs:annotation>
-									<xs:documentation>LSF. Corresponds to IES "Lamp Burnout"</xs:documentation>
-								</xs:annotation>
-								<xs:simpleType>
-									<xs:restriction base="xs:double">
-										<xs:minInclusive value="0"/>
-										<xs:maxInclusive value="1"/>
-									</xs:restriction>
-								</xs:simpleType>
-							</xs:element>
-						</xs:sequence>
-						<xs:attribute name="burningTime" use="required">
-							<xs:annotation>
-								<xs:documentation>Corresponds to IES "Burning Time"</xs:documentation>
-							</xs:annotation>
-							<xs:simpleType>
-								<xs:restriction base="xs:int">
-									<xs:minInclusive value="0"/>
-								</xs:restriction>
-							</xs:simpleType>
-						</xs:attribute>
-					</xs:complexType>
-				</xs:element>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="LedMaintenanceFactor" substitutionGroup="LightSourceMaintenanceType">
-		<xs:annotation>
-			<xs:documentation>Further values will be linearly interpolated. As LED failure is extremely rare, the LSF (Lamp Survival Factor) is always 1</xs:documentation>
-		</xs:annotation>
-		<xs:complexType>
-			<xs:simpleContent>
-				<xs:extension base="xs:double">
-					<xs:attribute name="hours" use="required">
-						<xs:annotation>
-							<xs:documentation>Hours to reach given factor</xs:documentation>
-						</xs:annotation>
-						<xs:simpleType>
-							<xs:restriction base="xs:int">
-								<xs:minInclusive value="0"/>
-							</xs:restriction>
-						</xs:simpleType>
-					</xs:attribute>
-				</xs:extension>
-			</xs:simpleContent>
-		</xs:complexType>
-	</xs:element>
 	<xs:complexType name="ControlGears">
 		<xs:annotation>
 			<xs:documentation>Control gear, which is required to control the electrical operation of the light source(s)</xs:documentation>
@@ -2240,11 +2213,10 @@ Note: These types are used in IES photometry files</xs:documentation>
 												<xs:element name="EmissionObjectReference" maxOccurs="unbounded">
 													<xs:complexType>
 														<xs:sequence>
-															<xs:element ref="EmitterReference" maxOccurs="unbounded">
-																<xs:annotation>
-																	<xs:documentation>EmitterObject base type</xs:documentation>
-																</xs:annotation>
-															</xs:element>
+															<xs:choice>
+																<xs:element ref="LightEmitterReference" maxOccurs="unbounded"/>
+																<xs:element ref="SensorReference" maxOccurs="unbounded"/>
+															</xs:choice>
 															<xs:element name="ExternalEmitterReferences">
 																<xs:annotation>
 																	<xs:documentation>Information related to the emitter object inside the referenced 3D geometry (referenced by geometryId)</xs:documentation>
@@ -2291,11 +2263,10 @@ Note: These types are used in IES photometry files</xs:documentation>
 											</xs:attribute>
 										</xs:complexType>
 									</xs:element>
-									<xs:element ref="EmitterReference">
-										<xs:annotation>
-											<xs:documentation>EmitterObject base type</xs:documentation>
-										</xs:annotation>
-									</xs:element>
+									<xs:choice>
+										<xs:element ref="LightEmitterReference"/>
+										<xs:element ref="SensorReference"/>
+									</xs:choice>
 								</xs:choice>
 							</xs:complexType>
 						</xs:element>
@@ -2341,12 +2312,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:element name="EmitterReference" abstract="true">
-		<xs:annotation>
-			<xs:documentation>Emitter base type</xs:documentation>
-		</xs:annotation>
-	</xs:element>
-	<xs:element name="LightEmitterReference" substitutionGroup="EmitterReference">
+	<xs:element name="LightEmitterReference">
 		<xs:annotation>
 			<xs:documentation>EmissionObject for the luminous parts of the luminaire. It combines a photometry with an optional equipment into a LightEmitter, which is assigned to its parent EmissionObject</xs:documentation>
 		</xs:annotation>
@@ -2382,7 +2348,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 			</xs:attribute>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="SensorReference" substitutionGroup="EmitterReference">
+	<xs:element name="SensorReference">
 		<xs:annotation>
 			<xs:documentation>EmissionObject for the seonsor parts of the luminaire</xs:documentation>
 		</xs:annotation>
@@ -3586,11 +3552,47 @@ Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on applic
 			<xs:documentation>Voltage type, defined as a fixed voltage value or optionally a voltage range. Including current type and frequency</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element ref="VoltageValueType">
-				<xs:annotation>
-					<xs:documentation>Voltage type. Possible values are a single voltage value or a voltage range</xs:documentation>
-				</xs:annotation>
-			</xs:element>
+			<xs:choice>
+				<xs:element name="VoltageRange">
+					<xs:annotation>
+						<xs:documentation>Voltage range, e.g. 220-240V</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Min">
+								<xs:annotation>
+									<xs:documentation>Minimal value of the Voltage range</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:double">
+										<xs:minInclusive value="0"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="Max">
+								<xs:annotation>
+									<xs:documentation>Maximum value of the Voltage range</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:double">
+										<xs:minInclusive value="0"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="FixedVoltage">
+					<xs:annotation>
+						<xs:documentation>Single value, e.g. 230V</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:double">
+							<xs:minInclusive value="0"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:choice>
 			<xs:element name="Type" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Current type (AC, DC, UC)</xs:documentation>
@@ -3618,50 +3620,6 @@ Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on applic
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:element name="VoltageValueType" abstract="true">
-		<xs:annotation>
-			<xs:documentation>Voltage basic type. Choose between FixedVoltage and VoltageRange</xs:documentation>
-		</xs:annotation>
-	</xs:element>
-	<xs:element name="VoltageRange" substitutionGroup="VoltageValueType">
-		<xs:annotation>
-			<xs:documentation>Voltage range, e.g. 220-240V</xs:documentation>
-		</xs:annotation>
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="Min">
-					<xs:annotation>
-						<xs:documentation>Minimal value of the Voltage range</xs:documentation>
-					</xs:annotation>
-					<xs:simpleType>
-						<xs:restriction base="xs:double">
-							<xs:minInclusive value="0"/>
-						</xs:restriction>
-					</xs:simpleType>
-				</xs:element>
-				<xs:element name="Max">
-					<xs:annotation>
-						<xs:documentation>Maximum value of the Voltage range</xs:documentation>
-					</xs:annotation>
-					<xs:simpleType>
-						<xs:restriction base="xs:double">
-							<xs:minInclusive value="0"/>
-						</xs:restriction>
-					</xs:simpleType>
-				</xs:element>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="FixedVoltage" substitutionGroup="VoltageValueType">
-		<xs:annotation>
-			<xs:documentation>Single value, e.g. 230V</xs:documentation>
-		</xs:annotation>
-		<xs:simpleType>
-			<xs:restriction base="xs:double">
-				<xs:minInclusive value="0"/>
-			</xs:restriction>
-		</xs:simpleType>
-	</xs:element>
 	<xs:simpleType name="GTIN">
 		<xs:annotation>
 			<xs:documentation>The Global Trade Item Number (GTIN)</xs:documentation>
