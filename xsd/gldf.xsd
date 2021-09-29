@@ -484,6 +484,73 @@
 								</xs:attribute>
 							</xs:complexType>
 						</xs:element>
+						<xs:element name="DetectorCharacteristics" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Sensing device detection area shapes</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="DetectorCharacteristic" maxOccurs="3">
+										<xs:annotation>
+											<xs:documentation>Sensing device detection area shape</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="Round"/>
+												<xs:enumeration value="Square"/>
+												<xs:enumeration value="Other"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="DetectionMethods" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Sensing device detection method technologies</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="DetectionMethod" maxOccurs="6">
+										<xs:annotation>
+											<xs:documentation>Sensing device detection method technology</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="Passive Infrared"/>
+												<xs:enumeration value="High Frequency"/>
+												<xs:enumeration value="Microwave"/>
+												<xs:enumeration value="Ultrasonic"/>
+												<xs:enumeration value="Camera"/>
+												<xs:enumeration value="Other"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="DetectorTypes" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Sensing device detector types</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="DetectorType" maxOccurs="4">
+										<xs:annotation>
+											<xs:documentation>Sensing device detector type</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="Motion Detector"/>
+												<xs:enumeration value="Presence Detector"/>
+												<xs:enumeration value="Daylight Detector"/>
+												<xs:enumeration value="Other"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
 					</xs:sequence>
 					<xs:attribute name="id" type="xs:ID" use="required">
 						<xs:annotation>
@@ -2549,82 +2616,6 @@ Note: These types are used in IES photometry files</xs:documentation>
 									<xs:enumeration value="For Lighting"/>
 								</xs:restriction>
 							</xs:simpleType>
-						</xs:element>
-					</xs:sequence>
-				</xs:complexType>
-			</xs:element>
-			<xs:element name="SensingDevice" minOccurs="0">
-				<xs:annotation>
-					<xs:documentation>Descriptive attributes for sensing devices</xs:documentation>
-				</xs:annotation>
-				<xs:complexType>
-					<xs:sequence>
-						<xs:element name="DetectorCharacteristics" minOccurs="0">
-							<xs:annotation>
-								<xs:documentation>Sensing device detection area shapes</xs:documentation>
-							</xs:annotation>
-							<xs:complexType>
-								<xs:sequence>
-									<xs:element name="DetectorCharacteristic" maxOccurs="3">
-										<xs:annotation>
-											<xs:documentation>Sensing device detection area shape</xs:documentation>
-										</xs:annotation>
-										<xs:simpleType>
-											<xs:restriction base="xs:string">
-												<xs:enumeration value="Round"/>
-												<xs:enumeration value="Square"/>
-												<xs:enumeration value="Other"/>
-											</xs:restriction>
-										</xs:simpleType>
-									</xs:element>
-								</xs:sequence>
-							</xs:complexType>
-						</xs:element>
-						<xs:element name="DetectionMethods" minOccurs="0">
-							<xs:annotation>
-								<xs:documentation>Sensing device detection method technologies</xs:documentation>
-							</xs:annotation>
-							<xs:complexType>
-								<xs:sequence>
-									<xs:element name="DetectionMethod" maxOccurs="6">
-										<xs:annotation>
-											<xs:documentation>Sensing device detection method technology</xs:documentation>
-										</xs:annotation>
-										<xs:simpleType>
-											<xs:restriction base="xs:string">
-												<xs:enumeration value="Passive Infrared"/>
-												<xs:enumeration value="High Frequency"/>
-												<xs:enumeration value="Microwave"/>
-												<xs:enumeration value="Ultrasonic"/>
-												<xs:enumeration value="Camera"/>
-												<xs:enumeration value="Other"/>
-											</xs:restriction>
-										</xs:simpleType>
-									</xs:element>
-								</xs:sequence>
-							</xs:complexType>
-						</xs:element>
-						<xs:element name="DetectorTypes" minOccurs="0">
-							<xs:annotation>
-								<xs:documentation>Sensing device detector types</xs:documentation>
-							</xs:annotation>
-							<xs:complexType>
-								<xs:sequence>
-									<xs:element name="DetectorType" maxOccurs="4">
-										<xs:annotation>
-											<xs:documentation>Sensing device detector type</xs:documentation>
-										</xs:annotation>
-										<xs:simpleType>
-											<xs:restriction base="xs:string">
-												<xs:enumeration value="Motion Detector"/>
-												<xs:enumeration value="Presence Detector"/>
-												<xs:enumeration value="Daylight Detector"/>
-												<xs:enumeration value="Other"/>
-											</xs:restriction>
-										</xs:simpleType>
-									</xs:element>
-								</xs:sequence>
-							</xs:complexType>
 						</xs:element>
 					</xs:sequence>
 				</xs:complexType>
