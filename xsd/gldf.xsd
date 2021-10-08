@@ -1586,7 +1586,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 		<xs:sequence>
 			<xs:element name="ProductNumber" type="Locale">
 				<xs:annotation>
-					<xs:documentation>Global product number. See also Variant GTIN and OrderNumber</xs:documentation>
+					<xs:documentation>Global product number. See also Variant GTIN and Variant ProductNumber</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="ProductName" type="Locale">
@@ -1796,9 +1796,9 @@ Note: These types are used in IES photometry files</xs:documentation>
 								<xs:documentation>Variant GTIN - Global Trade Item Number</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="OrderNumber" type="xs:string" minOccurs="0">
+						<xs:element name="ProductNumber" type="xs:string" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Variant order number</xs:documentation>
+								<xs:documentation>Variant product number. Overwrites the ProductNumber element of ProductMetaData</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="Mountings" minOccurs="0">
