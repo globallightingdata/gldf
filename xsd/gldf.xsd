@@ -3311,6 +3311,11 @@ Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on applic
 														<xs:annotation>
 															<xs:documentation>Frequency in Hz</xs:documentation>
 														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:int">
+																<xs:minInclusive value="0"/>
+															</xs:restriction>
+														</xs:simpleType>
 													</xs:attribute>
 												</xs:extension>
 											</xs:simpleContent>
