@@ -2269,6 +2269,11 @@ Note: These types are used in IES photometry files</xs:documentation>
 									</xs:choice>
 								</xs:choice>
 							</xs:complexType>
+							<xs:unique name="UniqueEmitterObjectExternalName">
+								<xs:selector xpath="GeometryReference/EmissionObjectReference/ExternalEmitterReferences/ExternalEmitterReference"/>
+								<xs:field xpath="EmitterObjectExternalName"/>
+								<xs:field xpath="@targetModelType"/>
+							</xs:unique>
 						</xs:element>
 						<xs:element name="ProductSeries" type="ProductSeries" minOccurs="0">
 							<xs:annotation>
