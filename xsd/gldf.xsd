@@ -3364,7 +3364,7 @@ Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on applic
 										</xs:element>
 									</xs:choice>
 								</xs:sequence>
-								<xs:attribute name="id" type="xs:ID" use="required">
+								<xs:attribute name="id" type="xs:string" use="required">
 									<xs:annotation>
 										<xs:documentation>Id may refer to a customer based internal id system. If no Id is available, use a placeholder like a number</xs:documentation>
 									</xs:annotation>
