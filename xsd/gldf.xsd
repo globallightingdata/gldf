@@ -3302,12 +3302,12 @@ Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on applic
 								<xs:sequence>
 									<xs:element name="AbsorptionRate" maxOccurs="unbounded">
 										<xs:annotation>
-											<xs:documentation>Absorption coefficient </xs:documentation>
+											<xs:documentation>Absorption coefficient. Must be a value between 0 (no absorption) and 1 (complete absorption)</xs:documentation>
 										</xs:annotation>
 										<xs:complexType>
 											<xs:simpleContent>
 												<xs:extension base="xs:double">
-													<xs:attribute name="hertz" type="xs:int" use="required">
+													<xs:attribute name="hertz" use="required">
 														<xs:annotation>
 															<xs:documentation>Frequency in Hz</xs:documentation>
 														</xs:annotation>
