@@ -335,7 +335,7 @@
 	</xs:complexType>
 	<xs:complexType name="GeneralDefinitions">
 		<xs:annotation>
-			<xs:documentation>Definition of elements that can be used to construct the product and variants of it</xs:documentation>
+			<xs:documentation>Definition of parts that can be used to construct the product and variants of it</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="Files" type="Files" minOccurs="0">
@@ -382,7 +382,7 @@
 	</xs:complexType>
 	<xs:complexType name="ProductDefinitions">
 		<xs:annotation>
-			<xs:documentation>Describes the product metadata and variants based on given definitions</xs:documentation>
+			<xs:documentation>Definition of the product metadata and variants based on given general definitions</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="ProductMetaData" type="ProductMetaData">
@@ -399,12 +399,12 @@
 	</xs:complexType>
 	<xs:complexType name="Files">
 		<xs:annotation>
-			<xs:documentation>Definition of a file for reference</xs:documentation>
+			<xs:documentation>Definition of files used in this product</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="File" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>Definition of a file for reference</xs:documentation>
+					<xs:documentation>Single file for reference. Either inside the gldf container or online</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:simpleContent>
@@ -463,12 +463,12 @@
 	</xs:complexType>
 	<xs:complexType name="Sensors">
 		<xs:annotation>
-			<xs:documentation>Definition of a sensor used in this product</xs:documentation>
+			<xs:documentation>Definition of sensors used in this product</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="Sensor" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>Definition of a sensor used in this product</xs:documentation>
+					<xs:documentation>Single sensor used in this product</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
@@ -563,12 +563,12 @@
 	</xs:complexType>
 	<xs:complexType name="Photometries">
 		<xs:annotation>
-			<xs:documentation>Photometry definition: Reference to an Eulumdat or IES, with additional descriptive informations</xs:documentation>
+			<xs:documentation>Definition of photometries used in this product</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="Photometry" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>Photometry definition. Reference to an Eulumdat or IES File element, with additional descriptive informations</xs:documentation>
+					<xs:documentation>Single photometry. Reference to an Eulumdat or IES File element, with additional descriptive informations</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
@@ -730,12 +730,12 @@ Note: These types are used in IES photometry files</xs:documentation>
 	</xs:complexType>
 	<xs:complexType name="Spectrums">
 		<xs:annotation>
-			<xs:documentation>Definition of a spectrum of radiation. It is described as a table of energy intensity (eV) depending on wavelength (nm)</xs:documentation>
+			<xs:documentation>Definition of spectra of radiation used in this product</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="Spectrum" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>Definition of a spectrum of radiation. It is described as a table of energy intensity (eV) depending on wavelength (nm)</xs:documentation>
+					<xs:documentation>Single spectrum of radiation. It is described as a table of energy intensity (eV) depending on wavelength (nm)</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:choice>
@@ -779,12 +779,12 @@ Note: These types are used in IES photometry files</xs:documentation>
 	</xs:complexType>
 	<xs:complexType name="LightSources">
 		<xs:annotation>
-			<xs:documentation>Definition of a light source, emitting electromagnetic radiation</xs:documentation>
+			<xs:documentation>Definition of light sources used in this product</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="LightSource" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>Definition of a light source, emitting electromagnetic radiation</xs:documentation>
+					<xs:documentation>Single light source, emitting electromagnetic radiation</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
@@ -1332,12 +1332,12 @@ Note: These types are used in IES photometry files</xs:documentation>
 	</xs:complexType>
 	<xs:complexType name="ControlGears">
 		<xs:annotation>
-			<xs:documentation>Control gear, which is required to control the electrical operation of the light source(s)</xs:documentation>
+			<xs:documentation>Definition of control gears used in this product</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="ControlGear" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>Definition of a control gear</xs:documentation>
+					<xs:documentation>Single control gear</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
@@ -1428,12 +1428,12 @@ Note: These types are used in IES photometry files</xs:documentation>
 	</xs:complexType>
 	<xs:complexType name="Equipments">
 		<xs:annotation>
-			<xs:documentation>Definition of an equipments. Composed of one or more light sources, ballasts and resulting power consumption and light output</xs:documentation>
+			<xs:documentation>Definition of equipments used in this product</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="Equipment" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>Definition of an equipment, composed of one or more light sources, ballasts and resulting power consumption and light output</xs:documentation>
+					<xs:documentation>Single equipment, composed of one or more light sources, ballasts and resulting power consumption and light output</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
@@ -1536,12 +1536,12 @@ Note: These types are used in IES photometry files</xs:documentation>
 	</xs:complexType>
 	<xs:complexType name="Geometries">
 		<xs:annotation>
-			<xs:documentation>Definition of 3D geometries. Either recommended l3d or legacy DIAL m3d and/or RELUX r3d</xs:documentation>
+			<xs:documentation>Definition of 3d geometries used in this product</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="Geometry" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>3D geometries used in this product, optionally with 3 different level of detail (for the same geometry!)</xs:documentation>
+					<xs:documentation>Single 3D geometry. Optionally with 3 different level of detail (for the same geometry!)</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
@@ -1581,7 +1581,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 	</xs:complexType>
 	<xs:complexType name="ProductMetaData">
 		<xs:annotation>
-			<xs:documentation>Describes the product and variants based on the given definitions</xs:documentation>
+			<xs:documentation>Definition of global properties of the product</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="ProductNumber" type="Locale">
@@ -1767,12 +1767,12 @@ Note: These types are used in IES photometry files</xs:documentation>
 	</xs:complexType>
 	<xs:complexType name="Variants">
 		<xs:annotation>
-			<xs:documentation>Defines variants of the product</xs:documentation>
+			<xs:documentation>Definition of variants of the product</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="Variant" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>Single variant</xs:documentation>
+					<xs:documentation>Single variant, build of the elements definied in general definitions</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
@@ -2319,7 +2319,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 	</xs:complexType>
 	<xs:element name="LightEmitterReference">
 		<xs:annotation>
-			<xs:documentation>EmissionObject for the luminous parts of the luminaire. It combines a photometry with an optional equipment into a LightEmitter, which is assigned to its parent EmissionObject</xs:documentation>
+			<xs:documentation>Definition of a EmissionObject for the luminous parts of the product. It combines a photometry with an optional equipment into a LightEmitter, which is assigned to its parent EmissionObject</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
@@ -2355,7 +2355,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 	</xs:element>
 	<xs:element name="SensorReference">
 		<xs:annotation>
-			<xs:documentation>EmissionObject for the seonsor parts of the luminaire</xs:documentation>
+			<xs:documentation>Definition of a EmissionObject for the sensor parts of the product</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
@@ -2374,7 +2374,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 	</xs:element>
 	<xs:complexType name="DescriptiveAttributes">
 		<xs:annotation>
-			<xs:documentation>Global product attributes applicable to all variants of the product</xs:documentation>
+			<xs:documentation>Definition of global attributes</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="Mechanical" minOccurs="0">
@@ -3412,7 +3412,7 @@ Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on applic
 	</xs:complexType>
 	<xs:complexType name="Locale">
 		<xs:annotation>
-			<xs:documentation>Element for translatable text</xs:documentation>
+			<xs:documentation>Definition of a translatable text</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="Locale" maxOccurs="unbounded">
@@ -3435,12 +3435,12 @@ Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on applic
 	</xs:complexType>
 	<xs:complexType name="Hyperlinks">
 		<xs:annotation>
-			<xs:documentation>Website definition, translatable and regionalisable. Place the speaking name of the Hyperlink inside the Hyperlink element and the url itself inside the href attribute. Also define the language and/or region attributes, if applicable. To get a fine-grained definition like: Suport site, in english, for european customers - if required</xs:documentation>
+			<xs:documentation>Definition of website hyperlinks. Translatable and regionalisable. Place the speaking name of the Hyperlink inside the Hyperlink element and the url itself inside the href attribute. Define language, region and/or country code attributes, if applicable. To get a fine-grained definition like: Suport site, in english, for european customers</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="Hyperlink" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>Speaking name of the website, e.g. product catalogue or support site</xs:documentation>
+					<xs:documentation>Single Hyperlink. Place here the speaking name of the website, e.g. "product catalogue" or "support site"</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:simpleContent>
@@ -3478,12 +3478,12 @@ Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on applic
 	</xs:complexType>
 	<xs:complexType name="EnergyLabels">
 		<xs:annotation>
-			<xs:documentation>Energy efficiency class</xs:documentation>
+			<xs:documentation>Definition of energy efficiency classes</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="EnergyLabel" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>Energy efficiency class. E.g. classification within the European Energy Label</xs:documentation>
+					<xs:documentation>Single energy efficiency class. E.g. classification within the European Energy Label</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:simpleContent>
@@ -3500,10 +3500,13 @@ Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on applic
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="ProductSeries">
+		<xs:annotation>
+			<xs:documentation>Definition of translatable product series</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="ProductSerie" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>Translatable product series. Considered a family, group or product range, depending on individual needs</xs:documentation>
+					<xs:documentation>Single translatable product series. Considered a family, group or product range, depending on individual needs</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
@@ -3534,12 +3537,12 @@ Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on applic
 	</xs:complexType>
 	<xs:complexType name="Images">
 		<xs:annotation>
-			<xs:documentation>Collection of image files, defined under GeneralDefinitions/Files</xs:documentation>
+			<xs:documentation>Definition of image files</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="Image" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>Image file reference</xs:documentation>
+					<xs:documentation>Single image file reference. Defined under GeneralDefinitions/Files and extended with an image type like "product picture"</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:attribute name="fileId" type="xs:NCName" use="required">
@@ -3566,7 +3569,7 @@ Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on applic
 	</xs:complexType>
 	<xs:complexType name="TemperatureRange">
 		<xs:annotation>
-			<xs:documentation>Temperature range, with an inclusive highest and lowest temparature value. Can be defined in Celsius or Kelvin</xs:documentation>
+			<xs:documentation>Definition of a remperature range, with an inclusive highest and lowest temparature value. Can be defined in Celsius or Kelvin</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="Lower" type="xs:int">
@@ -3583,7 +3586,7 @@ Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on applic
 	</xs:complexType>
 	<xs:complexType name="Voltage">
 		<xs:annotation>
-			<xs:documentation>Voltage type, defined as a fixed voltage value or optionally a voltage range. Including current type and frequency</xs:documentation>
+			<xs:documentation>Definition of a voltage type, as a fixed voltage value or a voltage range. Including current type and frequency</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:choice>
@@ -3656,7 +3659,7 @@ Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on applic
 	</xs:complexType>
 	<xs:simpleType name="GTIN">
 		<xs:annotation>
-			<xs:documentation>The Global Trade Item Number (GTIN)</xs:documentation>
+			<xs:documentation>Definition of the Global Trade Item Number (GTIN)</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:pattern value="(\d{8}|\d{12}|\d{13}|\d{14})"/>
