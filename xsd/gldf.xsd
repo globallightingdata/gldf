@@ -1539,7 +1539,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 			<xs:documentation>Definition of 3D geometries. Either recommended l3d or legacy DIAL m3d and/or RELUX r3d</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="Geometry">
+			<xs:element name="Geometry" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>3D geometries used in this product, optionally with 3 different level of detail (for the same geometry!)</xs:documentation>
 				</xs:annotation>
@@ -1547,7 +1547,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 					<xs:sequence>
 						<xs:element name="GeometryFileReference" maxOccurs="9">
 							<xs:annotation>
-								<xs:documentation>3D geometry used in this product. If more than one is specified, provide the level of detail for each</xs:documentation>
+								<xs:documentation>3D geometry used in this product. If more than one is specified, provide the level of detail for each. At most 9 elements possible: 3 level of detail (low, medium, high) x 3 geometry file types (l3d, r3d and m3d).</xs:documentation>
 							</xs:annotation>
 							<xs:complexType>
 								<xs:attribute name="fileId" type="xs:NCName" use="required">
