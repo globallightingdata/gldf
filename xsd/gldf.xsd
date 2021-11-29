@@ -2301,7 +2301,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 									<xs:documentation>Emitter reference (Use this Node without 3D geometry)</xs:documentation>
 								</xs:annotation>
 								<xs:complexType>
-									<xs:attribute name="emitterId" use="required">
+									<xs:attribute name="emitterId" type="xs:NCName" use="required">
 										<xs:annotation>
 											<xs:documentation>Id reference to an Emitter element defined under GeneralDefinitions/Emitters</xs:documentation>
 										</xs:annotation>
@@ -2326,7 +2326,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 														</xs:annotation>
 													</xs:element>
 												</xs:sequence>
-												<xs:attribute name="emitterId" type="xs:string" use="required">
+												<xs:attribute name="emitterId" type="xs:NCName" use="required">
 													<xs:annotation>
 														<xs:documentation>Id reference to an Emitter element defined under GeneralDefinitions/Emitters</xs:documentation>
 													</xs:annotation>
@@ -2346,7 +2346,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 											</xs:complexType>
 										</xs:element>
 									</xs:sequence>
-									<xs:attribute name="geometryId" use="required">
+									<xs:attribute name="geometryId" type="xs:NCName" use="required">
 										<xs:annotation>
 											<xs:documentation>Id reference to a Geometry element defined under GeneralDefinitions/Geometries</xs:documentation>
 										</xs:annotation>
