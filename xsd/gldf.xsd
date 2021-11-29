@@ -1493,7 +1493,17 @@ Note: These types are used in IES photometry files</xs:documentation>
 						</xs:element>
 						<xs:element name="RatedLuminousFlux">
 							<xs:annotation>
-								<xs:documentation>Initial luminous flux, being operated at a ambient temperature of 25°C. See also 13032-4:2015 (Unit lm)</xs:documentation>
+								<xs:documentation>Initial luminous flux of the entire equipment, being operated at a ambient temperature of 25°C. See also 13032-4:2015 (Unit lm)</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:int">
+									<xs:minInclusive value="0"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="RatedLuminousFluxRGB" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Initial luminous flux of the RGB module part. Covers only the coloured light portion (Unit lm)</xs:documentation>
 							</xs:annotation>
 							<xs:simpleType>
 								<xs:restriction base="xs:int">
