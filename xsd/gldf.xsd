@@ -56,6 +56,10 @@
 			<xs:selector xpath="GeneralDefinitions/Equipments/Equipment"/>
 			<xs:field xpath="@id"/>
 		</xs:key>
+		<xs:key name="EmitterId">
+			<xs:selector xpath="GeneralDefinitions/Emitters/Emitter"/>
+			<xs:field xpath="@id"/>
+		</xs:key>
 		<xs:key name="GeometryId">
 			<xs:selector xpath="GeneralDefinitions/Geometries/Geometry"/>
 			<xs:field xpath="@id"/>
@@ -96,6 +100,18 @@
 			<xs:selector xpath="GeneralDefinitions/Equipments/Equipment/ControlGearReference"/>
 			<xs:field xpath="@controlGearId"/>
 		</xs:keyref>
+		<xs:keyref name="Emitter-Photometry" refer="PhotometryId">
+			<xs:selector xpath="GeneralDefinitions/Emitters/Emitter/LightEmitter"/>
+			<xs:field xpath="@photometryId"/>
+		</xs:keyref>
+		<xs:keyref name="Emitter-Equipment" refer="EquipmentId">
+			<xs:selector xpath="GeneralDefinitions/Emitters/Emitter/LightEmitter"/>
+			<xs:field xpath="@equipmentId"/>
+		</xs:keyref>
+		<xs:keyref name="Emitter-Sensor" refer="SensorId">
+			<xs:selector xpath="GeneralDefinitions/Emitters/Emitter/Sensor"/>
+			<xs:field xpath="@sensorId"/>
+		</xs:keyref>
 		<xs:keyref name="GeoModelled-File" refer="FileId">
 			<xs:selector xpath="GeneralDefinitions/Geometries/Geometry/GeometryFileReference"/>
 			<xs:field xpath="@fileId"/>
@@ -112,33 +128,17 @@
 			<xs:selector xpath="ProductDefinitions/ProductMetaData/DescriptiveAttributes/CustomProperties/Property/FileReference"/>
 			<xs:field xpath="@fileId"/>
 		</xs:keyref>
+		<xs:keyref name="Variant-Emitter" refer="EmitterId">
+			<xs:selector xpath="ProductDefinitions/Variants/Variant/EmitterReference"/>
+			<xs:field xpath="@emitterId"/>
+		</xs:keyref>
 		<xs:keyref name="Variant-Geometry" refer="GeometryId">
-			<xs:selector xpath="ProductDefinitions/Variants/Variant/EmitterReferences/GeometryReference"/>
+			<xs:selector xpath="ProductDefinitions/Variants/Variant/GeometryReference"/>
 			<xs:field xpath="@geometryId"/>
 		</xs:keyref>
-		<xs:keyref name="VariantGeoLightEmitter-Photometry" refer="PhotometryId">
-			<xs:selector xpath="ProductDefinitions/Variants/Variant/EmitterReferences/GeometryReference/EmissionObjectReference/LightEmitterReference"/>
-			<xs:field xpath="@photometryId"/>
-		</xs:keyref>
-		<xs:keyref name="VariantGeoLightEmitter-Equipment" refer="EquipmentId">
-			<xs:selector xpath="ProductDefinitions/Variants/Variant/EmitterReferences/GeometryReference/EmissionObjectReference/LightEmitterReference"/>
-			<xs:field xpath="@equipmentId"/>
-		</xs:keyref>
-		<xs:keyref name="VariantGeoSensor-Sensor" refer="SensorId">
-			<xs:selector xpath="ProductDefinitions/Variants/Variant/EmitterReferences/GeometryReference/EmissionObjectReference/SensorReference"/>
-			<xs:field xpath="@sensorId"/>
-		</xs:keyref>
-		<xs:keyref name="VariantLightEmitter-Photometry" refer="PhotometryId">
-			<xs:selector xpath="ProductDefinitions/Variants/Variant/EmitterReferences/LightEmitterReference"/>
-			<xs:field xpath="@photometryId"/>
-		</xs:keyref>
-		<xs:keyref name="VariantLightEmitter-Equipment" refer="EquipmentId">
-			<xs:selector xpath="ProductDefinitions/Variants/Variant/EmitterReferences/LightEmitterReference"/>
-			<xs:field xpath="@equipmentId"/>
-		</xs:keyref>
-		<xs:keyref name="VariantSensor-Sensor" refer="SensorId">
-			<xs:selector xpath="ProductDefinitions/Variants/Variant/EmitterReferences/SensorReference"/>
-			<xs:field xpath="@sensorId"/>
+		<xs:keyref name="Variant-GeometryEmitter" refer="EmitterId">
+			<xs:selector xpath="ProductDefinitions/Variants/Variant/GeometryReference/EmitterReference"/>
+			<xs:field xpath="@emitterId"/>
 		</xs:keyref>
 		<xs:keyref name="VariantSeriesPicture-File" refer="FileId">
 			<xs:selector xpath="ProductDefinitions/Variants/Variant/ProductSeries/ProductSerie/Pictures/Image"/>
@@ -373,6 +373,7 @@
 					<xs:documentation>Equipments used in this product</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="Emitters" type="Emitters"/>
 			<xs:element name="Geometries" type="Geometries" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Geometries used in this product</xs:documentation>
@@ -1544,6 +1545,89 @@ Note: These types are used in IES photometry files</xs:documentation>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="Emitters">
+		<xs:annotation>
+			<xs:documentation>Definition of Emitters (light/sensor radiation) used in this product</xs:documentation>
+		</xs:annotation>
+		<xs:sequence maxOccurs="unbounded">
+			<xs:element name="Emitter">
+				<xs:annotation>
+					<xs:documentation>Single Emitter (light/sensor radiation). Emitters are groups of LightEmitters or Sensors</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:choice>
+						<xs:annotation>
+							<xs:documentation>Multiple definitions are possible. In this case they are treated as interchangable emitters</xs:documentation>
+						</xs:annotation>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="LightEmitter">
+								<xs:annotation>
+									<xs:documentation>Definition of an emission object for the luminous part of the product. It combines a photometry with an optional equipment into a LightEmitter</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="DisplayName" type="Locale" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Translatable display name of the LightEmitter. Could be shown in applications like DIALux and Relux. Intended for documentation purposes</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="photometryId" type="xs:NCName" use="required">
+										<xs:annotation>
+											<xs:documentation>Id reference to a Photometry element defined under GeneralDefinitions/Photometries</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+									<xs:attribute name="equipmentId" type="xs:NCName">
+										<xs:annotation>
+											<xs:documentation>Id reference to an Equipment element defined under GeneralDefinitions/Equipments</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+									<xs:attribute name="emergencyBehaviour" default="None">
+										<xs:annotation>
+											<xs:documentation>Set to Combined, if this LightEmitter is intended for normal and emergency lighting. Set to EmergencyOnly, if this LightEmitter is intended for emergency lighting scenarios only. The default value or if the attribute is missing is None, which means: intended for normal light only</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="None"/>
+												<xs:enumeration value="Combined"/>
+												<xs:enumeration value="EmergencyOnly"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="Sensor">
+								<xs:annotation>
+									<xs:documentation>Definition of an emission object for the sensor part of the product</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="DisplayName" type="Locale" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Translatable display name of the Sensor. Could be shown in applications like DIALux and Relux. Intended for documentation purposes</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="sensorId" type="xs:NCName" use="required">
+										<xs:annotation>
+											<xs:documentation>Id reference to a Sensor element defined under GeneralDefinitions/Sensors.</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:choice>
+					<xs:attribute name="id" type="xs:ID" use="required">
+						<xs:annotation>
+							<xs:documentation>Unique identifier of the emitter</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
 	<xs:complexType name="Geometries">
 		<xs:annotation>
 			<xs:documentation>Definition of 3d geometries used in this product</xs:documentation>
@@ -2208,83 +2292,68 @@ Note: These types are used in IES photometry files</xs:documentation>
 								</xs:sequence>
 							</xs:complexType>
 						</xs:element>
-						<xs:element name="EmitterReferences">
+						<xs:choice>
 							<xs:annotation>
-								<xs:documentation>Variant emission objects. Emission objects are groups of LightEmitters and/or Sensors, assigned to a specific part inside the luminaire model</xs:documentation>
+								<xs:documentation>Light and sensor emission objects (Emitter). With or without reference to a 3D geometry</xs:documentation>
 							</xs:annotation>
-							<xs:complexType>
-								<xs:choice>
-									<xs:element name="GeometryReference">
+							<xs:element name="EmitterReference">
+								<xs:annotation>
+									<xs:documentation>Emitter reference (Use this Node without 3D geometry)</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:attribute name="emitterId" use="required">
 										<xs:annotation>
-											<xs:documentation>A single emission object reference. Containing light emitter and/or sensor references</xs:documentation>
+											<xs:documentation>Id reference to an Emitter element defined under GeneralDefinitions/Emitters</xs:documentation>
 										</xs:annotation>
-										<xs:complexType>
-											<xs:sequence>
-												<xs:element name="EmissionObjectReference" maxOccurs="unbounded">
-													<xs:complexType>
-														<xs:sequence>
-															<xs:choice>
-																<xs:element ref="LightEmitterReference" maxOccurs="unbounded"/>
-																<xs:element ref="SensorReference" maxOccurs="unbounded"/>
-															</xs:choice>
-															<xs:element name="ExternalEmitterReferences">
-																<xs:annotation>
-																	<xs:documentation>Information related to the emitter object inside the referenced 3D geometry (referenced by geometryId)</xs:documentation>
-																</xs:annotation>
-																<xs:complexType>
-																	<xs:sequence>
-																		<xs:element name="ExternalEmitterReference" maxOccurs="3">
-																			<xs:annotation>
-																				<xs:documentation>Define external emitter object names for up to three possible 3D models (l3d, m3d, r3d). Or simply one if all models uses the same name for the emitter object</xs:documentation>
-																			</xs:annotation>
-																			<xs:complexType>
-																				<xs:sequence>
-																					<xs:element name="EmitterObjectExternalName" type="xs:string">
-																						<xs:annotation>
-																							<xs:documentation>Name of the radiation emitter object inside the referenced 3D geometry (referenced by geometryId)</xs:documentation>
-																						</xs:annotation>
-																					</xs:element>
-																				</xs:sequence>
-																				<xs:attribute name="targetModelType">
-																					<xs:annotation>
-																						<xs:documentation>Only required if multiple 3D model types (l3d, m3d, r3d) with different emitter object names are defined.</xs:documentation>
-																					</xs:annotation>
-																					<xs:simpleType>
-																						<xs:restriction base="xs:string">
-																							<xs:enumeration value="l3d"/>
-																							<xs:enumeration value="m3d"/>
-																							<xs:enumeration value="r3d"/>
-																						</xs:restriction>
-																					</xs:simpleType>
-																				</xs:attribute>
-																			</xs:complexType>
-																		</xs:element>
-																	</xs:sequence>
-																</xs:complexType>
-															</xs:element>
-														</xs:sequence>
-													</xs:complexType>
-												</xs:element>
-											</xs:sequence>
-											<xs:attribute name="geometryId" type="xs:NCName" use="required">
-												<xs:annotation>
-													<xs:documentation>Id reference to an Geoemtry element defined under GeneralDefinitions/Geometries</xs:documentation>
-												</xs:annotation>
-											</xs:attribute>
-										</xs:complexType>
-									</xs:element>
-									<xs:choice>
-										<xs:element ref="LightEmitterReference"/>
-										<xs:element ref="SensorReference"/>
-									</xs:choice>
-								</xs:choice>
-							</xs:complexType>
-							<xs:unique name="UniqueEmitterObjectExternalName">
-								<xs:selector xpath="GeometryReference/EmissionObjectReference/ExternalEmitterReferences/ExternalEmitterReference"/>
-								<xs:field xpath="EmitterObjectExternalName"/>
-								<xs:field xpath="@targetModelType"/>
-							</xs:unique>
-						</xs:element>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="GeometryReference">
+								<xs:annotation>
+									<xs:documentation>Geometry reference (Use this Node with a 3D model of this variant)</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="EmitterReference" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>Emitter reference inside the 3D model</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="EmitterObjectExternalName" type="xs:string">
+														<xs:annotation>
+															<xs:documentation>Name of the emitter object inside the referenced 3D geometry (referenced by geometryId)</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+												</xs:sequence>
+												<xs:attribute name="emitterId" type="xs:string" use="required">
+													<xs:annotation>
+														<xs:documentation>Id reference to an Emitter element defined under GeneralDefinitions/Emitters</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="targetModelType">
+													<xs:annotation>
+														<xs:documentation>Only required if multiple 3D model types (l3d, m3d, r3d) with different emitter object names are defined.</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:enumeration value="l3d"/>
+															<xs:enumeration value="m3d"/>
+															<xs:enumeration value="r3d"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:attribute>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="geometryId" use="required">
+										<xs:annotation>
+											<xs:documentation>Id reference to a Geometry element defined under GeneralDefinitions/Geometries</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
 						<xs:element name="ProductSeries" type="ProductSeries" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Product series applicable to a single variant of the product.</xs:documentation>
@@ -2327,61 +2396,6 @@ Note: These types are used in IES photometry files</xs:documentation>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:element name="LightEmitterReference">
-		<xs:annotation>
-			<xs:documentation>Definition of a EmissionObject for the luminous parts of the product. It combines a photometry with an optional equipment into a LightEmitter, which is assigned to its parent EmissionObject</xs:documentation>
-		</xs:annotation>
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="DisplayName" type="Locale" minOccurs="0">
-					<xs:annotation>
-						<xs:documentation>Translatable display name of the LightEmitter. Could be shown in applications like DIALux and Relux. Intended for documentation purposes</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-			</xs:sequence>
-			<xs:attribute name="photometryId" type="xs:NCName" use="required">
-				<xs:annotation>
-					<xs:documentation>Id reference to a Photometry element defined under GeneralDefinitions/Photometries</xs:documentation>
-				</xs:annotation>
-			</xs:attribute>
-			<xs:attribute name="equipmentId" type="xs:NCName">
-				<xs:annotation>
-					<xs:documentation>Id reference to an Equipment element defined under GeneralDefinitions/Equipments</xs:documentation>
-				</xs:annotation>
-			</xs:attribute>
-			<xs:attribute name="emergencyBehaviour" default="None">
-				<xs:annotation>
-					<xs:documentation>Set to Combined, if this LightEmitter is intended for normal and emergency lighting. Set to EmergencyOnly, if this LightEmitter is intended for emergency lighting scenarios only. The default value or if the attribute is missing is None, which means: intended for normal light only</xs:documentation>
-				</xs:annotation>
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:enumeration value="None"/>
-						<xs:enumeration value="Combined"/>
-						<xs:enumeration value="EmergencyOnly"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:attribute>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="SensorReference">
-		<xs:annotation>
-			<xs:documentation>Definition of a EmissionObject for the sensor parts of the product</xs:documentation>
-		</xs:annotation>
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="DisplayName" type="Locale" minOccurs="0">
-					<xs:annotation>
-						<xs:documentation>Translatable display name of the Sensor. Could be shown in applications like DIALux and Relux. Intended for documentation purposes</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-			</xs:sequence>
-			<xs:attribute name="sensorId" type="xs:NCName" use="required">
-				<xs:annotation>
-					<xs:documentation>Id reference to a Sensor element defined under GeneralDefinitions/Sensors.</xs:documentation>
-				</xs:annotation>
-			</xs:attribute>
-		</xs:complexType>
-	</xs:element>
 	<xs:complexType name="DescriptiveAttributes">
 		<xs:annotation>
 			<xs:documentation>Definition of global attributes</xs:documentation>
