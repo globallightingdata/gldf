@@ -1807,27 +1807,27 @@ Note: These types are used in IES photometry files</xs:documentation>
 							</xs:annotation>
 							<xs:complexType>
 								<xs:sequence>
-									<xs:element name="Ceilling" minOccurs="0">
+									<xs:element name="Ceiling" minOccurs="0">
 										<xs:annotation>
-											<xs:documentation>Mounting place: ceilling</xs:documentation>
+											<xs:documentation>Mounting place: ceiling</xs:documentation>
 										</xs:annotation>
 										<xs:complexType>
 											<xs:sequence>
 												<xs:element name="Recessed" minOccurs="0">
 													<xs:annotation>
-														<xs:documentation>Mounting type: recessed (into the ceilling)</xs:documentation>
+														<xs:documentation>Mounting type: recessed (into the ceiling)</xs:documentation>
 													</xs:annotation>
 													<xs:complexType>
 														<xs:choice>
 															<xs:element name="RectangularCutout" minOccurs="0">
 																<xs:annotation>
-																	<xs:documentation>Rectangular cutout into the ceilling</xs:documentation>
+																	<xs:documentation>Rectangular cutout into the ceiling</xs:documentation>
 																</xs:annotation>
 																<xs:complexType>
 																	<xs:sequence>
 																		<xs:element name="Width">
 																			<xs:annotation>
-																				<xs:documentation>Width of the rectangular cutout into the ceilling</xs:documentation>
+																				<xs:documentation>Width of the rectangular cutout into the ceiling</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:double">
@@ -1837,7 +1837,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 																		</xs:element>
 																		<xs:element name="Length">
 																			<xs:annotation>
-																				<xs:documentation>Length of the rectangular cutout into the ceilling</xs:documentation>
+																				<xs:documentation>Length of the rectangular cutout into the ceiling</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:double">
@@ -1847,7 +1847,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 																		</xs:element>
 																		<xs:element name="Depth">
 																			<xs:annotation>
-																				<xs:documentation>Depth of the rectangular cutout into the ceilling</xs:documentation>
+																				<xs:documentation>Depth of the rectangular cutout into the ceiling</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:double">
@@ -1860,13 +1860,13 @@ Note: These types are used in IES photometry files</xs:documentation>
 															</xs:element>
 															<xs:element name="CircularCutout" minOccurs="0">
 																<xs:annotation>
-																	<xs:documentation>Circular cutout into the ceilling</xs:documentation>
+																	<xs:documentation>Circular cutout into the ceiling</xs:documentation>
 																</xs:annotation>
 																<xs:complexType>
 																	<xs:sequence>
 																		<xs:element name="Diameter">
 																			<xs:annotation>
-																				<xs:documentation>Diameter of the circular cutout into the ceilling</xs:documentation>
+																				<xs:documentation>Diameter of the circular cutout into the ceiling</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:double">
@@ -1876,7 +1876,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 																		</xs:element>
 																		<xs:element name="Depth">
 																			<xs:annotation>
-																				<xs:documentation>Depth of the circular cutout into the ceilling</xs:documentation>
+																				<xs:documentation>Depth of the circular cutout into the ceiling</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:double">
@@ -1890,7 +1890,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 														</xs:choice>
 														<xs:attribute name="recessedDepth" use="required">
 															<xs:annotation>
-																<xs:documentation>Recessed depth into ceilling</xs:documentation>
+																<xs:documentation>Recessed depth into ceiling</xs:documentation>
 															</xs:annotation>
 															<xs:simpleType>
 																<xs:restriction base="xs:double">
@@ -1902,7 +1902,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 												</xs:element>
 												<xs:element name="SurfaceMounted" minOccurs="0">
 													<xs:annotation>
-														<xs:documentation>Mounting type: surface (of the ceilling)</xs:documentation>
+														<xs:documentation>Mounting type: surface (of the ceiling)</xs:documentation>
 													</xs:annotation>
 													<xs:complexType/>
 												</xs:element>
