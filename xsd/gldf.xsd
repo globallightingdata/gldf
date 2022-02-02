@@ -60,8 +60,12 @@
 			<xs:selector xpath="GeneralDefinitions/Emitters/Emitter"/>
 			<xs:field xpath="@id"/>
 		</xs:key>
-		<xs:key name="GeometryId">
-			<xs:selector xpath="GeneralDefinitions/Geometries/Geometry"/>
+		<xs:key name="SimpleGeometryId">
+			<xs:selector xpath="GeneralDefinitions/Geometries/SimpleGeometry"/>
+			<xs:field xpath="@id"/>
+		</xs:key>
+		<xs:key name="ModelGeometryId">
+			<xs:selector xpath="GeneralDefinitions/Geometries/ModelGeometry"/>
 			<xs:field xpath="@id"/>
 		</xs:key>
 		<xs:key name="VariantId">
@@ -113,7 +117,7 @@
 			<xs:field xpath="@sensorId"/>
 		</xs:keyref>
 		<xs:keyref name="GeoModelled-File" refer="FileId">
-			<xs:selector xpath="GeneralDefinitions/Geometries/Geometry/GeometryFileReference"/>
+			<xs:selector xpath="GeneralDefinitions/Geometries/ModelGeometry/GeometryFileReference"/>
 			<xs:field xpath="@fileId"/>
 		</xs:keyref>
 		<xs:keyref name="ProductSeriesPicture-File" refer="FileId">
@@ -132,13 +136,21 @@
 			<xs:selector xpath="ProductDefinitions/Variants/Variant/EmitterReference"/>
 			<xs:field xpath="@emitterId"/>
 		</xs:keyref>
-		<xs:keyref name="Variant-Geometry" refer="GeometryId">
-			<xs:selector xpath="ProductDefinitions/Variants/Variant/GeometryReference"/>
+		<xs:keyref name="Variant-SimpleGeometryEmitter" refer="EmitterId">
+			<xs:selector xpath="ProductDefinitions/Variants/Variant/SimpleGeometryReference"/>
+			<xs:field xpath="@emitterId"/>
+		</xs:keyref>
+		<xs:keyref name="Variant-ModelGeometryEmitter" refer="EmitterId">
+			<xs:selector xpath="ProductDefinitions/Variants/Variant/ModelGeometryReference/EmitterReference"/>
+			<xs:field xpath="@emitterId"/>
+		</xs:keyref>
+		<xs:keyref name="Variant-SimpleGeometry" refer="SimpleGeometryId">
+			<xs:selector xpath="ProductDefinitions/Variants/Variant/SimpleGeometryReference"/>
 			<xs:field xpath="@geometryId"/>
 		</xs:keyref>
-		<xs:keyref name="Variant-GeometryEmitter" refer="EmitterId">
-			<xs:selector xpath="ProductDefinitions/Variants/Variant/GeometryReference/EmitterReference"/>
-			<xs:field xpath="@emitterId"/>
+		<xs:keyref name="Variant-ModelGeometry" refer="ModelGeometryId">
+			<xs:selector xpath="ProductDefinitions/Variants/Variant/ModelGeometryReference"/>
+			<xs:field xpath="@geometryId"/>
 		</xs:keyref>
 		<xs:keyref name="VariantSeriesPicture-File" refer="FileId">
 			<xs:selector xpath="ProductDefinitions/Variants/Variant/ProductSeries/ProductSerie/Pictures/Image"/>
@@ -153,7 +165,7 @@
 			<xs:field xpath="@fileId"/>
 		</xs:keyref>
 		<xs:keyref name="VariantDescriptiveProperties-File" refer="FileId">
-			<xs:selector xpath="ProductDefinitions/Variants/Variant/VariantDescriptiveAttributes/CustomProperties/Property/FileReference"/>
+			<xs:selector xpath="ProductDefinitions/Variants/Variant/DescriptiveAttributes/CustomProperties/Property/FileReference"/>
 			<xs:field xpath="@fileId"/>
 		</xs:keyref>
 	</xs:element>
@@ -373,7 +385,7 @@
 					<xs:documentation>Equipments used in this product</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Emitters" type="Emitters"/>
+			<xs:element name="Emitters" type="Emitters" minOccurs="0"/>
 			<xs:element name="Geometries" type="Geometries" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Geometries used in this product</xs:documentation>
@@ -587,14 +599,6 @@
 								</xs:complexType>
 							</xs:element>
 						</xs:choice>
-						<xs:element name="Rotation-G0" minOccurs="0">
-							<xs:simpleType>
-								<xs:restriction base="xs:int">
-									<xs:minInclusive value="-180"/>
-									<xs:maxInclusive value="180"/>
-								</xs:restriction>
-							</xs:simpleType>
-						</xs:element>
 						<xs:element name="DescriptivePhotometry" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>All child elements are solely descriptive values and not used in any calculations</xs:documentation>
@@ -617,14 +621,14 @@
 											</xs:restriction>
 										</xs:simpleType>
 									</xs:element>
-									<xs:element name="LuminousEfficacy" minOccurs="0" maxOccurs="683">
+									<xs:element name="LuminousEfficacy" minOccurs="0">
 										<xs:annotation>
 											<xs:documentation>Quotient of the luminous flux emitted by the luminaire and the power absorbed by the light source and associated circuits of the luminaire</xs:documentation>
 										</xs:annotation>
 										<xs:simpleType>
-											<xs:restriction base="xs:double">
+											<xs:restriction base="xs:int">
 												<xs:minInclusive value="0"/>
-												<xs:maxInclusive value="1"/>
+												<xs:maxInclusive value="683"/>
 											</xs:restriction>
 										</xs:simpleType>
 									</xs:element>
@@ -661,15 +665,43 @@
 											</xs:restriction>
 										</xs:simpleType>
 									</xs:element>
-									<xs:element name="TenthPeakDivergence" type="xs:double" minOccurs="0">
+									<xs:element name="TenthPeakDivergence" minOccurs="0">
 										<xs:annotation>
-											<xs:documentation>Angle of the beam centre to the point where the luminous intensity is reduced to one tenth. See also EN 61341:Ed.2</xs:documentation>
+											<xs:documentation>Angle of the beam center to the point where the luminous intensity is reduced to one tenth. See also EN 61341:Ed.2</xs:documentation>
 										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="C0-C180" type="xs:double">
+													<xs:annotation>
+														<xs:documentation>The angle of the beam center to the point where the luminous intensity is reduced to one-tenth on the C0-C180 pane. See also EN 61341:Ed.2</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="C90-C270" type="xs:double">
+													<xs:annotation>
+														<xs:documentation>The angle of the beam center to the point where the luminous intensity is reduced to one-tenth on the C90-C270 pane. See also EN 61341:Ed.2</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
 									</xs:element>
-									<xs:element name="HalfPeakDivergence" type="xs:double" minOccurs="0">
+									<xs:element name="HalfPeakDivergence" minOccurs="0">
 										<xs:annotation>
-											<xs:documentation>Angle of the beam centre to the point where the luminous intensity is reduced to half. See also EN 61341:Ed.2</xs:documentation>
+											<xs:documentation>Angle of the beam center to the point where the luminous intensity is reduced to half. See also EN 61341:Ed.2</xs:documentation>
 										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="C0-C180" type="xs:double">
+													<xs:annotation>
+														<xs:documentation>The angle of the beam center to the point where the luminous intensity is reduced to half on the C0-C180 pane. See also EN 61341:Ed.2</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="C90-C270" type="xs:double">
+													<xs:annotation>
+														<xs:documentation>The angle of the beam center to the point where the luminous intensity is reduced to half on the C90-C270 pane. See also EN 61341:Ed.2</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
 									</xs:element>
 									<xs:element name="PhotometricCode" type="xs:string" minOccurs="0">
 										<xs:annotation>
@@ -789,7 +821,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="Name" type="Locale" minOccurs="0">
+						<xs:element name="Name" type="Locale">
 							<xs:annotation>
 								<xs:documentation>Translatable name of the light source</xs:documentation>
 							</xs:annotation>
@@ -846,6 +878,16 @@ Note: These types are used in IES photometry files</xs:documentation>
 										<xs:element name="RatedLuminousFlux">
 											<xs:annotation>
 												<xs:documentation>Value of the initial luminous flux, declared by the manufacturer or the responsible vendor. The light source being operated at a ambient temperature of 25 °C. See also 13032-4:2015</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:int">
+													<xs:minInclusive value="0"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="RatedLuminousFluxRGB" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Initial luminous flux of the RGB module part. Covers only the coloured light portion (Unit lm)</xs:documentation>
 											</xs:annotation>
 											<xs:simpleType>
 												<xs:restriction base="xs:int">
@@ -998,7 +1040,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 								</xs:attribute>
 							</xs:complexType>
 						</xs:element>
-						<xs:element name="Maintenance" minOccurs="0">
+						<xs:element name="LightSourceMaintenance" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Light source maintenance factors</xs:documentation>
 							</xs:annotation>
@@ -1342,7 +1384,12 @@ Note: These types are used in IES photometry files</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="Description" type="Locale">
+						<xs:element name="Name" type="Locale">
+							<xs:annotation>
+								<xs:documentation>Name of the Control Gear</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Description" type="Locale" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Description of the control gear</xs:documentation>
 							</xs:annotation>
@@ -1566,10 +1613,63 @@ Note: These types are used in IES photometry files</xs:documentation>
 								</xs:annotation>
 								<xs:complexType>
 									<xs:sequence>
-										<xs:element name="DisplayName" type="Locale" minOccurs="0">
+										<xs:element name="Name" type="Locale" minOccurs="0">
 											<xs:annotation>
 												<xs:documentation>Translatable display name of the LightEmitter. Could be shown in applications like DIALux and Relux. Intended for documentation purposes</xs:documentation>
 											</xs:annotation>
+										</xs:element>
+										<xs:element name="Rotation" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>LightEmitter rotation. E.g. for wall or floor luminaires, if not measured in position of use</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="X">
+														<xs:annotation>
+															<xs:documentation>Rotation around X axis</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:int">
+																<xs:minInclusive value="0"/>
+																<xs:maxInclusive value="360"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="Y">
+														<xs:annotation>
+															<xs:documentation>Rotation around Y axis</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:int">
+																<xs:minInclusive value="0"/>
+																<xs:maxInclusive value="360"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="Z">
+														<xs:annotation>
+															<xs:documentation>Rotation around Z axis</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:int">
+																<xs:minInclusive value="0"/>
+																<xs:maxInclusive value="360"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="G0">
+														<xs:annotation>
+															<xs:documentation>Rotation around G0</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:int">
+																<xs:minInclusive value="0"/>
+																<xs:maxInclusive value="360"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
 										</xs:element>
 									</xs:sequence>
 									<xs:attribute name="photometryId" type="xs:NCName" use="required">
@@ -1604,7 +1704,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 								</xs:annotation>
 								<xs:complexType>
 									<xs:sequence>
-										<xs:element name="DisplayName" type="Locale" minOccurs="0">
+										<xs:element name="Name" type="Locale" minOccurs="0">
 											<xs:annotation>
 												<xs:documentation>Translatable display name of the Sensor. Could be shown in applications like DIALux and Relux. Intended for documentation purposes</xs:documentation>
 											</xs:annotation>
@@ -1632,10 +1732,156 @@ Note: These types are used in IES photometry files</xs:documentation>
 		<xs:annotation>
 			<xs:documentation>Definition of 3d geometries used in this product</xs:documentation>
 		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="Geometry" maxOccurs="unbounded">
+		<xs:choice>
+			<xs:element name="SimpleGeometry" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>Single 3D geometry. Optionally with 3 different level of detail (for the same geometry!)</xs:documentation>
+					<xs:documentation>Simple 3D geometry (cuboid or cylinder). Defined in the GLDF itself</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:choice>
+							<xs:element name="Cuboid">
+								<xs:annotation>
+									<xs:documentation>Simple Cuboid geometry</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Width">
+											<xs:annotation>
+												<xs:documentation>Size in X axis in mm</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:int">
+													<xs:minInclusive value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Length">
+											<xs:annotation>
+												<xs:documentation>Size in Y axis in mm</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:int">
+													<xs:minInclusive value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Height">
+											<xs:annotation>
+												<xs:documentation>Size in Z axis in mm</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:int">
+													<xs:minInclusive value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Cylinder">
+								<xs:annotation>
+									<xs:documentation>Simple Cylinder geometry</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Diameter">
+											<xs:annotation>
+												<xs:documentation>Diameter of the cylinder in mm</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:int">
+													<xs:minInclusive value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Height">
+											<xs:annotation>
+												<xs:documentation>Size in "plane" axis of the cylinder in mm</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:int">
+													<xs:minInclusive value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="plane" use="required">
+										<xs:annotation>
+											<xs:documentation>Direction axis of the cylinder in the coordinate system. Possible values: X|Y|Z</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="X"/>
+												<xs:enumeration value="Y"/>
+												<xs:enumeration value="Z"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
+						<xs:choice>
+							<xs:element name="RectangularEmitter">
+								<xs:annotation>
+									<xs:documentation>Rectangular Emitter 2D surface</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Width">
+											<xs:annotation>
+												<xs:documentation>Width of the rectangular Emitter 2D surface in mm</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:int">
+													<xs:minInclusive value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Length">
+											<xs:annotation>
+												<xs:documentation>Length of the rectangular Emitter 2D surface in mm</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:int">
+													<xs:minInclusive value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="CircularEmitter">
+								<xs:annotation>
+									<xs:documentation>Circular Emitter 2D surface</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Diameter">
+											<xs:annotation>
+												<xs:documentation>Diameter of the circular Emitter 2D surface in mm</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:int">
+													<xs:minInclusive value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
+					</xs:sequence>
+					<xs:attribute name="id" type="xs:ID" use="required">
+						<xs:annotation>
+							<xs:documentation>Unique identifier of the simple geometry</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ModelGeometry" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Complex 3D geometry model (l3d, r3d, m3d). Defined as file reference outside the GLDF. Optionally with 3 different level of detail each (for the same geometry!)</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
@@ -1646,7 +1892,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 							<xs:complexType>
 								<xs:attribute name="fileId" type="xs:NCName" use="required">
 									<xs:annotation>
-										<xs:documentation>Id reference to a l3d geometry model File element defined under GeneralDefinitions/Files</xs:documentation>
+										<xs:documentation>Id reference to a l3d, r3d or m3d geometry model File element defined under GeneralDefinitions/Files</xs:documentation>
 									</xs:annotation>
 								</xs:attribute>
 								<xs:attribute name="levelOfDetail">
@@ -1666,12 +1912,12 @@ Note: These types are used in IES photometry files</xs:documentation>
 					</xs:sequence>
 					<xs:attribute name="id" type="xs:ID" use="required">
 						<xs:annotation>
-							<xs:documentation>Unique identifier of the geometry</xs:documentation>
+							<xs:documentation>Unique identifier of the modelled geometry</xs:documentation>
 						</xs:annotation>
 					</xs:attribute>
 				</xs:complexType>
 			</xs:element>
-		</xs:sequence>
+		</xs:choice>
 	</xs:complexType>
 	<xs:complexType name="ProductMetaData">
 		<xs:annotation>
@@ -1683,7 +1929,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 					<xs:documentation>Global product number. See also Variant GTIN and Variant ProductNumber</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="ProductName" type="Locale">
+			<xs:element name="Name" type="Locale">
 				<xs:annotation>
 					<xs:documentation>Global product name, translatable. Applicable to all variants of the product</xs:documentation>
 				</xs:annotation>
@@ -1708,7 +1954,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 					<xs:documentation>Global product pictures applicable to all variants of the product</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Maintenance" minOccurs="0">
+			<xs:element name="LuminaireMaintenance" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Defines the ‘Application Life’. Period (years) after that luminaire illuminance will fall (factors), measured under predefined conditions (roomConditions)</xs:documentation>
 				</xs:annotation>
@@ -1870,7 +2116,12 @@ Note: These types are used in IES photometry files</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="VariantName" type="Locale">
+						<xs:element name="ProductNumber" type="Locale" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Variant product number. Overwrites the ProductNumber element of ProductMetaData</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Name" type="Locale">
 							<xs:annotation>
 								<xs:documentation>Variant name, translatable</xs:documentation>
 							</xs:annotation>
@@ -1888,11 +2139,6 @@ Note: These types are used in IES photometry files</xs:documentation>
 						<xs:element name="GTIN" type="GTIN" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Variant GTIN - Global Trade Item Number</xs:documentation>
-							</xs:annotation>
-						</xs:element>
-						<xs:element name="ProductNumber" type="xs:string" minOccurs="0">
-							<xs:annotation>
-								<xs:documentation>Variant product number. Overwrites the ProductNumber element of ProductMetaData</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="Mountings" minOccurs="0">
@@ -2292,7 +2538,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 								</xs:sequence>
 							</xs:complexType>
 						</xs:element>
-						<xs:choice>
+						<xs:choice minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Light and sensor emission objects (Emitter). With or without reference to a 3D geometry</xs:documentation>
 							</xs:annotation>
@@ -2308,7 +2554,24 @@ Note: These types are used in IES photometry files</xs:documentation>
 									</xs:attribute>
 								</xs:complexType>
 							</xs:element>
-							<xs:element name="GeometryReference">
+							<xs:element name="SimpleGeometryReference">
+								<xs:annotation>
+									<xs:documentation>Simple geometry reference (Use this Node with a simple 3D Cuboid or Cylinder geometry)</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:attribute name="geometryId" type="xs:NCName" use="required">
+										<xs:annotation>
+											<xs:documentation>Id reference to a SimpleGeometry element defined under GeneralDefinitions/Geometries</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+									<xs:attribute name="emitterId" type="xs:NCName" use="required">
+										<xs:annotation>
+											<xs:documentation>Id reference to an Emitter element defined under GeneralDefinitions/Emitters</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="ModelGeometryReference">
 								<xs:annotation>
 									<xs:documentation>Geometry reference (Use this Node with a 3D model of this variant)</xs:documentation>
 								</xs:annotation>
@@ -2348,7 +2611,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 									</xs:sequence>
 									<xs:attribute name="geometryId" type="xs:NCName" use="required">
 										<xs:annotation>
-											<xs:documentation>Id reference to a Geometry element defined under GeneralDefinitions/Geometries</xs:documentation>
+											<xs:documentation>Id reference to a ModelGeometry element defined under GeneralDefinitions/Geometries</xs:documentation>
 										</xs:annotation>
 									</xs:attribute>
 								</xs:complexType>
@@ -2376,9 +2639,9 @@ Note: These types are used in IES photometry files</xs:documentation>
 								</xs:attribute>
 							</xs:complexType>
 						</xs:element>
-						<xs:element name="VariantDescriptiveAttributes" type="DescriptiveAttributes" minOccurs="0">
+						<xs:element name="DescriptiveAttributes" type="DescriptiveAttributes" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Attributes applicable to a single variant of the product</xs:documentation>
+								<xs:documentation>Attributes applicable to a single variant of the product. Overrides global descriptive attributes defined on the product level.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 					</xs:sequence>
