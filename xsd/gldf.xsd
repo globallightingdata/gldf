@@ -653,15 +653,43 @@
 											</xs:restriction>
 										</xs:simpleType>
 									</xs:element>
-									<xs:element name="TenthPeakDivergence" type="xs:double" minOccurs="0">
+									<xs:element name="TenthPeakDivergence" minOccurs="0">
 										<xs:annotation>
-											<xs:documentation>Angle of the beam centre to the point where the luminous intensity is reduced to one tenth. See also EN 61341:Ed.2</xs:documentation>
+											<xs:documentation>Angle of the beam center to the point where the luminous intensity is reduced to one tenth. See also EN 61341:Ed.2</xs:documentation>
 										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="C0-C180" type="xs:double">
+													<xs:annotation>
+														<xs:documentation>The angle of the beam center to the point where the luminous intensity is reduced to one-tenth on the C0-C180 pane. See also EN 61341:Ed.2</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="C90-C270" type="xs:double">
+													<xs:annotation>
+														<xs:documentation>The angle of the beam center to the point where the luminous intensity is reduced to one-tenth on the C90-C270 pane. See also EN 61341:Ed.2</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
 									</xs:element>
-									<xs:element name="HalfPeakDivergence" type="xs:double" minOccurs="0">
+									<xs:element name="HalfPeakDivergence" minOccurs="0">
 										<xs:annotation>
-											<xs:documentation>Angle of the beam centre to the point where the luminous intensity is reduced to half. See also EN 61341:Ed.2</xs:documentation>
+											<xs:documentation>Angle of the beam center to the point where the luminous intensity is reduced to half. See also EN 61341:Ed.2</xs:documentation>
 										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="C0-C180" type="xs:double">
+													<xs:annotation>
+														<xs:documentation>The angle of the beam center to the point where the luminous intensity is reduced to half on the C0-C180 pane. See also EN 61341:Ed.2</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="C90-C270" type="xs:double">
+													<xs:annotation>
+														<xs:documentation>The angle of the beam center to the point where the luminous intensity is reduced to half on the C90-C270 pane. See also EN 61341:Ed.2</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
 									</xs:element>
 									<xs:element name="PhotometricCode" type="xs:string" minOccurs="0">
 										<xs:annotation>
