@@ -153,7 +153,7 @@
 			<xs:field xpath="@fileId"/>
 		</xs:keyref>
 		<xs:keyref name="VariantDescriptiveProperties-File" refer="FileId">
-			<xs:selector xpath="ProductDefinitions/Variants/Variant/VariantDescriptiveAttributes/CustomProperties/Property/FileReference"/>
+			<xs:selector xpath="ProductDefinitions/Variants/Variant/DescriptiveAttributes/CustomProperties/Property/FileReference"/>
 			<xs:field xpath="@fileId"/>
 		</xs:keyref>
 	</xs:element>
@@ -2391,9 +2391,9 @@ Note: These types are used in IES photometry files</xs:documentation>
 								</xs:attribute>
 							</xs:complexType>
 						</xs:element>
-						<xs:element name="VariantDescriptiveAttributes" type="DescriptiveAttributes" minOccurs="0">
+						<xs:element name="DescriptiveAttributes" type="DescriptiveAttributes" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Attributes applicable to a single variant of the product</xs:documentation>
+								<xs:documentation>Attributes applicable to a single variant of the product. Overrides global descriptive attributes defined on the product level.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 					</xs:sequence>
