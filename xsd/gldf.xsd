@@ -853,6 +853,16 @@ Note: These types are used in IES photometry files</xs:documentation>
 												</xs:restriction>
 											</xs:simpleType>
 										</xs:element>
+										<xs:element name="RatedLuminousFluxRGB" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Initial luminous flux of the RGB module part. Covers only the coloured light portion (Unit lm)</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:int">
+													<xs:minInclusive value="0"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
 										<xs:element name="PowerRange" minOccurs="0">
 											<xs:annotation>
 												<xs:documentation>Minimal, maximal and recommended light source power by supplier or manufacturer of the light source</xs:documentation>
