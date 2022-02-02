@@ -60,8 +60,12 @@
 			<xs:selector xpath="GeneralDefinitions/Emitters/Emitter"/>
 			<xs:field xpath="@id"/>
 		</xs:key>
-		<xs:key name="GeometryId">
-			<xs:selector xpath="GeneralDefinitions/Geometries/Geometry"/>
+		<xs:key name="SimpleGeometryId">
+			<xs:selector xpath="GeneralDefinitions/Geometries/SimpleGeometry"/>
+			<xs:field xpath="@id"/>
+		</xs:key>
+		<xs:key name="ModelGeometryId">
+			<xs:selector xpath="GeneralDefinitions/Geometries/ModelGeometry"/>
 			<xs:field xpath="@id"/>
 		</xs:key>
 		<xs:key name="VariantId">
@@ -113,7 +117,7 @@
 			<xs:field xpath="@sensorId"/>
 		</xs:keyref>
 		<xs:keyref name="GeoModelled-File" refer="FileId">
-			<xs:selector xpath="GeneralDefinitions/Geometries/Geometry/GeometryFileReference"/>
+			<xs:selector xpath="GeneralDefinitions/Geometries/ModelGeometry/GeometryFileReference"/>
 			<xs:field xpath="@fileId"/>
 		</xs:keyref>
 		<xs:keyref name="ProductSeriesPicture-File" refer="FileId">
@@ -132,13 +136,21 @@
 			<xs:selector xpath="ProductDefinitions/Variants/Variant/EmitterReference"/>
 			<xs:field xpath="@emitterId"/>
 		</xs:keyref>
-		<xs:keyref name="Variant-Geometry" refer="GeometryId">
-			<xs:selector xpath="ProductDefinitions/Variants/Variant/GeometryReference"/>
+		<xs:keyref name="Variant-SimpleGeometryEmitter" refer="EmitterId">
+			<xs:selector xpath="ProductDefinitions/Variants/Variant/SimpleGeometryReference"/>
+			<xs:field xpath="@emitterId"/>
+		</xs:keyref>
+		<xs:keyref name="Variant-ModelGeometryEmitter" refer="EmitterId">
+			<xs:selector xpath="ProductDefinitions/Variants/Variant/ModelGeometryReference/EmitterReference"/>
+			<xs:field xpath="@emitterId"/>
+		</xs:keyref>
+		<xs:keyref name="Variant-SimpleGeometry" refer="SimpleGeometryId">
+			<xs:selector xpath="ProductDefinitions/Variants/Variant/SimpleGeometryReference"/>
 			<xs:field xpath="@geometryId"/>
 		</xs:keyref>
-		<xs:keyref name="Variant-GeometryEmitter" refer="EmitterId">
-			<xs:selector xpath="ProductDefinitions/Variants/Variant/GeometryReference/EmitterReference"/>
-			<xs:field xpath="@emitterId"/>
+		<xs:keyref name="Variant-ModelGeometry" refer="ModelGeometryId">
+			<xs:selector xpath="ProductDefinitions/Variants/Variant/ModelGeometryReference"/>
+			<xs:field xpath="@geometryId"/>
 		</xs:keyref>
 		<xs:keyref name="VariantSeriesPicture-File" refer="FileId">
 			<xs:selector xpath="ProductDefinitions/Variants/Variant/ProductSeries/ProductSerie/Pictures/Image"/>
@@ -1612,7 +1624,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 											</xs:annotation>
 											<xs:complexType>
 												<xs:sequence>
-													<xs:element name="Rotation-X">
+													<xs:element name="X">
 														<xs:annotation>
 															<xs:documentation>Rotation around X axis</xs:documentation>
 														</xs:annotation>
@@ -1623,7 +1635,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 															</xs:restriction>
 														</xs:simpleType>
 													</xs:element>
-													<xs:element name="Rotation-Y">
+													<xs:element name="Y">
 														<xs:annotation>
 															<xs:documentation>Rotation around Y axis</xs:documentation>
 														</xs:annotation>
@@ -1634,7 +1646,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 															</xs:restriction>
 														</xs:simpleType>
 													</xs:element>
-													<xs:element name="Rotation-Z">
+													<xs:element name="Z">
 														<xs:annotation>
 															<xs:documentation>Rotation around Z axis</xs:documentation>
 														</xs:annotation>
@@ -1645,7 +1657,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 															</xs:restriction>
 														</xs:simpleType>
 													</xs:element>
-													<xs:element name="Rotation-G0">
+													<xs:element name="G0">
 														<xs:annotation>
 															<xs:documentation>Rotation around G0</xs:documentation>
 														</xs:annotation>
@@ -1720,10 +1732,156 @@ Note: These types are used in IES photometry files</xs:documentation>
 		<xs:annotation>
 			<xs:documentation>Definition of 3d geometries used in this product</xs:documentation>
 		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="Geometry" maxOccurs="unbounded">
+		<xs:choice>
+			<xs:element name="SimpleGeometry" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>Single 3D geometry. Optionally with 3 different level of detail (for the same geometry!)</xs:documentation>
+					<xs:documentation>Simple 3D geometry (cuboid or cylinder). Defined in the GLDF itself</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:choice>
+							<xs:element name="Cuboid">
+								<xs:annotation>
+									<xs:documentation>Simple Cuboid geometry</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Width">
+											<xs:annotation>
+												<xs:documentation>Size in X axis in mm</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:int">
+													<xs:minInclusive value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Length">
+											<xs:annotation>
+												<xs:documentation>Size in Y axis in mm</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:int">
+													<xs:minInclusive value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Height">
+											<xs:annotation>
+												<xs:documentation>Size in Z axis in mm</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:int">
+													<xs:minInclusive value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Cylinder">
+								<xs:annotation>
+									<xs:documentation>Simple Cylinder geometry</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Diameter">
+											<xs:annotation>
+												<xs:documentation>Diameter of the cylinder in mm</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:int">
+													<xs:minInclusive value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Height">
+											<xs:annotation>
+												<xs:documentation>Size in "plane" axis of the cylinder in mm</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:int">
+													<xs:minInclusive value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="plane" use="required">
+										<xs:annotation>
+											<xs:documentation>Direction axis of the cylinder in the coordinate system. Possible values: X|Y|Z</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="X"/>
+												<xs:enumeration value="Y"/>
+												<xs:enumeration value="Z"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
+						<xs:choice>
+							<xs:element name="RectangularEmitter">
+								<xs:annotation>
+									<xs:documentation>Rectangular Emitter 2D surface</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Width">
+											<xs:annotation>
+												<xs:documentation>Width of the rectangular Emitter 2D surface in mm</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:int">
+													<xs:minInclusive value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Length">
+											<xs:annotation>
+												<xs:documentation>Length of the rectangular Emitter 2D surface in mm</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:int">
+													<xs:minInclusive value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="CircularEmitter">
+								<xs:annotation>
+									<xs:documentation>Circular Emitter 2D surface</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Diameter">
+											<xs:annotation>
+												<xs:documentation>Diameter of the circular Emitter 2D surface in mm</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:int">
+													<xs:minInclusive value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
+					</xs:sequence>
+					<xs:attribute name="id" type="xs:ID" use="required">
+						<xs:annotation>
+							<xs:documentation>Unique identifier of the simple geometry</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ModelGeometry" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Complex 3D geometry model (l3d, r3d, m3d). Defined as file reference outside the GLDF. Optionally with 3 different level of detail each (for the same geometry!)</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
@@ -1734,7 +1892,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 							<xs:complexType>
 								<xs:attribute name="fileId" type="xs:NCName" use="required">
 									<xs:annotation>
-										<xs:documentation>Id reference to a l3d geometry model File element defined under GeneralDefinitions/Files</xs:documentation>
+										<xs:documentation>Id reference to a l3d, r3d or m3d geometry model File element defined under GeneralDefinitions/Files</xs:documentation>
 									</xs:annotation>
 								</xs:attribute>
 								<xs:attribute name="levelOfDetail">
@@ -1754,12 +1912,12 @@ Note: These types are used in IES photometry files</xs:documentation>
 					</xs:sequence>
 					<xs:attribute name="id" type="xs:ID" use="required">
 						<xs:annotation>
-							<xs:documentation>Unique identifier of the geometry</xs:documentation>
+							<xs:documentation>Unique identifier of the modelled geometry</xs:documentation>
 						</xs:annotation>
 					</xs:attribute>
 				</xs:complexType>
 			</xs:element>
-		</xs:sequence>
+		</xs:choice>
 	</xs:complexType>
 	<xs:complexType name="ProductMetaData">
 		<xs:annotation>
@@ -2396,7 +2554,24 @@ Note: These types are used in IES photometry files</xs:documentation>
 									</xs:attribute>
 								</xs:complexType>
 							</xs:element>
-							<xs:element name="GeometryReference">
+							<xs:element name="SimpleGeometryReference">
+								<xs:annotation>
+									<xs:documentation>Simple geometry reference (Use this Node with a simple 3D Cuboid or Cylinder geometry)</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:attribute name="geometryId" type="xs:NCName" use="required">
+										<xs:annotation>
+											<xs:documentation>Id reference to a SimpleGeometry element defined under GeneralDefinitions/Geometries</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+									<xs:attribute name="emitterId" type="xs:NCName" use="required">
+										<xs:annotation>
+											<xs:documentation>Id reference to an Emitter element defined under GeneralDefinitions/Emitters</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="ModelGeometryReference">
 								<xs:annotation>
 									<xs:documentation>Geometry reference (Use this Node with a 3D model of this variant)</xs:documentation>
 								</xs:annotation>
@@ -2436,7 +2611,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 									</xs:sequence>
 									<xs:attribute name="geometryId" type="xs:NCName" use="required">
 										<xs:annotation>
-											<xs:documentation>Id reference to a Geometry element defined under GeneralDefinitions/Geometries</xs:documentation>
+											<xs:documentation>Id reference to a ModelGeometry element defined under GeneralDefinitions/Geometries</xs:documentation>
 										</xs:annotation>
 									</xs:attribute>
 								</xs:complexType>
