@@ -1885,6 +1885,11 @@ Note: These types are used in IES photometry files</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
+						<xs:element name="ProductNumber" type="Locale" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Variant product number. Overwrites the ProductNumber element of ProductMetaData</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 						<xs:element name="VariantName" type="Locale">
 							<xs:annotation>
 								<xs:documentation>Variant name, translatable</xs:documentation>
@@ -1903,11 +1908,6 @@ Note: These types are used in IES photometry files</xs:documentation>
 						<xs:element name="GTIN" type="GTIN" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Variant GTIN - Global Trade Item Number</xs:documentation>
-							</xs:annotation>
-						</xs:element>
-						<xs:element name="ProductNumber" type="xs:string" minOccurs="0">
-							<xs:annotation>
-								<xs:documentation>Variant product number. Overwrites the ProductNumber element of ProductMetaData</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="Mountings" minOccurs="0">
