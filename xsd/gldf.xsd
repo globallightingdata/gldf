@@ -617,14 +617,14 @@
 											</xs:restriction>
 										</xs:simpleType>
 									</xs:element>
-									<xs:element name="LuminousEfficacy" minOccurs="0" maxOccurs="683">
+									<xs:element name="LuminousEfficacy" minOccurs="0">
 										<xs:annotation>
 											<xs:documentation>Quotient of the luminous flux emitted by the luminaire and the power absorbed by the light source and associated circuits of the luminaire</xs:documentation>
 										</xs:annotation>
 										<xs:simpleType>
-											<xs:restriction base="xs:double">
+											<xs:restriction base="xs:int">
 												<xs:minInclusive value="0"/>
-												<xs:maxInclusive value="1"/>
+												<xs:maxInclusive value="683"/>
 											</xs:restriction>
 										</xs:simpleType>
 									</xs:element>
