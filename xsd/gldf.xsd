@@ -587,14 +587,6 @@
 								</xs:complexType>
 							</xs:element>
 						</xs:choice>
-						<xs:element name="Rotation-G0" minOccurs="0">
-							<xs:simpleType>
-								<xs:restriction base="xs:int">
-									<xs:minInclusive value="-180"/>
-									<xs:maxInclusive value="180"/>
-								</xs:restriction>
-							</xs:simpleType>
-						</xs:element>
 						<xs:element name="DescriptivePhotometry" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>All child elements are solely descriptive values and not used in any calculations</xs:documentation>
