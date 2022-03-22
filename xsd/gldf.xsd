@@ -2249,30 +2249,30 @@ Note: These types are used in IES photometry files</xs:documentation>
 																	<xs:sequence>
 																		<xs:element name="Width">
 																			<xs:annotation>
-																				<xs:documentation>Width of the rectangular cutout into the ceiling</xs:documentation>
+																				<xs:documentation>Width of the rectangular cutout into the ceiling in millimeters</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
-																				<xs:restriction base="xs:double">
+																				<xs:restriction base="xs:int">
 																					<xs:minInclusive value="0"/>
 																				</xs:restriction>
 																			</xs:simpleType>
 																		</xs:element>
 																		<xs:element name="Length">
 																			<xs:annotation>
-																				<xs:documentation>Length of the rectangular cutout into the ceiling</xs:documentation>
+																				<xs:documentation>Length of the rectangular cutout into the ceiling in millimeters</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
-																				<xs:restriction base="xs:double">
+																				<xs:restriction base="xs:int">
 																					<xs:minInclusive value="0"/>
 																				</xs:restriction>
 																			</xs:simpleType>
 																		</xs:element>
 																		<xs:element name="Depth">
 																			<xs:annotation>
-																				<xs:documentation>Depth of the rectangular cutout into the ceiling</xs:documentation>
+																				<xs:documentation>Depth of the rectangular cutout into the ceiling in millimeters</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
-																				<xs:restriction base="xs:double">
+																				<xs:restriction base="xs:int">
 																					<xs:minInclusive value="0"/>
 																				</xs:restriction>
 																			</xs:simpleType>
@@ -2288,20 +2288,20 @@ Note: These types are used in IES photometry files</xs:documentation>
 																	<xs:sequence>
 																		<xs:element name="Diameter">
 																			<xs:annotation>
-																				<xs:documentation>Diameter of the circular cutout into the ceiling</xs:documentation>
+																				<xs:documentation>Diameter of the circular cutout into the ceiling in millimeters</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
-																				<xs:restriction base="xs:double">
+																				<xs:restriction base="xs:int">
 																					<xs:minInclusive value="0"/>
 																				</xs:restriction>
 																			</xs:simpleType>
 																		</xs:element>
 																		<xs:element name="Depth">
 																			<xs:annotation>
-																				<xs:documentation>Depth of the circular cutout into the ceiling</xs:documentation>
+																				<xs:documentation>Depth of the circular cutout into the ceiling in millimeters</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
-																				<xs:restriction base="xs:double">
+																				<xs:restriction base="xs:int">
 																					<xs:minInclusive value="0"/>
 																				</xs:restriction>
 																			</xs:simpleType>
@@ -2312,10 +2312,10 @@ Note: These types are used in IES photometry files</xs:documentation>
 														</xs:choice>
 														<xs:attribute name="recessedDepth" use="required">
 															<xs:annotation>
-																<xs:documentation>Recessed depth into ceiling</xs:documentation>
+																<xs:documentation>Recessed depth into ceiling in millimeters</xs:documentation>
 															</xs:annotation>
 															<xs:simpleType>
-																<xs:restriction base="xs:double">
+																<xs:restriction base="xs:int">
 																	<xs:minInclusive value="0"/>
 																</xs:restriction>
 															</xs:simpleType>
@@ -2335,10 +2335,10 @@ Note: These types are used in IES photometry files</xs:documentation>
 													<xs:complexType>
 														<xs:attribute name="pendantLength" use="required">
 															<xs:annotation>
-																<xs:documentation>Suspension length, measured from ceiling to the pendulum  housing of the product</xs:documentation>
+																<xs:documentation>Suspension length, measured from ceiling to the pendulum  housing of the product in millimeters</xs:documentation>
 															</xs:annotation>
 															<xs:simpleType>
-																<xs:restriction base="xs:double">
+																<xs:restriction base="xs:int">
 																	<xs:minInclusive value="0"/>
 																</xs:restriction>
 															</xs:simpleType>
@@ -2368,30 +2368,30 @@ Note: These types are used in IES photometry files</xs:documentation>
 																	<xs:sequence>
 																		<xs:element name="Width">
 																			<xs:annotation>
-																				<xs:documentation>Width of the rectangular cutout into the wall</xs:documentation>
+																				<xs:documentation>Width of the rectangular cutout into the wall in millimeters</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
-																				<xs:restriction base="xs:double">
+																				<xs:restriction base="xs:int">
 																					<xs:minInclusive value="0"/>
 																				</xs:restriction>
 																			</xs:simpleType>
 																		</xs:element>
 																		<xs:element name="Length">
 																			<xs:annotation>
-																				<xs:documentation>Length of the rectangular cutout into the wall</xs:documentation>
+																				<xs:documentation>Length of the rectangular cutout into the wall in millimeters</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
-																				<xs:restriction base="xs:double">
+																				<xs:restriction base="xs:int">
 																					<xs:minInclusive value="0"/>
 																				</xs:restriction>
 																			</xs:simpleType>
 																		</xs:element>
 																		<xs:element name="Depth">
 																			<xs:annotation>
-																				<xs:documentation>Depth of the rectangular cutout into the wall</xs:documentation>
+																				<xs:documentation>Depth of the rectangular cutout into the wall in millimeters</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
-																				<xs:restriction base="xs:double">
+																				<xs:restriction base="xs:int">
 																					<xs:minInclusive value="0"/>
 																				</xs:restriction>
 																			</xs:simpleType>
@@ -2407,20 +2407,20 @@ Note: These types are used in IES photometry files</xs:documentation>
 																	<xs:sequence>
 																		<xs:element name="Diameter">
 																			<xs:annotation>
-																				<xs:documentation>Diameter of the circular cutout into the wall</xs:documentation>
+																				<xs:documentation>Diameter of the circular cutout into the wall in millimeters</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
-																				<xs:restriction base="xs:double">
+																				<xs:restriction base="xs:int">
 																					<xs:minInclusive value="0"/>
 																				</xs:restriction>
 																			</xs:simpleType>
 																		</xs:element>
 																		<xs:element name="Depth">
 																			<xs:annotation>
-																				<xs:documentation>Depth of the circular cutout into the wall</xs:documentation>
+																				<xs:documentation>Depth of the circular cutout into the wall in millimeters</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
-																				<xs:restriction base="xs:double">
+																				<xs:restriction base="xs:int">
 																					<xs:minInclusive value="0"/>
 																				</xs:restriction>
 																			</xs:simpleType>
@@ -2431,10 +2431,10 @@ Note: These types are used in IES photometry files</xs:documentation>
 														</xs:choice>
 														<xs:attribute name="recessedDepth" use="required">
 															<xs:annotation>
-																<xs:documentation>Recessed depth into the wall</xs:documentation>
+																<xs:documentation>Recessed depth into the wall in millimeters</xs:documentation>
 															</xs:annotation>
 															<xs:simpleType>
-																<xs:restriction base="xs:double">
+																<xs:restriction base="xs:int">
 																	<xs:minInclusive value="0"/>
 																</xs:restriction>
 															</xs:simpleType>
@@ -2450,10 +2450,10 @@ Note: These types are used in IES photometry files</xs:documentation>
 											</xs:sequence>
 											<xs:attribute name="mountingHeight" use="required">
 												<xs:annotation>
-													<xs:documentation>Mounting height above ground</xs:documentation>
+													<xs:documentation>Mounting height above ground in millimeters</xs:documentation>
 												</xs:annotation>
 												<xs:simpleType>
-													<xs:restriction base="xs:double">
+													<xs:restriction base="xs:int">
 														<xs:minInclusive value="0"/>
 													</xs:restriction>
 												</xs:simpleType>
@@ -2488,10 +2488,10 @@ Note: These types are used in IES photometry files</xs:documentation>
 													<xs:complexType>
 														<xs:attribute name="poleHeight">
 															<xs:annotation>
-																<xs:documentation>Optional default height of the pole</xs:documentation>
+																<xs:documentation>Optional default height of the pole in millimeters</xs:documentation>
 															</xs:annotation>
 															<xs:simpleType>
-																<xs:restriction base="xs:double">
+																<xs:restriction base="xs:int">
 																	<xs:minInclusive value="0"/>
 																</xs:restriction>
 															</xs:simpleType>
@@ -2505,10 +2505,10 @@ Note: These types are used in IES photometry files</xs:documentation>
 													<xs:complexType>
 														<xs:attribute name="poleHeight">
 															<xs:annotation>
-																<xs:documentation>Optional default height of the pole</xs:documentation>
+																<xs:documentation>Optional default height of the pole in millimeters</xs:documentation>
 															</xs:annotation>
 															<xs:simpleType>
-																<xs:restriction base="xs:double">
+																<xs:restriction base="xs:int">
 																	<xs:minInclusive value="0"/>
 																</xs:restriction>
 															</xs:simpleType>
@@ -2541,30 +2541,30 @@ Note: These types are used in IES photometry files</xs:documentation>
 																	<xs:sequence>
 																		<xs:element name="Width">
 																			<xs:annotation>
-																				<xs:documentation>Width of the rectangular cutout into the ground</xs:documentation>
+																				<xs:documentation>Width of the rectangular cutout into the ground in millimeters</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
-																				<xs:restriction base="xs:double">
+																				<xs:restriction base="xs:int">
 																					<xs:minInclusive value="0"/>
 																				</xs:restriction>
 																			</xs:simpleType>
 																		</xs:element>
 																		<xs:element name="Length">
 																			<xs:annotation>
-																				<xs:documentation>Length of the rectangular cutout into the ground</xs:documentation>
+																				<xs:documentation>Length of the rectangular cutout into the ground in millimeters</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
-																				<xs:restriction base="xs:double">
+																				<xs:restriction base="xs:int">
 																					<xs:minInclusive value="0"/>
 																				</xs:restriction>
 																			</xs:simpleType>
 																		</xs:element>
 																		<xs:element name="Depth">
 																			<xs:annotation>
-																				<xs:documentation>Depth of the rectangular cutout into the ground</xs:documentation>
+																				<xs:documentation>Depth of the rectangular cutout into the ground in millimeters</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
-																				<xs:restriction base="xs:double">
+																				<xs:restriction base="xs:int">
 																					<xs:minInclusive value="0"/>
 																				</xs:restriction>
 																			</xs:simpleType>
@@ -2580,20 +2580,20 @@ Note: These types are used in IES photometry files</xs:documentation>
 																	<xs:sequence>
 																		<xs:element name="Diameter">
 																			<xs:annotation>
-																				<xs:documentation>Diameter of the circular cutout into the ground</xs:documentation>
+																				<xs:documentation>Diameter of the circular cutout into the ground in millimeters</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
-																				<xs:restriction base="xs:double">
+																				<xs:restriction base="xs:int">
 																					<xs:minInclusive value="0"/>
 																				</xs:restriction>
 																			</xs:simpleType>
 																		</xs:element>
 																		<xs:element name="Depth">
 																			<xs:annotation>
-																				<xs:documentation>Depth of the circular cutout into the ground</xs:documentation>
+																				<xs:documentation>Depth of the circular cutout into the ground in millimeters</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
-																				<xs:restriction base="xs:double">
+																				<xs:restriction base="xs:int">
 																					<xs:minInclusive value="0"/>
 																				</xs:restriction>
 																			</xs:simpleType>
@@ -2604,10 +2604,10 @@ Note: These types are used in IES photometry files</xs:documentation>
 														</xs:choice>
 														<xs:attribute name="recessedDepth" use="required">
 															<xs:annotation>
-																<xs:documentation>Recessed depth into the ground</xs:documentation>
+																<xs:documentation>Recessed depth into the ground in millimeters</xs:documentation>
 															</xs:annotation>
 															<xs:simpleType>
-																<xs:restriction base="xs:double">
+																<xs:restriction base="xs:int">
 																	<xs:minInclusive value="0"/>
 																</xs:restriction>
 															</xs:simpleType>
