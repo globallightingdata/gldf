@@ -1629,7 +1629,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 															<xs:documentation>Rotation around X axis</xs:documentation>
 														</xs:annotation>
 														<xs:simpleType>
-															<xs:restriction base="xs:int">
+															<xs:restriction base="xs:double">
 																<xs:minInclusive value="0"/>
 																<xs:maxInclusive value="360"/>
 															</xs:restriction>
@@ -1640,7 +1640,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 															<xs:documentation>Rotation around Y axis</xs:documentation>
 														</xs:annotation>
 														<xs:simpleType>
-															<xs:restriction base="xs:int">
+															<xs:restriction base="xs:double">
 																<xs:minInclusive value="0"/>
 																<xs:maxInclusive value="360"/>
 															</xs:restriction>
@@ -1651,7 +1651,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 															<xs:documentation>Rotation around Z axis</xs:documentation>
 														</xs:annotation>
 														<xs:simpleType>
-															<xs:restriction base="xs:int">
+															<xs:restriction base="xs:double">
 																<xs:minInclusive value="0"/>
 																<xs:maxInclusive value="360"/>
 															</xs:restriction>
@@ -1659,10 +1659,10 @@ Note: These types are used in IES photometry files</xs:documentation>
 													</xs:element>
 													<xs:element name="G0">
 														<xs:annotation>
-															<xs:documentation>Rotation around G0</xs:documentation>
+															<xs:documentation>Rotation around G0. Usually IES files have to be rotated. Necessary to adapt between IES and EN standards for luminaire testing. E.g. road lighting</xs:documentation>
 														</xs:annotation>
 														<xs:simpleType>
-															<xs:restriction base="xs:int">
+															<xs:restriction base="xs:double">
 																<xs:minInclusive value="0"/>
 																<xs:maxInclusive value="360"/>
 															</xs:restriction>
@@ -1720,7 +1720,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 															<xs:documentation>Rotation around X axis</xs:documentation>
 														</xs:annotation>
 														<xs:simpleType>
-															<xs:restriction base="xs:int">
+															<xs:restriction base="xs:double">
 																<xs:minInclusive value="0"/>
 																<xs:maxInclusive value="360"/>
 															</xs:restriction>
@@ -1731,7 +1731,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 															<xs:documentation>Rotation around Y axis</xs:documentation>
 														</xs:annotation>
 														<xs:simpleType>
-															<xs:restriction base="xs:int">
+															<xs:restriction base="xs:double">
 																<xs:minInclusive value="0"/>
 																<xs:maxInclusive value="360"/>
 															</xs:restriction>
@@ -1742,7 +1742,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 															<xs:documentation>Rotation around Z axis</xs:documentation>
 														</xs:annotation>
 														<xs:simpleType>
-															<xs:restriction base="xs:int">
+															<xs:restriction base="xs:double">
 																<xs:minInclusive value="0"/>
 																<xs:maxInclusive value="360"/>
 															</xs:restriction>
@@ -1753,7 +1753,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 															<xs:documentation>Rotation around G0</xs:documentation>
 														</xs:annotation>
 														<xs:simpleType>
-															<xs:restriction base="xs:int">
+															<xs:restriction base="xs:double">
 																<xs:minInclusive value="0"/>
 																<xs:maxInclusive value="360"/>
 															</xs:restriction>
