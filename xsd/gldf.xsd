@@ -117,23 +117,23 @@
 			<xs:field xpath="@controlGearId"/>
 		</xs:keyref>
 		<xs:keyref name="ChangeableEmitter-Photometry" refer="PhotometryId">
-			<xs:selector xpath="GeneralDefinitions/Emitters/Emitter/ChangeableLightEmitter"/>
+			<xs:selector xpath="GeneralDefinitions/Emitters/Emitter/ChangeableLightEmitter/PhotometryReference"/>
 			<xs:field xpath="@photometryId"/>
 		</xs:keyref>
 		<xs:keyref name="ChangeableEmitter-Equipment" refer="EquipmentId">
-			<xs:selector xpath="GeneralDefinitions/Emitters/Emitter/ChangeableLightEmitter"/>
+			<xs:selector xpath="GeneralDefinitions/Emitters/Emitter/ChangeableLightEmitter/EquipmentReference"/>
 			<xs:field xpath="@equipmentId"/>
 		</xs:keyref>
 		<xs:keyref name="FixedEmitter-Photometry" refer="PhotometryId">
-			<xs:selector xpath="GeneralDefinitions/Emitters/Emitter/FixedLightEmitter"/>
+			<xs:selector xpath="GeneralDefinitions/Emitters/Emitter/FixedLightEmitter/PhotometryReference"/>
 			<xs:field xpath="@photometryId"/>
 		</xs:keyref>
 		<xs:keyref name="FixedEmitter-FixedLightSource" refer="FixedLightSourceId">
-			<xs:selector xpath="GeneralDefinitions/Emitters/Emitter/FixedLightEmitter"/>
+			<xs:selector xpath="GeneralDefinitions/Emitters/Emitter/FixedLightEmitter/LightSourceReference"/>
 			<xs:field xpath="@fixedLightSourceId"/>
 		</xs:keyref>
 		<xs:keyref name="FixedEmitter-ControlGear" refer="ControlGearId">
-			<xs:selector xpath="GeneralDefinitions/Emitters/Emitter/FixedLightEmitter"/>
+			<xs:selector xpath="GeneralDefinitions/Emitters/Emitter/FixedLightEmitter/ControlGearReference"/>
 			<xs:field xpath="@controlGearId"/>
 		</xs:keyref>
 		<xs:keyref name="Emitter-Sensor" refer="SensorId">
@@ -1788,17 +1788,31 @@ Note: These types are used in IES photometry files</xs:documentation>
 											</xs:sequence>
 										</xs:complexType>
 									</xs:element>
+									<xs:element name="PhotometryReference">
+										<xs:annotation>
+											<xs:documentation>Reference to a Photometry element defined under GeneralDefinitions/Photometries</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:attribute name="photometryId" type="xs:NCName" use="required">
+												<xs:annotation>
+													<xs:documentation>Id reference to a Photometry element defined under GeneralDefinitions/Photometries</xs:documentation>
+												</xs:annotation>
+											</xs:attribute>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="EquipmentReference" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Reference to an Equipment element defined under GeneralDefinitions/Equipments</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:attribute name="equipmentId" type="xs:NCName" use="required">
+												<xs:annotation>
+													<xs:documentation>Id reference to an Equipment element defined under GeneralDefinitions/Equipments</xs:documentation>
+												</xs:annotation>
+											</xs:attribute>
+										</xs:complexType>
+									</xs:element>
 								</xs:sequence>
-								<xs:attribute name="photometryId" type="xs:NCName" use="required">
-									<xs:annotation>
-										<xs:documentation>Id reference to a Photometry element defined under GeneralDefinitions/Photometries</xs:documentation>
-									</xs:annotation>
-								</xs:attribute>
-								<xs:attribute name="equipmentId" type="xs:NCName">
-									<xs:annotation>
-										<xs:documentation>Id reference to an Equipment element defined under GeneralDefinitions/Equipments</xs:documentation>
-									</xs:annotation>
-								</xs:attribute>
 								<xs:attribute name="emergencyBehaviour" default="None">
 									<xs:annotation>
 										<xs:documentation>Set to Combined, if this LightEmitter is intended for normal and emergency lighting. Set to EmergencyOnly, if this LightEmitter is intended for emergency lighting scenarios only. The default value or if the attribute is missing is None, which means: intended for normal light only</xs:documentation>
@@ -1819,6 +1833,52 @@ Note: These types are used in IES photometry files</xs:documentation>
 							</xs:annotation>
 							<xs:complexType>
 								<xs:sequence>
+									<xs:element name="PhotometryReference">
+										<xs:annotation>
+											<xs:documentation>Reference to a Photometry element defined under GeneralDefinitions/Photometries</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:attribute name="photometryId" type="xs:NCName" use="required">
+												<xs:annotation>
+													<xs:documentation>Id reference to a Photometry element defined under GeneralDefinitions/Photometries</xs:documentation>
+												</xs:annotation>
+											</xs:attribute>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="LightSourceReference">
+										<xs:annotation>
+											<xs:documentation>Reference to a fixed LightSource element defined under GeneralDefinitions/LightSources</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:attribute name="fixedLightSourceId" type="xs:NCName" use="required">
+												<xs:annotation>
+													<xs:documentation>Id reference to a fixed LightSource element defined under GeneralDefinitions/LightSources</xs:documentation>
+												</xs:annotation>
+											</xs:attribute>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="ControlGearReference" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Reference to a ControlGear element defined under GeneralDefinitions/ControlGears</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:attribute name="controlGearId" type="xs:NCName" use="required">
+												<xs:annotation>
+													<xs:documentation>Id reference to a ControlGear element defined under GeneralDefinitions/ControlGears</xs:documentation>
+												</xs:annotation>
+											</xs:attribute>
+											<xs:attribute name="controlGearCount">
+												<xs:annotation>
+													<xs:documentation>Optional count of the control gear. Default value is 1</xs:documentation>
+												</xs:annotation>
+												<xs:simpleType>
+													<xs:restriction base="xs:int">
+														<xs:minInclusive value="1"/>
+													</xs:restriction>
+												</xs:simpleType>
+											</xs:attribute>
+										</xs:complexType>
+									</xs:element>
 									<xs:element name="RatedLuminousFlux">
 										<xs:annotation>
 											<xs:documentation>Initial luminous flux of the entire equipment, being operated at a ambient temperature of 25°C. See also 13032-4:2015 (Unit lm)</xs:documentation>
@@ -1921,31 +1981,6 @@ Note: These types are used in IES photometry files</xs:documentation>
 										</xs:element>
 									</xs:choice>
 								</xs:sequence>
-								<xs:attribute name="photometryId" type="xs:NCName" use="required">
-									<xs:annotation>
-										<xs:documentation>Id reference to a Photometry element defined under GeneralDefinitions/Photometries</xs:documentation>
-									</xs:annotation>
-								</xs:attribute>
-								<xs:attribute name="fixedLightSourceId" type="xs:NCName" use="required">
-									<xs:annotation>
-										<xs:documentation>Id reference to a fixed LightSource element defined under GeneralDefinitions/LightSources</xs:documentation>
-									</xs:annotation>
-								</xs:attribute>
-								<xs:attribute name="controlGearId" type="xs:NCName">
-									<xs:annotation>
-										<xs:documentation>Id reference to a ControlGear element defined under GeneralDefinitions/ControlGears</xs:documentation>
-									</xs:annotation>
-								</xs:attribute>
-								<xs:attribute name="controlGearCount">
-									<xs:annotation>
-										<xs:documentation>Optional count of the control gear. Default value is 1</xs:documentation>
-									</xs:annotation>
-									<xs:simpleType>
-										<xs:restriction base="xs:int">
-											<xs:minInclusive value="1"/>
-										</xs:restriction>
-									</xs:simpleType>
-								</xs:attribute>
 								<xs:attribute name="emergencyBehaviour" default="None">
 									<xs:annotation>
 										<xs:documentation>Set to Combined, if this LightEmitter is intended for normal and emergency lighting. Set to EmergencyOnly, if this LightEmitter is intended for emergency lighting scenarios only. The default value or if the attribute is missing is None, which means: intended for normal light only</xs:documentation>
