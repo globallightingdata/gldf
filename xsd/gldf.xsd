@@ -116,12 +116,12 @@
 			<xs:selector xpath="GeneralDefinitions/Equipments/Equipment/ControlGearReference"/>
 			<xs:field xpath="@controlGearId"/>
 		</xs:keyref>
-		<xs:keyref name="RelativeEmitter-Photometry" refer="PhotometryId">
-			<xs:selector xpath="GeneralDefinitions/Emitters/Emitter/RelativeLightEmitter"/>
+		<xs:keyref name="ChangeableEmitter-Photometry" refer="PhotometryId">
+			<xs:selector xpath="GeneralDefinitions/Emitters/Emitter/ChangeableLightEmitter"/>
 			<xs:field xpath="@photometryId"/>
 		</xs:keyref>
-		<xs:keyref name="RelativeEmitter-Equipment" refer="EquipmentId">
-			<xs:selector xpath="GeneralDefinitions/Emitters/Emitter/RelativeLightEmitter"/>
+		<xs:keyref name="ChangeableEmitter-Equipment" refer="EquipmentId">
+			<xs:selector xpath="GeneralDefinitions/Emitters/Emitter/ChangeableLightEmitter"/>
 			<xs:field xpath="@equipmentId"/>
 		</xs:keyref>
 		<xs:keyref name="FixedEmitter-Photometry" refer="PhotometryId">
@@ -1708,7 +1708,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 						<xs:annotation>
 							<xs:documentation>Multiple definitions are possible. In this case they are treated as interchangable emitters</xs:documentation>
 						</xs:annotation>
-						<xs:element name="RelativeLightEmitter" maxOccurs="unbounded">
+						<xs:element name="ChangeableLightEmitter" maxOccurs="unbounded">
 							<xs:annotation>
 								<xs:documentation>Definition of an emission object for the luminous part of the product. It combines a photometry with an optional equipment into a LightEmitter</xs:documentation>
 							</xs:annotation>
@@ -1944,80 +1944,78 @@ Note: These types are used in IES photometry files</xs:documentation>
 								</xs:attribute>
 							</xs:complexType>
 						</xs:element>
-						<xs:sequence maxOccurs="unbounded">
-							<xs:element name="Sensor">
-								<xs:annotation>
-									<xs:documentation>Definition of an emission object for the sensor part of the product</xs:documentation>
-								</xs:annotation>
-								<xs:complexType>
-									<xs:sequence>
-										<xs:element name="Name" type="Locale" minOccurs="0">
-											<xs:annotation>
-												<xs:documentation>Translatable display name of the Sensor. Could be shown in applications like DIALux and Relux. Intended for documentation purposes</xs:documentation>
-											</xs:annotation>
-										</xs:element>
-										<xs:element name="Rotation" minOccurs="0">
-											<xs:annotation>
-												<xs:documentation>Sensor rotation. E.g. for wall or floor sensors, if not measured in position of use</xs:documentation>
-											</xs:annotation>
-											<xs:complexType>
-												<xs:sequence>
-													<xs:element name="X">
-														<xs:annotation>
-															<xs:documentation>Rotation around X axis</xs:documentation>
-														</xs:annotation>
-														<xs:simpleType>
-															<xs:restriction base="xs:double">
-																<xs:minInclusive value="0"/>
-																<xs:maxInclusive value="360"/>
-															</xs:restriction>
-														</xs:simpleType>
-													</xs:element>
-													<xs:element name="Y">
-														<xs:annotation>
-															<xs:documentation>Rotation around Y axis</xs:documentation>
-														</xs:annotation>
-														<xs:simpleType>
-															<xs:restriction base="xs:double">
-																<xs:minInclusive value="0"/>
-																<xs:maxInclusive value="360"/>
-															</xs:restriction>
-														</xs:simpleType>
-													</xs:element>
-													<xs:element name="Z">
-														<xs:annotation>
-															<xs:documentation>Rotation around Z axis</xs:documentation>
-														</xs:annotation>
-														<xs:simpleType>
-															<xs:restriction base="xs:double">
-																<xs:minInclusive value="0"/>
-																<xs:maxInclusive value="360"/>
-															</xs:restriction>
-														</xs:simpleType>
-													</xs:element>
-													<xs:element name="G0">
-														<xs:annotation>
-															<xs:documentation>Rotation around G0</xs:documentation>
-														</xs:annotation>
-														<xs:simpleType>
-															<xs:restriction base="xs:double">
-																<xs:minInclusive value="0"/>
-																<xs:maxInclusive value="360"/>
-															</xs:restriction>
-														</xs:simpleType>
-													</xs:element>
-												</xs:sequence>
-											</xs:complexType>
-										</xs:element>
-									</xs:sequence>
-									<xs:attribute name="sensorId" type="xs:NCName" use="required">
+						<xs:element name="Sensor" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Definition of an emission object for the sensor part of the product</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Name" type="Locale" minOccurs="0">
 										<xs:annotation>
-											<xs:documentation>Id reference to a Sensor element defined under GeneralDefinitions/Sensors.</xs:documentation>
+											<xs:documentation>Translatable display name of the Sensor. Could be shown in applications like DIALux and Relux. Intended for documentation purposes</xs:documentation>
 										</xs:annotation>
-									</xs:attribute>
-								</xs:complexType>
-							</xs:element>
-						</xs:sequence>
+									</xs:element>
+									<xs:element name="Rotation" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Sensor rotation. E.g. for wall or floor sensors, if not measured in position of use</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="X">
+													<xs:annotation>
+														<xs:documentation>Rotation around X axis</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:double">
+															<xs:minInclusive value="0"/>
+															<xs:maxInclusive value="360"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+												<xs:element name="Y">
+													<xs:annotation>
+														<xs:documentation>Rotation around Y axis</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:double">
+															<xs:minInclusive value="0"/>
+															<xs:maxInclusive value="360"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+												<xs:element name="Z">
+													<xs:annotation>
+														<xs:documentation>Rotation around Z axis</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:double">
+															<xs:minInclusive value="0"/>
+															<xs:maxInclusive value="360"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+												<xs:element name="G0">
+													<xs:annotation>
+														<xs:documentation>Rotation around G0</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:double">
+															<xs:minInclusive value="0"/>
+															<xs:maxInclusive value="360"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+								<xs:attribute name="sensorId" type="xs:NCName" use="required">
+									<xs:annotation>
+										<xs:documentation>Id reference to a Sensor element defined under GeneralDefinitions/Sensors.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:complexType>
+						</xs:element>
 					</xs:choice>
 					<xs:attribute name="id" type="xs:ID" use="required">
 						<xs:annotation>
