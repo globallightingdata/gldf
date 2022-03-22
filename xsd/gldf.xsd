@@ -2516,7 +2516,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 																		</xs:element>
 																		<xs:element name="Depth">
 																			<xs:annotation>
-																				<xs:documentation>Depth of the rectangular cutout into the ceiling in millimeters</xs:documentation>
+																				<xs:documentation>Depth of the rectangular cutout into the ceiling in millimeters. This value should be at least equal to or greater than recessedDepth. And take the additional height of any additional housing or required space for air circulation into account</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:int">
@@ -2545,7 +2545,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 																		</xs:element>
 																		<xs:element name="Depth">
 																			<xs:annotation>
-																				<xs:documentation>Depth of the circular cutout into the ceiling in millimeters</xs:documentation>
+																				<xs:documentation>Depth of the circular cutout into the ceiling in millimeters. This value should be at least equal to or greater than recessedDepth. And take the additional height of any additional housing or required space for air circulation into account</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:int">
@@ -2559,7 +2559,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 														</xs:choice>
 														<xs:attribute name="recessedDepth" use="required">
 															<xs:annotation>
-																<xs:documentation>Recessed depth into ceiling in millimeters</xs:documentation>
+																<xs:documentation>Recessed depth into ceiling in millimeters. This value should correspond to the height of the luminaire that goes into the ceiling. And do not take any additional housing or required space for air circulation into account - Use the child element CircularCutout, should this need to be mapped.</xs:documentation>
 															</xs:annotation>
 															<xs:simpleType>
 																<xs:restriction base="xs:int">
@@ -2635,7 +2635,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 																		</xs:element>
 																		<xs:element name="Depth">
 																			<xs:annotation>
-																				<xs:documentation>Depth of the rectangular cutout into the wall in millimeters</xs:documentation>
+																				<xs:documentation>Depth of the rectangular cutout into the the wall in millimeters. This value should be at least equal to or greater than recessedDepth. And take the additional height of any additional housing or required space for air circulation into account</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:int">
@@ -2664,7 +2664,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 																		</xs:element>
 																		<xs:element name="Depth">
 																			<xs:annotation>
-																				<xs:documentation>Depth of the circular cutout into the wall in millimeters</xs:documentation>
+																				<xs:documentation>Depth of the circular cutout into the the wall in millimeters. This value should be at least equal to or greater than recessedDepth. And take the additional height of any additional housing or required space for air circulation into account</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:int">
@@ -2678,7 +2678,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 														</xs:choice>
 														<xs:attribute name="recessedDepth" use="required">
 															<xs:annotation>
-																<xs:documentation>Recessed depth into the wall in millimeters</xs:documentation>
+																<xs:documentation>Recessed depth into the wall in millimeters. This value should correspond to the length of the luminaire that goes into the wall. And do not take any additional housing or required space for air circulation into account - Use the child element CircularCutout, should this need to be mapped.</xs:documentation>
 															</xs:annotation>
 															<xs:simpleType>
 																<xs:restriction base="xs:int">
@@ -2808,7 +2808,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 																		</xs:element>
 																		<xs:element name="Depth">
 																			<xs:annotation>
-																				<xs:documentation>Depth of the rectangular cutout into the ground in millimeters</xs:documentation>
+																				<xs:documentation>Depth of the rectangular cutout into the the ground in millimeters. This value should be at least equal to or greater than recessedDepth. And take the additional height of any additional housing or required space for air circulation into account</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:int">
@@ -2837,7 +2837,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 																		</xs:element>
 																		<xs:element name="Depth">
 																			<xs:annotation>
-																				<xs:documentation>Depth of the circular cutout into the ground in millimeters</xs:documentation>
+																				<xs:documentation>Depth of the circular cutout into the the ground in millimeters. This value should be at least equal to or greater than recessedDepth. And take the additional height of any additional housing or required space for air circulation into account</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:int">
@@ -2851,7 +2851,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 														</xs:choice>
 														<xs:attribute name="recessedDepth" use="required">
 															<xs:annotation>
-																<xs:documentation>Recessed depth into the ground in millimeters</xs:documentation>
+																<xs:documentation>Recessed depth into the ground in millimeters. This value should correspond to the height of the luminaire that goes into the ground. And do not take any additional housing or required space for air circulation into account - Use the child element CircularCutout, should this need to be mapped.</xs:documentation>
 															</xs:annotation>
 															<xs:simpleType>
 																<xs:restriction base="xs:int">
