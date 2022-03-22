@@ -157,24 +157,40 @@
 			<xs:field xpath="@fileId"/>
 		</xs:keyref>
 		<xs:keyref name="Variant-Emitter" refer="EmitterId">
-			<xs:selector xpath="ProductDefinitions/Variants/Variant/EmitterReference"/>
+			<xs:selector xpath="ProductDefinitions/Variants/Variant/Geometry/EmitterReference"/>
 			<xs:field xpath="@emitterId"/>
 		</xs:keyref>
 		<xs:keyref name="Variant-SimpleGeometryEmitter" refer="EmitterId">
-			<xs:selector xpath="ProductDefinitions/Variants/Variant/SimpleGeometryReference"/>
+			<xs:selector xpath="ProductDefinitions/Variants/Variant/Geometry/SimpleGeometryReference"/>
 			<xs:field xpath="@emitterId"/>
 		</xs:keyref>
 		<xs:keyref name="Variant-ModelGeometryEmitter" refer="EmitterId">
-			<xs:selector xpath="ProductDefinitions/Variants/Variant/ModelGeometryReference/EmitterReference"/>
+			<xs:selector xpath="ProductDefinitions/Variants/Variant/Geometry/ModelGeometryReference/EmitterReference"/>
 			<xs:field xpath="@emitterId"/>
 		</xs:keyref>
 		<xs:keyref name="Variant-SimpleGeometry" refer="SimpleGeometryId">
-			<xs:selector xpath="ProductDefinitions/Variants/Variant/SimpleGeometryReference"/>
+			<xs:selector xpath="ProductDefinitions/Variants/Variant/Geometry/SimpleGeometryReference"/>
 			<xs:field xpath="@geometryId"/>
 		</xs:keyref>
 		<xs:keyref name="Variant-ModelGeometry" refer="ModelGeometryId">
-			<xs:selector xpath="ProductDefinitions/Variants/Variant/ModelGeometryReference"/>
+			<xs:selector xpath="ProductDefinitions/Variants/Variant/Geometry/ModelGeometryReference"/>
 			<xs:field xpath="@geometryId"/>
+		</xs:keyref>
+		<xs:keyref name="Variant-ReferencesSimpleGeometry" refer="SimpleGeometryId">
+			<xs:selector xpath="ProductDefinitions/Variants/Variant/Geometry/GeometryReferences/SimpleGeometryReference"/>
+			<xs:field xpath="@geometryId"/>
+		</xs:keyref>
+		<xs:keyref name="Variant-ReferencesSimpleEmitter" refer="EmitterId">
+			<xs:selector xpath="ProductDefinitions/Variants/Variant/Geometry/GeometryReferences/SimpleGeometryReference"/>
+			<xs:field xpath="@emitterId"/>
+		</xs:keyref>
+		<xs:keyref name="Variant-ReferencesModelGeometry" refer="ModelGeometryId">
+			<xs:selector xpath="ProductDefinitions/Variants/Variant/Geometry/GeometryReferences/ModelGeometryReference"/>
+			<xs:field xpath="@geometryId"/>
+		</xs:keyref>
+		<xs:keyref name="Variant-ReferencesModelEmitter" refer="EmitterId">
+			<xs:selector xpath="ProductDefinitions/Variants/Variant/Geometry/GeometryReferences/ModelGeometryReference/EmitterReference"/>
+			<xs:field xpath="@emitterId"/>
 		</xs:keyref>
 		<xs:keyref name="VariantSeriesPicture-File" refer="FileId">
 			<xs:selector xpath="ProductDefinitions/Variants/Variant/ProductSeries/ProductSerie/Pictures/Image"/>
@@ -2030,7 +2046,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 		<xs:annotation>
 			<xs:documentation>Definition of 3d geometries used in this product</xs:documentation>
 		</xs:annotation>
-		<xs:choice>
+		<xs:choice maxOccurs="unbounded">
 			<xs:element name="SimpleGeometry" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>Simple 3D geometry (cuboid or cylinder). Defined in the GLDF itself</xs:documentation>
@@ -2445,7 +2461,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 					<xs:sequence>
 						<xs:element name="ProductNumber" type="Locale" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Variant product number. Overwrites the ProductNumber element of ProductMetaData</xs:documentation>
+								<xs:documentation>Variant product number. translatable. Overwrites the ProductNumber element of ProductMetaData</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="Name" type="Locale">
@@ -2460,7 +2476,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 						</xs:element>
 						<xs:element name="TenderText" type="Locale" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>A translatable tender text for the product for advertising purposes</xs:documentation>
+								<xs:documentation>Variant tender text for advertising purposes, translatable</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="GTIN" type="GTIN" minOccurs="0">
@@ -2470,7 +2486,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 						</xs:element>
 						<xs:element name="Mountings" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Product mounting place, type and position</xs:documentation>
+								<xs:documentation>Variant mounting place, type and position</xs:documentation>
 							</xs:annotation>
 							<xs:complexType>
 								<xs:sequence>
@@ -2865,85 +2881,160 @@ Note: These types are used in IES photometry files</xs:documentation>
 								</xs:sequence>
 							</xs:complexType>
 						</xs:element>
-						<xs:choice minOccurs="0">
+						<xs:element name="Geometry" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Light and sensor emission objects (Emitter). With or without reference to a 3D geometry</xs:documentation>
+								<xs:documentation>Variant geometry and emitter references</xs:documentation>
 							</xs:annotation>
-							<xs:element name="EmitterReference">
-								<xs:annotation>
-									<xs:documentation>Emitter reference (Use this Node without 3D geometry)</xs:documentation>
-								</xs:annotation>
-								<xs:complexType>
-									<xs:attribute name="emitterId" type="xs:NCName" use="required">
+							<xs:complexType>
+								<xs:choice>
+									<xs:element name="EmitterReference">
 										<xs:annotation>
-											<xs:documentation>Id reference to an Emitter element defined under GeneralDefinitions/Emitters</xs:documentation>
+											<xs:documentation>Emitter reference (Use this Node without 3D geometry)</xs:documentation>
 										</xs:annotation>
-									</xs:attribute>
-								</xs:complexType>
-							</xs:element>
-							<xs:element name="SimpleGeometryReference">
-								<xs:annotation>
-									<xs:documentation>Simple geometry reference (Use this Node with a simple 3D Cuboid or Cylinder geometry)</xs:documentation>
-								</xs:annotation>
-								<xs:complexType>
-									<xs:attribute name="geometryId" type="xs:NCName" use="required">
+										<xs:complexType>
+											<xs:attribute name="emitterId" type="xs:NCName" use="required">
+												<xs:annotation>
+													<xs:documentation>Id reference to an Emitter element defined under GeneralDefinitions/Emitters</xs:documentation>
+												</xs:annotation>
+											</xs:attribute>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="SimpleGeometryReference">
 										<xs:annotation>
-											<xs:documentation>Id reference to a SimpleGeometry element defined under GeneralDefinitions/Geometries</xs:documentation>
+											<xs:documentation>Simple geometry reference. Use this Node with a simple Cuboid or Cylinder geometry presentation of this variant</xs:documentation>
 										</xs:annotation>
-									</xs:attribute>
-									<xs:attribute name="emitterId" type="xs:NCName" use="required">
+										<xs:complexType>
+											<xs:attribute name="geometryId" type="xs:NCName" use="required">
+												<xs:annotation>
+													<xs:documentation>Id reference to a SimpleGeometry element defined under GeneralDefinitions/Geometries</xs:documentation>
+												</xs:annotation>
+											</xs:attribute>
+											<xs:attribute name="emitterId" type="xs:NCName" use="required">
+												<xs:annotation>
+													<xs:documentation>Id reference to an Emitter element defined under GeneralDefinitions/Emitters</xs:documentation>
+												</xs:annotation>
+											</xs:attribute>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="ModelGeometryReference">
 										<xs:annotation>
-											<xs:documentation>Id reference to an Emitter element defined under GeneralDefinitions/Emitters</xs:documentation>
+											<xs:documentation>Model geometry reference. Use this Node with a 3D model of this variant (l3d, m3d, r3d)</xs:documentation>
 										</xs:annotation>
-									</xs:attribute>
-								</xs:complexType>
-							</xs:element>
-							<xs:element name="ModelGeometryReference">
-								<xs:annotation>
-									<xs:documentation>Geometry reference (Use this Node with a 3D model of this variant)</xs:documentation>
-								</xs:annotation>
-								<xs:complexType>
-									<xs:sequence>
-										<xs:element name="EmitterReference" maxOccurs="unbounded">
-											<xs:annotation>
-												<xs:documentation>Emitter reference inside the 3D model</xs:documentation>
-											</xs:annotation>
-											<xs:complexType>
-												<xs:sequence>
-													<xs:element name="EmitterObjectExternalName" type="xs:string">
-														<xs:annotation>
-															<xs:documentation>Name of the emitter object inside the referenced 3D geometry (referenced by geometryId)</xs:documentation>
-														</xs:annotation>
-													</xs:element>
-												</xs:sequence>
-												<xs:attribute name="emitterId" type="xs:NCName" use="required">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="EmitterReference" maxOccurs="unbounded">
 													<xs:annotation>
-														<xs:documentation>Id reference to an Emitter element defined under GeneralDefinitions/Emitters</xs:documentation>
+														<xs:documentation>Emitter reference inside the 3D model</xs:documentation>
 													</xs:annotation>
-												</xs:attribute>
-												<xs:attribute name="targetModelType">
-													<xs:annotation>
-														<xs:documentation>Only required if multiple 3D model types (l3d, m3d, r3d) with different emitter object names are defined.</xs:documentation>
-													</xs:annotation>
-													<xs:simpleType>
-														<xs:restriction base="xs:string">
-															<xs:enumeration value="l3d"/>
-															<xs:enumeration value="m3d"/>
-															<xs:enumeration value="r3d"/>
-														</xs:restriction>
-													</xs:simpleType>
-												</xs:attribute>
-											</xs:complexType>
-										</xs:element>
-									</xs:sequence>
-									<xs:attribute name="geometryId" type="xs:NCName" use="required">
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="EmitterObjectExternalName" type="xs:string">
+																<xs:annotation>
+																	<xs:documentation>Name of the emitter object inside the referenced 3D geometry (referenced by geometryId)</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+														</xs:sequence>
+														<xs:attribute name="emitterId" type="xs:NCName" use="required">
+															<xs:annotation>
+																<xs:documentation>Id reference to an Emitter element defined under GeneralDefinitions/Emitters</xs:documentation>
+															</xs:annotation>
+														</xs:attribute>
+														<xs:attribute name="targetModelType">
+															<xs:annotation>
+																<xs:documentation>Only required if multiple 3D model types (l3d, m3d, r3d) with different emitter object names are defined.</xs:documentation>
+															</xs:annotation>
+															<xs:simpleType>
+																<xs:restriction base="xs:string">
+																	<xs:enumeration value="l3d"/>
+																	<xs:enumeration value="m3d"/>
+																	<xs:enumeration value="r3d"/>
+																</xs:restriction>
+															</xs:simpleType>
+														</xs:attribute>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+											<xs:attribute name="geometryId" type="xs:NCName" use="required">
+												<xs:annotation>
+													<xs:documentation>Id reference to a ModelGeometry element defined under GeneralDefinitions/Geometries</xs:documentation>
+												</xs:annotation>
+											</xs:attribute>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="GeometryReferences">
 										<xs:annotation>
-											<xs:documentation>Id reference to a ModelGeometry element defined under GeneralDefinitions/Geometries</xs:documentation>
+											<xs:documentation>Combination of simple and model geometry references. Use this Node for a combination of a simple cuboid/cylinder geometry reference and a 3D model geometry reference to provide multiple levels of detail</xs:documentation>
 										</xs:annotation>
-									</xs:attribute>
-								</xs:complexType>
-							</xs:element>
-						</xs:choice>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="SimpleGeometryReference">
+													<xs:annotation>
+														<xs:documentation>Simple geometry reference, defined under GeneralDefinitions/Geometries</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:attribute name="geometryId" type="xs:NCName" use="required">
+															<xs:annotation>
+																<xs:documentation>Id reference to a SimpleGeometry element defined under GeneralDefinitions/Geometries</xs:documentation>
+															</xs:annotation>
+														</xs:attribute>
+														<xs:attribute name="emitterId" type="xs:NCName" use="required">
+															<xs:annotation>
+																<xs:documentation>Id reference to an Emitter element defined under GeneralDefinitions/Emitters</xs:documentation>
+															</xs:annotation>
+														</xs:attribute>
+													</xs:complexType>
+												</xs:element>
+												<xs:element name="ModelGeometryReference">
+													<xs:annotation>
+														<xs:documentation>3D model geometry reference, defined under GeneralDefinitions/Geometries</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="EmitterReference" maxOccurs="unbounded">
+																<xs:annotation>
+																	<xs:documentation>Emitter reference inside the 3D model</xs:documentation>
+																</xs:annotation>
+																<xs:complexType>
+																	<xs:sequence>
+																		<xs:element name="EmitterObjectExternalName" type="xs:string">
+																			<xs:annotation>
+																				<xs:documentation>Name of the emitter object inside the referenced 3D geometry (referenced by geometryId)</xs:documentation>
+																			</xs:annotation>
+																		</xs:element>
+																	</xs:sequence>
+																	<xs:attribute name="emitterId" type="xs:NCName" use="required">
+																		<xs:annotation>
+																			<xs:documentation>Id reference to an Emitter element defined under GeneralDefinitions/Emitters</xs:documentation>
+																		</xs:annotation>
+																	</xs:attribute>
+																	<xs:attribute name="targetModelType">
+																		<xs:annotation>
+																			<xs:documentation>Only required if multiple 3D model types (l3d, m3d, r3d) with different emitter object names are defined.</xs:documentation>
+																		</xs:annotation>
+																		<xs:simpleType>
+																			<xs:restriction base="xs:string">
+																				<xs:enumeration value="l3d"/>
+																				<xs:enumeration value="m3d"/>
+																				<xs:enumeration value="r3d"/>
+																			</xs:restriction>
+																		</xs:simpleType>
+																	</xs:attribute>
+																</xs:complexType>
+															</xs:element>
+														</xs:sequence>
+														<xs:attribute name="geometryId" type="xs:NCName" use="required">
+															<xs:annotation>
+																<xs:documentation>Id reference to a ModelGeometry element defined under GeneralDefinitions/Geometries</xs:documentation>
+															</xs:annotation>
+														</xs:attribute>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:choice>
+							</xs:complexType>
+						</xs:element>
 						<xs:element name="ProductSeries" type="ProductSeries" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Product series applicable to a single variant of the product.</xs:documentation>
