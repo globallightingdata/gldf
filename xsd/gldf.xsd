@@ -1709,6 +1709,59 @@ Note: These types are used in IES photometry files</xs:documentation>
 												<xs:documentation>Translatable display name of the Sensor. Could be shown in applications like DIALux and Relux. Intended for documentation purposes</xs:documentation>
 											</xs:annotation>
 										</xs:element>
+										<xs:element name="Rotation" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Sensor rotation. E.g. for wall or floor sensors, if not measured in position of use</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="X">
+														<xs:annotation>
+															<xs:documentation>Rotation around X axis</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:int">
+																<xs:minInclusive value="0"/>
+																<xs:maxInclusive value="360"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="Y">
+														<xs:annotation>
+															<xs:documentation>Rotation around Y axis</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:int">
+																<xs:minInclusive value="0"/>
+																<xs:maxInclusive value="360"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="Z">
+														<xs:annotation>
+															<xs:documentation>Rotation around Z axis</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:int">
+																<xs:minInclusive value="0"/>
+																<xs:maxInclusive value="360"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="G0">
+														<xs:annotation>
+															<xs:documentation>Rotation around G0</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:int">
+																<xs:minInclusive value="0"/>
+																<xs:maxInclusive value="360"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
 									</xs:sequence>
 									<xs:attribute name="sensorId" type="xs:NCName" use="required">
 										<xs:annotation>
