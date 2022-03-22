@@ -3125,7 +3125,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 					<xs:sequence>
 						<xs:element name="ProductSize" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Dimensions of the product</xs:documentation>
+								<xs:documentation>Dimensions of the lumianire</xs:documentation>
 							</xs:annotation>
 							<xs:complexType>
 								<xs:sequence>
@@ -3147,15 +3147,96 @@ Note: These types are used in IES photometry files</xs:documentation>
 								</xs:sequence>
 							</xs:complexType>
 						</xs:element>
-						<xs:element name="OperatingTemperature" type="TemperatureRange" minOccurs="0">
+						<xs:element name="ProductForm" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Operating range defined by a minimum and maximum temperature, at which the luminaire operates normally</xs:documentation>
+								<xs:documentation>Geometrical form of the luminaire</xs:documentation>
 							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="Round"/>
+									<xs:enumeration value="Rounded"/>
+									<xs:enumeration value="Square"/>
+									<xs:enumeration value="Linear"/>
+									<xs:enumeration value="Areal"/>
+									<xs:enumeration value="Sphere"/>
+									<xs:enumeration value="Cuboid"/>
+									<xs:enumeration value="Cylinder"/>
+									<xs:enumeration value="Cone"/>
+									<xs:enumeration value="Special"/>
+								</xs:restriction>
+							</xs:simpleType>
 						</xs:element>
 						<xs:element name="SealingMaterial" type="Locale" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Material of the sealing of a luminaire</xs:documentation>
 							</xs:annotation>
+						</xs:element>
+						<xs:element name="Adjustabilities" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Possible adjustabilities of parts of the luminaire</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Adjustability" maxOccurs="7">
+										<xs:annotation>
+											<xs:documentation>The ability to adjust parts of the luminaire</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="Fixed"/>
+												<xs:enumeration value="Orientation"/>
+												<xs:enumeration value="Turn"/>
+												<xs:enumeration value="Tilt"/>
+												<xs:enumeration value="Cardanic"/>
+												<xs:enumeration value="Height adjustable"/>
+												<xs:enumeration value="User defined"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="IKRating" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Degree of protection provided by enclosures for electrical equipment against external mechanical impacts. See IEC 62262:2002 and IEC 60068-2-75:1997</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="IK00"/>
+									<xs:enumeration value="IK01"/>
+									<xs:enumeration value="IK02"/>
+									<xs:enumeration value="IK03"/>
+									<xs:enumeration value="IK04"/>
+									<xs:enumeration value="IK05"/>
+									<xs:enumeration value="IK06"/>
+									<xs:enumeration value="IK07"/>
+									<xs:enumeration value="IK08"/>
+									<xs:enumeration value="IK09"/>
+									<xs:enumeration value="IK10"/>
+									<xs:enumeration value="IK10+"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="ProtectiveAreas" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Possible usage in protection-relevant areas</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Area" maxOccurs="3">
+										<xs:annotation>
+											<xs:documentation>Possible usage in protection-relevant area</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="Cleanroom suitable"/>
+												<xs:enumeration value="Ball-impact proof"/>
+												<xs:enumeration value="Drive/Roll-over proof"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
 						</xs:element>
 						<xs:element name="Weight" type="xs:double" minOccurs="0">
 							<xs:annotation>
@@ -3266,27 +3347,6 @@ Note: These types are used in IES photometry files</xs:documentation>
 								</xs:restriction>
 							</xs:simpleType>
 						</xs:element>
-						<xs:element name="IKRating" minOccurs="0">
-							<xs:annotation>
-								<xs:documentation>Degree of protection provided by enclosures for electrical equipment against external mechanical impacts. See IEC 62262:2002 and IEC 60068-2-75:1997</xs:documentation>
-							</xs:annotation>
-							<xs:simpleType>
-								<xs:restriction base="xs:string">
-									<xs:enumeration value="IK00"/>
-									<xs:enumeration value="IK01"/>
-									<xs:enumeration value="IK02"/>
-									<xs:enumeration value="IK03"/>
-									<xs:enumeration value="IK04"/>
-									<xs:enumeration value="IK05"/>
-									<xs:enumeration value="IK06"/>
-									<xs:enumeration value="IK07"/>
-									<xs:enumeration value="IK08"/>
-									<xs:enumeration value="IK09"/>
-									<xs:enumeration value="IK10"/>
-									<xs:enumeration value="IK10+"/>
-								</xs:restriction>
-							</xs:simpleType>
-						</xs:element>
 						<xs:element name="PowerFactor" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Ratio of the amount of the active power to the apparent power at 100% load. See also IEC 80000-6:2008</xs:documentation>
@@ -3302,6 +3362,30 @@ Note: These types are used in IES photometry files</xs:documentation>
 							<xs:annotation>
 								<xs:documentation>Determines whether the luminous flux stays constant over the declared lifetime</xs:documentation>
 							</xs:annotation>
+						</xs:element>
+						<xs:element name="LightDistribution" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Projected pattern of the emitted light of the luminaire</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="Laterally symmetrical narrow"/>
+									<xs:enumeration value="Laterally symmetrical medium"/>
+									<xs:enumeration value="Laterally symmetrical wide"/>
+									<xs:enumeration value="Symmetrical in each quadrant"/>
+									<xs:enumeration value="Symmetric about 0-180 plane"/>
+									<xs:enumeration value="Symmetric about 90-270 plane"/>
+									<xs:enumeration value="Asymmetrical"/>
+									<xs:enumeration value="Asymmetrical flood"/>
+									<xs:enumeration value="Asymmetrical wide flood"/>
+									<xs:enumeration value="Diffuse half spherical"/>
+									<xs:enumeration value="Diffuse full spherical"/>
+									<xs:enumeration value="Direct"/>
+									<xs:enumeration value="Indirect"/>
+									<xs:enumeration value="Direct indirect"/>
+									<xs:enumeration value="Other"/>
+								</xs:restriction>
+							</xs:simpleType>
 						</xs:element>
 					</xs:sequence>
 				</xs:complexType>
@@ -3355,12 +3439,318 @@ Note: These types are used in IES photometry files</xs:documentation>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="MountingAndAccessory" minOccurs="0">
+			<xs:element name="Marketing" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Descriptive attributes for mounting and accessories</xs:documentation>
+					<xs:documentation>Descriptive attributes for marketing</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
+						<xs:element name="ListPrices" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>List of prices per unit</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="ListPrice" maxOccurs="unbounded">
+										<xs:annotation>
+											<xs:documentation>List price with a maximum of 2 decimal places in a given currency</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:simpleContent>
+												<xs:extension base="xs:double">
+													<xs:attribute name="currency" use="required">
+														<xs:annotation>
+															<xs:documentation>Currency code according to ISO 4217 must consist of 3 characters</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:pattern value="[a-zA-Z]{3}"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:attribute>
+												</xs:extension>
+											</xs:simpleContent>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="HousingColors" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Housing colors of the luminaire</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="HousingColor" maxOccurs="unbounded">
+										<xs:annotation>
+											<xs:documentation>The translatable name of color of the housing and/or RAL number</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:complexContent>
+												<xs:extension base="Locale">
+													<xs:attribute name="ral">
+														<xs:annotation>
+															<xs:documentation>RAL Classic color space system code. E.g. "RAL 3016" (coral-red)</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:int">
+																<xs:pattern value="[1-9][0-9]{3}"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:attribute>
+												</xs:extension>
+											</xs:complexContent>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Markets" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Target markets</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Region" type="Locale" maxOccurs="unbounded">
+										<xs:annotation>
+											<xs:documentation>The region can be defined by the user and should be translated to the applicable languages in the Locale element</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Hyperlinks" type="Hyperlinks" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Additional information online</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Designer" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Name of the designer of the luminaire</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="ApprovalMarks" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Approval marks of the product</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="ApprovalMark" type="xs:string" maxOccurs="unbounded">
+										<xs:annotation>
+											<xs:documentation>Approval marks of the product</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="DesignAwards" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Design awards of the product</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="DesignAward" type="xs:string" maxOccurs="unbounded">
+										<xs:annotation>
+											<xs:documentation>Luminaire design award, e.g. 
+"Red Dot Award"</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Labels" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Labels of the product</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Label" maxOccurs="14">
+										<xs:annotation>
+											<xs:documentation>Label of the product</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="CE"/>
+												<xs:enumeration value="GS"/>
+												<xs:enumeration value="ENEC"/>
+												<xs:enumeration value="CCC"/>
+												<xs:enumeration value="VDE"/>
+												<xs:enumeration value="EAC"/>
+												<xs:enumeration value="D"/>
+												<xs:enumeration value="M"/>
+												<xs:enumeration value="MM"/>
+												<xs:enumeration value="F"/>
+												<xs:enumeration value="FF"/>
+												<xs:enumeration value="UL"/>
+												<xs:enumeration value="Handwarm"/>
+												<xs:enumeration value="IFS Food"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Applications" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Fields of application for the luminaire</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Application" maxOccurs="unbounded">
+										<xs:annotation>
+											<xs:documentation>Field of application for the luminaire</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="Interior: Traffic Zones"/>
+												<xs:enumeration value="Interior: Traffic Zones: Corridors"/>
+												<xs:enumeration value="Interior: Traffic Zones: Staircases"/>
+												<xs:enumeration value="Interior: Traffic Zones: Loading Zones"/>
+												<xs:enumeration value="Interior: Traffic Zones: Cove Lighting / Cornices (Indoor)"/>
+												<xs:enumeration value="Interior: General Areas (Interior)"/>
+												<xs:enumeration value="Interior: General Areas (Interior): Break Rooms"/>
+												<xs:enumeration value="Interior: General Areas (Interior): Reception Areas"/>
+												<xs:enumeration value="Interior: Office"/>
+												<xs:enumeration value="Interior: Office: Office Desks"/>
+												<xs:enumeration value="Interior: Office: Group Offices"/>
+												<xs:enumeration value="Interior: Office: Discussions"/>
+												<xs:enumeration value="Interior: Office: Archives"/>
+												<xs:enumeration value="Interior: Industry/Craft"/>
+												<xs:enumeration value="Interior: Industry/Craft: Industrial Workshops"/>
+												<xs:enumeration value="Interior: Industry/Craft: Warehouses"/>
+												<xs:enumeration value="Interior: Industry/Craft: Cold Storage Facilities"/>
+												<xs:enumeration value="Interior: Industry/Craft: Kitchens"/>
+												<xs:enumeration value="Interior: Industry/Craft: Assembly Work Stations"/>
+												<xs:enumeration value="Interior: Industry/Craft: Machine Illumination"/>
+												<xs:enumeration value="Interior: Industry/Craft: Control Work Stations"/>
+												<xs:enumeration value="Interior: Industry/Craft: Laboratories"/>
+												<xs:enumeration value="Interior: Industry/Craft: Hangars"/>
+												<xs:enumeration value="Interior: Shop Lighting"/>
+												<xs:enumeration value="Interior: Shop Lighting: Retail"/>
+												<xs:enumeration value="Interior: Shop Lighting: Food"/>
+												<xs:enumeration value="Interior: Shop Lighting: Clothing"/>
+												<xs:enumeration value="Interior: Shop Lighting: Display Windows"/>
+												<xs:enumeration value="Interior: Shop Lighting: Halls"/>
+												<xs:enumeration value="Interior: Shop Lighting: Great Halls"/>
+												<xs:enumeration value="Interior: Shop Lighting: Mirrors"/>
+												<xs:enumeration value="Interior: Public Areas"/>
+												<xs:enumeration value="Interior: Public Areas: Restaurants"/>
+												<xs:enumeration value="Interior: Public Areas: Theatres"/>
+												<xs:enumeration value="Interior: Public Areas: Railway Stations"/>
+												<xs:enumeration value="Interior: Public Areas: Museums"/>
+												<xs:enumeration value="Interior: Public Areas: Fairs"/>
+												<xs:enumeration value="Interior: Public Areas: Prisons"/>
+												<xs:enumeration value="Interior: Public Areas: Canteens"/>
+												<xs:enumeration value="Interior: Emergency Lighting"/>
+												<xs:enumeration value="Interior: Emergency Lighting: Emergency Lighting"/>
+												<xs:enumeration value="Interior: Emergency Lighting: Signal Lighting"/>
+												<xs:enumeration value="Interior: Educational Facilities"/>
+												<xs:enumeration value="Interior: Educational Facilities: Classrooms"/>
+												<xs:enumeration value="Interior: Educational Facilities: Libraries"/>
+												<xs:enumeration value="Interior: Educational Facilities: Lounges"/>
+												<xs:enumeration value="Interior: Educational Facilities: Sports Halls"/>
+												<xs:enumeration value="Interior: Private Areas"/>
+												<xs:enumeration value="Interior: Private Areas: Living Areas"/>
+												<xs:enumeration value="Interior: Private Areas: Baths"/>
+												<xs:enumeration value="Interior: Private Areas: Kitchens"/>
+												<xs:enumeration value="Interior: Hospitals and Care Places"/>
+												<xs:enumeration value="Interior: Hospitals and Care Places: Hospital Wards"/>
+												<xs:enumeration value="Interior: Hospitals and Care Places: Health Care Patient Rooms"/>
+												<xs:enumeration value="Interior: Hospitals and Care Places: Health Care Clean Room Areas"/>
+												<xs:enumeration value="Interior: Hospitals and Care Places: Health Care Examination Rooms"/>
+												<xs:enumeration value="Interior: Hospitals and Care Places: Health Care Circulation Areas"/>
+												<xs:enumeration value="Exterior: General Areas (Exterior)"/>
+												<xs:enumeration value="Exterior: General Areas (Exterior): Places"/>
+												<xs:enumeration value="Exterior: General Areas (Exterior): Parks"/>
+												<xs:enumeration value="Exterior: General Areas (Exterior): Underpasses"/>
+												<xs:enumeration value="Exterior: General Areas (Exterior): (Outdoor) Stairs"/>
+												<xs:enumeration value="Exterior: General Areas (Exterior): Platform-Roofs"/>
+												<xs:enumeration value="Exterior: General Areas (Exterior): Parking Spaces (Indoor)"/>
+												<xs:enumeration value="Exterior: General Areas (Exterior): Outdoor Parkings"/>
+												<xs:enumeration value="Exterior: General Areas (Exterior): Pools"/>
+												<xs:enumeration value="Exterior: General Areas (Exterior): Fountains"/>
+												<xs:enumeration value="Exterior: Streets"/>
+												<xs:enumeration value="Exterior: Streets: Motorways"/>
+												<xs:enumeration value="Exterior: Streets: Access Roads"/>
+												<xs:enumeration value="Exterior: Streets: Residential Areas"/>
+												<xs:enumeration value="Exterior: Streets: Bicycle Paths"/>
+												<xs:enumeration value="Exterior: Streets: Footpaths"/>
+												<xs:enumeration value="Exterior: Streets: Petrol-Gas Stations"/>
+												<xs:enumeration value="Exterior: Streets: Tunnels"/>
+												<xs:enumeration value="Exterior: Sports Fields"/>
+												<xs:enumeration value="Exterior: Sports Fields: Spotlightings"/>
+												<xs:enumeration value="Exterior: Other"/>
+												<xs:enumeration value="Exterior: Other: Facades"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="OperationsAndMaintenance" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Descriptive attributes for operations and maintenance</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="UsefulLifeTimes" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Useful lifetimes of the luminaire with declaration of Lx, By and ambient temperature. E.g. L80B50 50000h 25°C</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="UsefulLife" maxOccurs="unbounded">
+										<xs:annotation>
+											<xs:documentation>Single useful lifetime of the luminaire with declaration of Lx, By and ambient temperature. E.g. L80B50 50000h 25°C</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:pattern value="L\d{2,3}B\d{2,3}\s\d{1,}h((\s\d{1,}°C)|)"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="MedianUsefulLifeTimes" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Median useful lifetimes. Time during which 50% (B50) of a population of operating LED modules of the same type have parametrically failed to provide at least the percentage Lx of the initial luminous flux.
+Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on application). E.g. L80B50 75000h 25°C</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="MedianUsefulLife" maxOccurs="unbounded">
+										<xs:annotation>
+											<xs:documentation>Single median useful lifetime during which 50% (B50) of a population of operating LED modules of the same type have parametrically failed to provide at least the percentage Lx of the initial luminous flux.
+Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on application). E.g. L80B50 75000h 25°C</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:pattern value="L\d{2,3}B\d{2,3}\s\d{1,}h((\s\d{1,}°C)|)"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="OperatingTemperature" type="TemperatureRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Operating range defined by a minimum and maximum temperature, at which the luminaire operates normally</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="AmbientTemperature" type="TemperatureRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Recommended ambient temperature range</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="RatedAmbientTemperature" type="xs:int" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Rated ambient performance temperature. It's the highest ambient temperature around the luminaire related to a rated performance of the luminaire under normal operating conditions (Unit: celsius)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 						<xs:element name="ATEX" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Specifies whether the fitting is intended for installation in an explosive environment. See ATEX directive 2014/34/EU</xs:documentation>
@@ -3787,281 +4177,6 @@ Note: These types are used in IES photometry files</xs:documentation>
 									</xs:element>
 								</xs:sequence>
 							</xs:complexType>
-						</xs:element>
-						<xs:element name="AmbientTemperature" type="TemperatureRange" minOccurs="0">
-							<xs:annotation>
-								<xs:documentation>Recommended ambient temperature range</xs:documentation>
-							</xs:annotation>
-						</xs:element>
-					</xs:sequence>
-				</xs:complexType>
-			</xs:element>
-			<xs:element name="Marketing" minOccurs="0">
-				<xs:annotation>
-					<xs:documentation>Descriptive attributes for marketing</xs:documentation>
-				</xs:annotation>
-				<xs:complexType>
-					<xs:sequence>
-						<xs:element name="ListPrices" minOccurs="0">
-							<xs:annotation>
-								<xs:documentation>List of prices per unit</xs:documentation>
-							</xs:annotation>
-							<xs:complexType>
-								<xs:sequence>
-									<xs:element name="ListPrice" maxOccurs="unbounded">
-										<xs:annotation>
-											<xs:documentation>List price with a maximum of 2 decimal places in a given currency</xs:documentation>
-										</xs:annotation>
-										<xs:complexType>
-											<xs:simpleContent>
-												<xs:extension base="xs:double">
-													<xs:attribute name="currency" use="required">
-														<xs:annotation>
-															<xs:documentation>Currency code according to ISO 4217 must consist of 3 characters</xs:documentation>
-														</xs:annotation>
-														<xs:simpleType>
-															<xs:restriction base="xs:string">
-																<xs:pattern value="[a-zA-Z]{3}"/>
-															</xs:restriction>
-														</xs:simpleType>
-													</xs:attribute>
-												</xs:extension>
-											</xs:simpleContent>
-										</xs:complexType>
-									</xs:element>
-								</xs:sequence>
-							</xs:complexType>
-						</xs:element>
-						<xs:element name="HousingColors" minOccurs="0">
-							<xs:annotation>
-								<xs:documentation>Housing colors of the luminaire</xs:documentation>
-							</xs:annotation>
-							<xs:complexType>
-								<xs:sequence>
-									<xs:element name="HousingColor" maxOccurs="unbounded">
-										<xs:annotation>
-											<xs:documentation>The translatable name of color of the housing and/or RAL number</xs:documentation>
-										</xs:annotation>
-										<xs:complexType>
-											<xs:complexContent>
-												<xs:extension base="Locale">
-													<xs:attribute name="ral">
-														<xs:annotation>
-															<xs:documentation>RAL Classic color space system code. E.g. "RAL 3016" (coral-red)</xs:documentation>
-														</xs:annotation>
-														<xs:simpleType>
-															<xs:restriction base="xs:int">
-																<xs:pattern value="[1-9][0-9]{3}"/>
-															</xs:restriction>
-														</xs:simpleType>
-													</xs:attribute>
-												</xs:extension>
-											</xs:complexContent>
-										</xs:complexType>
-									</xs:element>
-								</xs:sequence>
-							</xs:complexType>
-						</xs:element>
-						<xs:element name="Markets" minOccurs="0">
-							<xs:annotation>
-								<xs:documentation>Target markets</xs:documentation>
-							</xs:annotation>
-							<xs:complexType>
-								<xs:sequence>
-									<xs:element name="Region" type="Locale" maxOccurs="unbounded">
-										<xs:annotation>
-											<xs:documentation>The region can be defined by the user and should be translated to the applicable languages in the Locale element</xs:documentation>
-										</xs:annotation>
-									</xs:element>
-								</xs:sequence>
-							</xs:complexType>
-						</xs:element>
-						<xs:element name="Hyperlinks" type="Hyperlinks" minOccurs="0">
-							<xs:annotation>
-								<xs:documentation>Additional information online</xs:documentation>
-							</xs:annotation>
-						</xs:element>
-						<xs:element name="Designer" type="xs:string" minOccurs="0">
-							<xs:annotation>
-								<xs:documentation>Name of the designer of the luminaire</xs:documentation>
-							</xs:annotation>
-						</xs:element>
-						<xs:element name="ApprovalMarks" minOccurs="0">
-							<xs:annotation>
-								<xs:documentation>Approval marks of the product</xs:documentation>
-							</xs:annotation>
-							<xs:complexType>
-								<xs:sequence>
-									<xs:element name="ApprovalMark" type="xs:string" maxOccurs="unbounded">
-										<xs:annotation>
-											<xs:documentation>Approval marks of the product</xs:documentation>
-										</xs:annotation>
-									</xs:element>
-								</xs:sequence>
-							</xs:complexType>
-						</xs:element>
-						<xs:element name="DesignAwards" minOccurs="0">
-							<xs:complexType>
-								<xs:sequence>
-									<xs:element name="DesignAward" type="xs:string" maxOccurs="unbounded">
-										<xs:annotation>
-											<xs:documentation>Luminaire design award, e.g. 
-"Red Dot Award"</xs:documentation>
-										</xs:annotation>
-									</xs:element>
-								</xs:sequence>
-							</xs:complexType>
-						</xs:element>
-						<xs:element name="Applications" minOccurs="0">
-							<xs:annotation>
-								<xs:documentation>Fields of application for the luminaire</xs:documentation>
-							</xs:annotation>
-							<xs:complexType>
-								<xs:sequence>
-									<xs:element name="Application" maxOccurs="unbounded">
-										<xs:annotation>
-											<xs:documentation>Field of application for the luminaire</xs:documentation>
-										</xs:annotation>
-										<xs:simpleType>
-											<xs:restriction base="xs:string">
-												<xs:enumeration value="Interior: Traffic Zones"/>
-												<xs:enumeration value="Interior: Traffic Zones: Corridors"/>
-												<xs:enumeration value="Interior: Traffic Zones: Staircases"/>
-												<xs:enumeration value="Interior: Traffic Zones: Loading Zones"/>
-												<xs:enumeration value="Interior: Traffic Zones: Cove Lighting / Cornices (Indoor)"/>
-												<xs:enumeration value="Interior: General Areas (Interior)"/>
-												<xs:enumeration value="Interior: General Areas (Interior): Break Rooms"/>
-												<xs:enumeration value="Interior: General Areas (Interior): Reception Areas"/>
-												<xs:enumeration value="Interior: Office"/>
-												<xs:enumeration value="Interior: Office: Office Desks"/>
-												<xs:enumeration value="Interior: Office: Group Offices"/>
-												<xs:enumeration value="Interior: Office: Discussions"/>
-												<xs:enumeration value="Interior: Office: Archives"/>
-												<xs:enumeration value="Interior: Industry/Craft"/>
-												<xs:enumeration value="Interior: Industry/Craft: Industrial Workshops"/>
-												<xs:enumeration value="Interior: Industry/Craft: Warehouses"/>
-												<xs:enumeration value="Interior: Industry/Craft: Cold Storage Facilities"/>
-												<xs:enumeration value="Interior: Industry/Craft: Kitchens"/>
-												<xs:enumeration value="Interior: Industry/Craft: Assembly Work Stations"/>
-												<xs:enumeration value="Interior: Industry/Craft: Machine Illumination"/>
-												<xs:enumeration value="Interior: Industry/Craft: Control Work Stations"/>
-												<xs:enumeration value="Interior: Industry/Craft: Laboratories"/>
-												<xs:enumeration value="Interior: Industry/Craft: Hangars"/>
-												<xs:enumeration value="Interior: Shop Lighting"/>
-												<xs:enumeration value="Interior: Shop Lighting: Retail"/>
-												<xs:enumeration value="Interior: Shop Lighting: Food"/>
-												<xs:enumeration value="Interior: Shop Lighting: Clothing"/>
-												<xs:enumeration value="Interior: Shop Lighting: Display Windows"/>
-												<xs:enumeration value="Interior: Shop Lighting: Halls"/>
-												<xs:enumeration value="Interior: Shop Lighting: Great Halls"/>
-												<xs:enumeration value="Interior: Shop Lighting: Mirrors"/>
-												<xs:enumeration value="Interior: Public Areas"/>
-												<xs:enumeration value="Interior: Public Areas: Restaurants"/>
-												<xs:enumeration value="Interior: Public Areas: Theatres"/>
-												<xs:enumeration value="Interior: Public Areas: Railway Stations"/>
-												<xs:enumeration value="Interior: Public Areas: Museums"/>
-												<xs:enumeration value="Interior: Public Areas: Fairs"/>
-												<xs:enumeration value="Interior: Public Areas: Prisons"/>
-												<xs:enumeration value="Interior: Public Areas: Canteens"/>
-												<xs:enumeration value="Interior: Emergency Lighting"/>
-												<xs:enumeration value="Interior: Emergency Lighting: Emergency Lighting"/>
-												<xs:enumeration value="Interior: Emergency Lighting: Signal Lighting"/>
-												<xs:enumeration value="Interior: Educational Facilities"/>
-												<xs:enumeration value="Interior: Educational Facilities: Classrooms"/>
-												<xs:enumeration value="Interior: Educational Facilities: Libraries"/>
-												<xs:enumeration value="Interior: Educational Facilities: Lounges"/>
-												<xs:enumeration value="Interior: Educational Facilities: Sports Halls"/>
-												<xs:enumeration value="Interior: Private Areas"/>
-												<xs:enumeration value="Interior: Private Areas: Living Areas"/>
-												<xs:enumeration value="Interior: Private Areas: Baths"/>
-												<xs:enumeration value="Interior: Private Areas: Kitchens"/>
-												<xs:enumeration value="Interior: Hospitals and Care Places"/>
-												<xs:enumeration value="Interior: Hospitals and Care Places: Hospital Wards"/>
-												<xs:enumeration value="Interior: Hospitals and Care Places: Health Care Patient Rooms"/>
-												<xs:enumeration value="Interior: Hospitals and Care Places: Health Care Clean Room Areas"/>
-												<xs:enumeration value="Interior: Hospitals and Care Places: Health Care Examination Rooms"/>
-												<xs:enumeration value="Interior: Hospitals and Care Places: Health Care Circulation Areas"/>
-												<xs:enumeration value="Exterior: General Areas (Exterior)"/>
-												<xs:enumeration value="Exterior: General Areas (Exterior): Places"/>
-												<xs:enumeration value="Exterior: General Areas (Exterior): Parks"/>
-												<xs:enumeration value="Exterior: General Areas (Exterior): Underpasses"/>
-												<xs:enumeration value="Exterior: General Areas (Exterior): (Outdoor) Stairs"/>
-												<xs:enumeration value="Exterior: General Areas (Exterior): Platform-Roofs"/>
-												<xs:enumeration value="Exterior: General Areas (Exterior): Parking Spaces (Indoor)"/>
-												<xs:enumeration value="Exterior: General Areas (Exterior): Outdoor Parkings"/>
-												<xs:enumeration value="Exterior: General Areas (Exterior): Pools"/>
-												<xs:enumeration value="Exterior: General Areas (Exterior): Fountains"/>
-												<xs:enumeration value="Exterior: Streets"/>
-												<xs:enumeration value="Exterior: Streets: Motorways"/>
-												<xs:enumeration value="Exterior: Streets: Access Roads"/>
-												<xs:enumeration value="Exterior: Streets: Residential Areas"/>
-												<xs:enumeration value="Exterior: Streets: Bicycle Paths"/>
-												<xs:enumeration value="Exterior: Streets: Footpaths"/>
-												<xs:enumeration value="Exterior: Streets: Petrol-Gas Stations"/>
-												<xs:enumeration value="Exterior: Streets: Tunnels"/>
-												<xs:enumeration value="Exterior: Sports Fields"/>
-												<xs:enumeration value="Exterior: Sports Fields: Spotlightings"/>
-												<xs:enumeration value="Exterior: Other"/>
-												<xs:enumeration value="Exterior: Other: Facades"/>
-											</xs:restriction>
-										</xs:simpleType>
-									</xs:element>
-								</xs:sequence>
-							</xs:complexType>
-						</xs:element>
-					</xs:sequence>
-				</xs:complexType>
-			</xs:element>
-			<xs:element name="OperationsAndMaintenance" minOccurs="0">
-				<xs:annotation>
-					<xs:documentation>Descriptive attributes for operations and maintenance</xs:documentation>
-				</xs:annotation>
-				<xs:complexType>
-					<xs:sequence>
-						<xs:element name="UsefulLifeTimes" minOccurs="0">
-							<xs:annotation>
-								<xs:documentation>Useful lifetimes of the luminaire with declaration of Lx, By and ambient temperature. E.g. L80B50 50000h 25°C</xs:documentation>
-							</xs:annotation>
-							<xs:complexType>
-								<xs:sequence>
-									<xs:element name="UsefulLife" maxOccurs="unbounded">
-										<xs:annotation>
-											<xs:documentation>Single useful lifetime of the luminaire with declaration of Lx, By and ambient temperature. E.g. L80B50 50000h 25°C</xs:documentation>
-										</xs:annotation>
-										<xs:simpleType>
-											<xs:restriction base="xs:string">
-												<xs:pattern value="L\d{2,3}B\d{2,3}\s\d{1,}h((\s\d{1,}°C)|)"/>
-											</xs:restriction>
-										</xs:simpleType>
-									</xs:element>
-								</xs:sequence>
-							</xs:complexType>
-						</xs:element>
-						<xs:element name="MedianUsefulLifeTimes" minOccurs="0">
-							<xs:annotation>
-								<xs:documentation>Median useful lifetimes. Time during which 50% (B50) of a population of operating LED modules of the same type have parametrically failed to provide at least the percentage Lx of the initial luminous flux.
-Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on application). E.g. L80B50 75000h 25°C</xs:documentation>
-							</xs:annotation>
-							<xs:complexType>
-								<xs:sequence>
-									<xs:element name="MedianUsefulLife" maxOccurs="unbounded">
-										<xs:annotation>
-											<xs:documentation>Single median useful lifetime during which 50% (B50) of a population of operating LED modules of the same type have parametrically failed to provide at least the percentage Lx of the initial luminous flux.
-Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on application). E.g. L80B50 75000h 25°C</xs:documentation>
-										</xs:annotation>
-										<xs:simpleType>
-											<xs:restriction base="xs:string">
-												<xs:pattern value="L\d{2,3}B\d{2,3}\s\d{1,}h((\s\d{1,}°C)|)"/>
-											</xs:restriction>
-										</xs:simpleType>
-									</xs:element>
-								</xs:sequence>
-							</xs:complexType>
-						</xs:element>
-						<xs:element name="RatedAmbientTemperature" type="xs:int" minOccurs="0">
-							<xs:annotation>
-								<xs:documentation>Rated ambient performance temperature. It's the highest ambient temperature around the luminaire related to a rated performance of the luminaire under normal operating conditions (Unit: celsius)</xs:documentation>
-							</xs:annotation>
 						</xs:element>
 						<xs:element name="AcousticAbsorptionRates" minOccurs="0">
 							<xs:annotation>
