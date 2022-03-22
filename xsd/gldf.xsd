@@ -626,7 +626,7 @@
 											<xs:documentation>Quotient of the luminous flux emitted by the luminaire and the power absorbed by the light source and associated circuits of the luminaire</xs:documentation>
 										</xs:annotation>
 										<xs:simpleType>
-											<xs:restriction base="xs:int">
+											<xs:restriction base="xs:double">
 												<xs:minInclusive value="0"/>
 												<xs:maxInclusive value="683"/>
 											</xs:restriction>
