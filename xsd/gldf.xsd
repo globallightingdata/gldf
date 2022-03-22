@@ -1924,6 +1924,35 @@ Note: These types are used in IES photometry files</xs:documentation>
 								</xs:complexType>
 							</xs:element>
 						</xs:choice>
+						<xs:element name="C-Heights" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Luminous heights for this SimpleGeometry</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="C0" type="xs:int">
+										<xs:annotation>
+											<xs:documentation>Luminous height in C0 in mm</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="C90" type="xs:int">
+										<xs:annotation>
+											<xs:documentation>Luminous height in C90 in mm</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="C180" type="xs:int">
+										<xs:annotation>
+											<xs:documentation>Luminous height in C180 in mm</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="C270" type="xs:int">
+										<xs:annotation>
+											<xs:documentation>Luminous height in C270 in mm</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
 					</xs:sequence>
 					<xs:attribute name="id" type="xs:ID" use="required">
 						<xs:annotation>
