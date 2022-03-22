@@ -651,7 +651,7 @@
 								<xs:sequence>
 									<xs:element name="LuminaireLuminance" type="xs:int" minOccurs="0">
 										<xs:annotation>
-											<xs:documentation>Average luminance of the luminous surface. See also EN 13032-1:2012 leuchtende Fläche</xs:documentation>
+											<xs:documentation>Average luminance of the luminous surface (Unit: cd/m²). See also EN 13032-1:2012 leuchtende Fläche</xs:documentation>
 										</xs:annotation>
 									</xs:element>
 									<xs:element name="LightOutputRatio" minOccurs="0">
@@ -881,7 +881,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 			</xs:element>
 			<xs:element name="RatedInputPower">
 				<xs:annotation>
-					<xs:documentation>Input power consumed by the light source, when the luminaire is turned on (Unit: W)</xs:documentation>
+					<xs:documentation>Input power consumed by the light source, when the luminaire is turned on (Unit: watt)</xs:documentation>
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:double">
@@ -902,7 +902,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 					<xs:sequence>
 						<xs:element name="Lower">
 							<xs:annotation>
-								<xs:documentation>Minimal nominal output power of light source</xs:documentation>
+								<xs:documentation>Minimal nominal output power of light source  (Unit: watt)</xs:documentation>
 							</xs:annotation>
 							<xs:simpleType>
 								<xs:restriction base="xs:double">
@@ -912,7 +912,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 						</xs:element>
 						<xs:element name="Upper">
 							<xs:annotation>
-								<xs:documentation>Maximum nominal output power of light source</xs:documentation>
+								<xs:documentation>Maximum nominal output power of light source (Unit: watt)</xs:documentation>
 							</xs:annotation>
 							<xs:simpleType>
 								<xs:restriction base="xs:double">
@@ -922,7 +922,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 						</xs:element>
 						<xs:element name="DefaultLightSourcePower">
 							<xs:annotation>
-								<xs:documentation>Recommended light source power by supplier or manufacturer</xs:documentation>
+								<xs:documentation>Recommended light source power by supplier or manufacturer (Unit: watt)</xs:documentation>
 							</xs:annotation>
 							<xs:simpleType>
 								<xs:restriction base="xs:double">
@@ -970,7 +970,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 									<xs:extension base="xs:double">
 										<xs:attribute name="inputPower" use="required">
 											<xs:annotation>
-												<xs:documentation>Input power, e.g. 0.82</xs:documentation>
+												<xs:documentation>Input power factor, e.g. 0.82</xs:documentation>
 											</xs:annotation>
 											<xs:simpleType>
 												<xs:restriction base="xs:double">
@@ -1031,7 +1031,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 						</xs:element>
 						<xs:element name="CorrelatedColorTemperature" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>The color temperature in Kelvin. See EN 12665:2018 for further information</xs:documentation>
+								<xs:documentation>The color temperature. See EN 12665:2018 for further information (Unit: kelvin)</xs:documentation>
 							</xs:annotation>
 							<xs:simpleType>
 								<xs:restriction base="xs:int">
@@ -1047,7 +1047,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 								<xs:sequence>
 									<xs:element name="Lower">
 										<xs:annotation>
-											<xs:documentation>Lower limit in Kelvin</xs:documentation>
+											<xs:documentation>Lower limit (Unit: kelvin)</xs:documentation>
 										</xs:annotation>
 										<xs:simpleType>
 											<xs:restriction base="xs:int">
@@ -1057,7 +1057,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 									</xs:element>
 									<xs:element name="Upper">
 										<xs:annotation>
-											<xs:documentation>Upper limit in Kelvin</xs:documentation>
+											<xs:documentation>Upper limit (Unit: kelvin)</xs:documentation>
 										</xs:annotation>
 										<xs:simpleType>
 											<xs:restriction base="xs:int">
@@ -1280,7 +1280,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 								</xs:element>
 								<xs:element name="RatedLuminousFluxRGB" minOccurs="0">
 									<xs:annotation>
-										<xs:documentation>Initial luminous flux of the RGB module part. Covers only the coloured light portion (Unit lm)</xs:documentation>
+										<xs:documentation>Initial luminous flux of the RGB module part. Covers only the coloured light portion (Unit: lumen)</xs:documentation>
 									</xs:annotation>
 									<xs:simpleType>
 										<xs:restriction base="xs:int">
@@ -1452,7 +1452,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 																</xs:sequence>
 																<xs:attribute name="burningTime" use="required">
 																	<xs:annotation>
-																		<xs:documentation>Corresponds to IES "Burning Time"</xs:documentation>
+																		<xs:documentation>Corresponds to IES "Burning Time" (Unit: hour)</xs:documentation>
 																	</xs:annotation>
 																	<xs:simpleType>
 																		<xs:restriction base="xs:int">
@@ -1474,7 +1474,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 														<xs:extension base="xs:double">
 															<xs:attribute name="hours" use="required">
 																<xs:annotation>
-																	<xs:documentation>Hours to reach given factor</xs:documentation>
+																	<xs:documentation>Hours to reach given factor (Unit: hour)</xs:documentation>
 																</xs:annotation>
 																<xs:simpleType>
 																	<xs:restriction base="xs:int">
@@ -1489,7 +1489,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 										</xs:choice>
 										<xs:attribute name="lifetime">
 											<xs:annotation>
-												<xs:documentation>Expected lifetime of the light source in hours</xs:documentation>
+												<xs:documentation>Expected lifetime of the light source (Unit: hour)</xs:documentation>
 											</xs:annotation>
 											<xs:simpleType>
 												<xs:restriction base="xs:int">
@@ -1539,22 +1539,22 @@ Note: These types are used in IES photometry files</xs:documentation>
 						</xs:element>
 						<xs:element name="StandbyPower" type="xs:double" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Power consumption of the luminaire switched off. All electrical components including emergency and lighting controls have to be considered. Also known as Parasitic Power. See EN 15193-1:2017</xs:documentation>
+								<xs:documentation>Power consumption of the luminaire switched off. All electrical components including emergency and lighting controls have to be considered. Also known as Parasitic Power. See EN 15193-1:2017 (Unit: watt)</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="ConstantLightOutputStartPower" type="xs:double" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Constant Light Output start power</xs:documentation>
+								<xs:documentation>Constant Light Output start power (Unit: watt)</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="ConstantLightOutputEndPower" type="xs:double" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Constant Light Output end power</xs:documentation>
+								<xs:documentation>Constant Light Output end power (Unit: watt)</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="PowerConsumptionControls" type="xs:double" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Power consumption of the detector with the light switched off and without motion detection / presence detection (idle state)</xs:documentation>
+								<xs:documentation>Power consumption of the detector with the light switched off and without motion detection / presence detection (idle state) (Unit: watt)</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="Dimmable" type="xs:boolean" minOccurs="0">
@@ -1669,7 +1669,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 						</xs:element>
 						<xs:element name="RatedInputPower">
 							<xs:annotation>
-								<xs:documentation>Input power consumed by the light source(s) and control gear, when the luminaire is turned on. Including any standby power (Unit: W)</xs:documentation>
+								<xs:documentation>Input power consumed by the light source(s) and control gear, when the luminaire is turned on. Including any standby power (Unit: watt)</xs:documentation>
 							</xs:annotation>
 							<xs:simpleType>
 								<xs:restriction base="xs:double">
@@ -1691,7 +1691,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 							</xs:element>
 							<xs:element name="EmergencyRatedLuminousFlux" minOccurs="0">
 								<xs:annotation>
-									<xs:documentation>Emergency luminous flux of the referenced light source (supplied by the referenced control gear)</xs:documentation>
+									<xs:documentation>Emergency luminous flux of the referenced light source. Supplied by the referenced control gear (Unit: lumen)</xs:documentation>
 								</xs:annotation>
 								<xs:simpleType>
 									<xs:restriction base="xs:int">
@@ -1939,7 +1939,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 									</xs:element>
 									<xs:element name="RatedLuminousFlux">
 										<xs:annotation>
-											<xs:documentation>Initial luminous flux of the entire equipment, being operated at a ambient temperature of 25°C. See also 13032-4:2015 (Unit lm)</xs:documentation>
+											<xs:documentation>Initial luminous flux of the entire equipment, being operated at a ambient temperature of 25°C. See also 13032-4:2015 (Unit: lumen)</xs:documentation>
 										</xs:annotation>
 										<xs:simpleType>
 											<xs:restriction base="xs:int">
@@ -1949,7 +1949,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 									</xs:element>
 									<xs:element name="RatedLuminousFluxRGB" minOccurs="0">
 										<xs:annotation>
-											<xs:documentation>Initial luminous flux of the RGB module part. Covers only the coloured light portion (Unit lm)</xs:documentation>
+											<xs:documentation>Initial luminous flux of the RGB module part. Covers only the coloured light portion (Unit: lumen)</xs:documentation>
 										</xs:annotation>
 										<xs:simpleType>
 											<xs:restriction base="xs:int">
@@ -1971,7 +1971,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 										</xs:element>
 										<xs:element name="EmergencyRatedLuminousFlux" minOccurs="0">
 											<xs:annotation>
-												<xs:documentation>Emergency luminous flux of the referenced light source (supplied by the referenced control gear)</xs:documentation>
+												<xs:documentation>Emergency luminous flux of the referenced light source, supplied by the referenced control gear (Unit: lumen)</xs:documentation>
 											</xs:annotation>
 											<xs:simpleType>
 												<xs:restriction base="xs:int">
@@ -2097,7 +2097,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 									<xs:sequence>
 										<xs:element name="Width">
 											<xs:annotation>
-												<xs:documentation>Size in X axis in mm</xs:documentation>
+												<xs:documentation>Size in X axis (Unit: millimeter)</xs:documentation>
 											</xs:annotation>
 											<xs:simpleType>
 												<xs:restriction base="xs:int">
@@ -2107,7 +2107,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 										</xs:element>
 										<xs:element name="Length">
 											<xs:annotation>
-												<xs:documentation>Size in Y axis in mm</xs:documentation>
+												<xs:documentation>Size in Y axis (Unit: millimeter)</xs:documentation>
 											</xs:annotation>
 											<xs:simpleType>
 												<xs:restriction base="xs:int">
@@ -2117,7 +2117,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 										</xs:element>
 										<xs:element name="Height">
 											<xs:annotation>
-												<xs:documentation>Size in Z axis in mm</xs:documentation>
+												<xs:documentation>Size in Z axis (Unit: millimeter)</xs:documentation>
 											</xs:annotation>
 											<xs:simpleType>
 												<xs:restriction base="xs:int">
@@ -2136,7 +2136,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 									<xs:sequence>
 										<xs:element name="Diameter">
 											<xs:annotation>
-												<xs:documentation>Diameter of the cylinder in mm</xs:documentation>
+												<xs:documentation>Diameter of the cylinder (Unit: millimeter)</xs:documentation>
 											</xs:annotation>
 											<xs:simpleType>
 												<xs:restriction base="xs:int">
@@ -2146,7 +2146,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 										</xs:element>
 										<xs:element name="Height">
 											<xs:annotation>
-												<xs:documentation>Size in "plane" axis of the cylinder in mm</xs:documentation>
+												<xs:documentation>Size in "plane" axis of the cylinder (Unit: millimeter)</xs:documentation>
 											</xs:annotation>
 											<xs:simpleType>
 												<xs:restriction base="xs:int">
@@ -2179,7 +2179,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 									<xs:sequence>
 										<xs:element name="Width">
 											<xs:annotation>
-												<xs:documentation>Width of the rectangular Emitter 2D surface in mm</xs:documentation>
+												<xs:documentation>Width of the rectangular Emitter 2D surface (Unit: millimeter)</xs:documentation>
 											</xs:annotation>
 											<xs:simpleType>
 												<xs:restriction base="xs:int">
@@ -2189,7 +2189,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 										</xs:element>
 										<xs:element name="Length">
 											<xs:annotation>
-												<xs:documentation>Length of the rectangular Emitter 2D surface in mm</xs:documentation>
+												<xs:documentation>Length of the rectangular Emitter 2D surface (Unit: millimeter)</xs:documentation>
 											</xs:annotation>
 											<xs:simpleType>
 												<xs:restriction base="xs:int">
@@ -2208,7 +2208,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 									<xs:sequence>
 										<xs:element name="Diameter">
 											<xs:annotation>
-												<xs:documentation>Diameter of the circular Emitter 2D surface in mm</xs:documentation>
+												<xs:documentation>Diameter of the circular Emitter 2D surface (Unit: millimeter)</xs:documentation>
 											</xs:annotation>
 											<xs:simpleType>
 												<xs:restriction base="xs:int">
@@ -2228,22 +2228,22 @@ Note: These types are used in IES photometry files</xs:documentation>
 								<xs:sequence>
 									<xs:element name="C0" type="xs:int">
 										<xs:annotation>
-											<xs:documentation>Luminous height in C0 in mm</xs:documentation>
+											<xs:documentation>Luminous height in C0 (Unit: millimeter)</xs:documentation>
 										</xs:annotation>
 									</xs:element>
 									<xs:element name="C90" type="xs:int">
 										<xs:annotation>
-											<xs:documentation>Luminous height in C90 in mm</xs:documentation>
+											<xs:documentation>Luminous height in C90 (Unit: millimeter)</xs:documentation>
 										</xs:annotation>
 									</xs:element>
 									<xs:element name="C180" type="xs:int">
 										<xs:annotation>
-											<xs:documentation>Luminous height in C180 in mm</xs:documentation>
+											<xs:documentation>Luminous height in C180 (Unit: millimeter)</xs:documentation>
 										</xs:annotation>
 									</xs:element>
 									<xs:element name="C270" type="xs:int">
 										<xs:annotation>
-											<xs:documentation>Luminous height in C270 in mm</xs:documentation>
+											<xs:documentation>Luminous height in C270 (Unit: millimeter)</xs:documentation>
 										</xs:annotation>
 									</xs:element>
 								</xs:sequence>
@@ -2545,7 +2545,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 																	<xs:sequence>
 																		<xs:element name="Width">
 																			<xs:annotation>
-																				<xs:documentation>Width of the rectangular cutout into the ceiling in millimeters</xs:documentation>
+																				<xs:documentation>Width of the rectangular cutout into the ceiling (Unit: millimeter)</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:int">
@@ -2555,7 +2555,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 																		</xs:element>
 																		<xs:element name="Length">
 																			<xs:annotation>
-																				<xs:documentation>Length of the rectangular cutout into the ceiling in millimeters</xs:documentation>
+																				<xs:documentation>Length of the rectangular cutout into the ceiling (Unit: millimeter)</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:int">
@@ -2565,7 +2565,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 																		</xs:element>
 																		<xs:element name="Depth">
 																			<xs:annotation>
-																				<xs:documentation>Depth of the rectangular cutout into the ceiling in millimeters. This value should be at least equal to or greater than recessedDepth. And take the additional height of any additional housing or required space for air circulation into account</xs:documentation>
+																				<xs:documentation>Depth of the rectangular cutout into the ceiling (Unit: millimeter). This value should be at least equal to or greater than recessedDepth. And take the additional height of any additional housing or required space for air circulation into account</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:int">
@@ -2584,7 +2584,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 																	<xs:sequence>
 																		<xs:element name="Diameter">
 																			<xs:annotation>
-																				<xs:documentation>Diameter of the circular cutout into the ceiling in millimeters</xs:documentation>
+																				<xs:documentation>Diameter of the circular cutout into the ceiling (Unit: millimeter)</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:int">
@@ -2594,7 +2594,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 																		</xs:element>
 																		<xs:element name="Depth">
 																			<xs:annotation>
-																				<xs:documentation>Depth of the circular cutout into the ceiling in millimeters. This value should be at least equal to or greater than recessedDepth. And take the additional height of any additional housing or required space for air circulation into account</xs:documentation>
+																				<xs:documentation>Depth of the circular cutout into the ceiling (Unit: millimeter). This value should be at least equal to or greater than recessedDepth. And take the additional height of any additional housing or required space for air circulation into account</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:int">
@@ -2608,7 +2608,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 														</xs:choice>
 														<xs:attribute name="recessedDepth" use="required">
 															<xs:annotation>
-																<xs:documentation>Recessed depth into ceiling in millimeters. This value should correspond to the height of the luminaire that goes into the ceiling. And do not take any additional housing or required space for air circulation into account - Use the child element CircularCutout, should this need to be mapped.</xs:documentation>
+																<xs:documentation>Recessed depth into ceiling (Unit: millimeter). This value should correspond to the height of the luminaire that goes into the ceiling. And do not take any additional housing or required space for air circulation into account - Use the child element CircularCutout, should this need to be mapped.</xs:documentation>
 															</xs:annotation>
 															<xs:simpleType>
 																<xs:restriction base="xs:int">
@@ -2631,7 +2631,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 													<xs:complexType>
 														<xs:attribute name="pendantLength" use="required">
 															<xs:annotation>
-																<xs:documentation>Suspension length, measured from ceiling to the pendulum  housing of the product in millimeters</xs:documentation>
+																<xs:documentation>Suspension length, measured from ceiling to the pendulum  housing of the product (Unit: millimeter)</xs:documentation>
 															</xs:annotation>
 															<xs:simpleType>
 																<xs:restriction base="xs:int">
@@ -2664,7 +2664,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 																	<xs:sequence>
 																		<xs:element name="Width">
 																			<xs:annotation>
-																				<xs:documentation>Width of the rectangular cutout into the wall in millimeters</xs:documentation>
+																				<xs:documentation>Width of the rectangular cutout into the wall (Unit: millimeter)</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:int">
@@ -2674,7 +2674,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 																		</xs:element>
 																		<xs:element name="Length">
 																			<xs:annotation>
-																				<xs:documentation>Length of the rectangular cutout into the wall in millimeters</xs:documentation>
+																				<xs:documentation>Length of the rectangular cutout into the wall (Unit: millimeter)</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:int">
@@ -2684,7 +2684,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 																		</xs:element>
 																		<xs:element name="Depth">
 																			<xs:annotation>
-																				<xs:documentation>Depth of the rectangular cutout into the the wall in millimeters. This value should be at least equal to or greater than recessedDepth. And take the additional height of any additional housing or required space for air circulation into account</xs:documentation>
+																				<xs:documentation>Depth of the rectangular cutout into the the wall (Unit: millimeter). This value should be at least equal to or greater than recessedDepth. And take the additional height of any additional housing or required space for air circulation into account</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:int">
@@ -2703,7 +2703,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 																	<xs:sequence>
 																		<xs:element name="Diameter">
 																			<xs:annotation>
-																				<xs:documentation>Diameter of the circular cutout into the wall in millimeters</xs:documentation>
+																				<xs:documentation>Diameter of the circular cutout into the wall (Unit: millimeter)</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:int">
@@ -2713,7 +2713,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 																		</xs:element>
 																		<xs:element name="Depth">
 																			<xs:annotation>
-																				<xs:documentation>Depth of the circular cutout into the the wall in millimeters. This value should be at least equal to or greater than recessedDepth. And take the additional height of any additional housing or required space for air circulation into account</xs:documentation>
+																				<xs:documentation>Depth of the circular cutout into the the wall (Unit: millimeter). This value should be at least equal to or greater than recessedDepth. And take the additional height of any additional housing or required space for air circulation into account</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:int">
@@ -2727,7 +2727,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 														</xs:choice>
 														<xs:attribute name="recessedDepth" use="required">
 															<xs:annotation>
-																<xs:documentation>Recessed depth into the wall in millimeters. This value should correspond to the length of the luminaire that goes into the wall. And do not take any additional housing or required space for air circulation into account - Use the child element CircularCutout, should this need to be mapped.</xs:documentation>
+																<xs:documentation>Recessed depth into the wall (Unit: millimeter). This value should correspond to the length of the luminaire that goes into the wall. And do not take any additional housing or required space for air circulation into account - Use the child element CircularCutout, should this need to be mapped.</xs:documentation>
 															</xs:annotation>
 															<xs:simpleType>
 																<xs:restriction base="xs:int">
@@ -2746,7 +2746,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 											</xs:sequence>
 											<xs:attribute name="mountingHeight" use="required">
 												<xs:annotation>
-													<xs:documentation>Mounting height above ground in millimeters</xs:documentation>
+													<xs:documentation>Mounting height above ground (Unit: millimeter)</xs:documentation>
 												</xs:annotation>
 												<xs:simpleType>
 													<xs:restriction base="xs:int">
@@ -2784,7 +2784,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 													<xs:complexType>
 														<xs:attribute name="poleHeight">
 															<xs:annotation>
-																<xs:documentation>Optional default height of the pole in millimeters</xs:documentation>
+																<xs:documentation>Optional default height of the pole (Unit: millimeter)</xs:documentation>
 															</xs:annotation>
 															<xs:simpleType>
 																<xs:restriction base="xs:int">
@@ -2801,7 +2801,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 													<xs:complexType>
 														<xs:attribute name="poleHeight">
 															<xs:annotation>
-																<xs:documentation>Optional default height of the pole in millimeters</xs:documentation>
+																<xs:documentation>Optional default height of the pole (Unit: millimeter)</xs:documentation>
 															</xs:annotation>
 															<xs:simpleType>
 																<xs:restriction base="xs:int">
@@ -2837,7 +2837,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 																	<xs:sequence>
 																		<xs:element name="Width">
 																			<xs:annotation>
-																				<xs:documentation>Width of the rectangular cutout into the ground in millimeters</xs:documentation>
+																				<xs:documentation>Width of the rectangular cutout into the ground (Unit: millimeter)</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:int">
@@ -2847,7 +2847,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 																		</xs:element>
 																		<xs:element name="Length">
 																			<xs:annotation>
-																				<xs:documentation>Length of the rectangular cutout into the ground in millimeters</xs:documentation>
+																				<xs:documentation>Length of the rectangular cutout into the ground (Unit: millimeter)</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:int">
@@ -2857,7 +2857,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 																		</xs:element>
 																		<xs:element name="Depth">
 																			<xs:annotation>
-																				<xs:documentation>Depth of the rectangular cutout into the the ground in millimeters. This value should be at least equal to or greater than recessedDepth. And take the additional height of any additional housing or required space for air circulation into account</xs:documentation>
+																				<xs:documentation>Depth of the rectangular cutout into the the ground (Unit: millimeter). This value should be at least equal to or greater than recessedDepth. And take the additional height of any additional housing or required space for air circulation into account</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:int">
@@ -2876,7 +2876,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 																	<xs:sequence>
 																		<xs:element name="Diameter">
 																			<xs:annotation>
-																				<xs:documentation>Diameter of the circular cutout into the ground in millimeters</xs:documentation>
+																				<xs:documentation>Diameter of the circular cutout into the ground (Unit: millimeter)</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:int">
@@ -2886,7 +2886,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 																		</xs:element>
 																		<xs:element name="Depth">
 																			<xs:annotation>
-																				<xs:documentation>Depth of the circular cutout into the the ground in millimeters. This value should be at least equal to or greater than recessedDepth. And take the additional height of any additional housing or required space for air circulation into account</xs:documentation>
+																				<xs:documentation>Depth of the circular cutout into the the ground (Unit: millimeter). This value should be at least equal to or greater than recessedDepth. And take the additional height of any additional housing or required space for air circulation into account</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:int">
@@ -2900,7 +2900,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 														</xs:choice>
 														<xs:attribute name="recessedDepth" use="required">
 															<xs:annotation>
-																<xs:documentation>Recessed depth into the ground in millimeters. This value should correspond to the height of the luminaire that goes into the ground. And do not take any additional housing or required space for air circulation into account - Use the child element CircularCutout, should this need to be mapped.</xs:documentation>
+																<xs:documentation>Recessed depth into the ground (Unit: millimeter). This value should correspond to the height of the luminaire that goes into the ground. And do not take any additional housing or required space for air circulation into account - Use the child element CircularCutout, should this need to be mapped.</xs:documentation>
 															</xs:annotation>
 															<xs:simpleType>
 																<xs:restriction base="xs:int">
@@ -3125,23 +3125,23 @@ Note: These types are used in IES photometry files</xs:documentation>
 					<xs:sequence>
 						<xs:element name="ProductSize" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Dimensions of the product in mm</xs:documentation>
+								<xs:documentation>Dimensions of the product</xs:documentation>
 							</xs:annotation>
 							<xs:complexType>
 								<xs:sequence>
 									<xs:element name="Length" type="xs:int">
 										<xs:annotation>
-											<xs:documentation>Length of the product in mm C90 C270</xs:documentation>
+											<xs:documentation>Length of the product C90/C270 (Unit: millimeter)</xs:documentation>
 										</xs:annotation>
 									</xs:element>
 									<xs:element name="Width" type="xs:int">
 										<xs:annotation>
-											<xs:documentation>Width of the product in mm C0 C180</xs:documentation>
+											<xs:documentation>Width of the product C0/C180 (Unit: millimeter)</xs:documentation>
 										</xs:annotation>
 									</xs:element>
 									<xs:element name="Height" type="xs:int">
 										<xs:annotation>
-											<xs:documentation>Height of the product in mm</xs:documentation>
+											<xs:documentation>Height of the product </xs:documentation>
 										</xs:annotation>
 									</xs:element>
 								</xs:sequence>
@@ -3149,7 +3149,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 						</xs:element>
 						<xs:element name="OperatingTemperature" type="TemperatureRange" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Operating range defined by a minimum and maximum temperature in Celsius, at which the luminaire operates normally</xs:documentation>
+								<xs:documentation>Operating range defined by a minimum and maximum temperature, at which the luminaire operates normally</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="SealingMaterial" type="Locale" minOccurs="0">
@@ -3159,7 +3159,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 						</xs:element>
 						<xs:element name="Weight" type="xs:double" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Weight of the luminaire in kilograms. Including ballast, excluding packaging</xs:documentation>
+								<xs:documentation>Weight of the luminaire. Including ballast, excluding packaging (Unit: kilogram)</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 					</xs:sequence>
@@ -3179,12 +3179,12 @@ Note: These types are used in IES photometry files</xs:documentation>
 								<xs:sequence>
 									<xs:element name="Lower" type="xs:double">
 										<xs:annotation>
-											<xs:documentation>Lower limit of the clamping range</xs:documentation>
+											<xs:documentation>Lower limit of the clamping range (Unit: millimeter)</xs:documentation>
 										</xs:annotation>
 									</xs:element>
 									<xs:element name="Upper" type="xs:double">
 										<xs:annotation>
-											<xs:documentation>Upper limit of the clamping range</xs:documentation>
+											<xs:documentation>Upper limit of the clamping range (Unit: millimeter)</xs:documentation>
 										</xs:annotation>
 									</xs:element>
 								</xs:sequence>
@@ -3314,20 +3314,20 @@ Note: These types are used in IES photometry files</xs:documentation>
 					<xs:sequence>
 						<xs:element name="DurationTimeAndFlux" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Presentation of the variation of the emergency lighting output during the usage time. It is presented as a table of luminous flux emitted (lm) and corresponding duration times (h).</xs:documentation>
+								<xs:documentation>Presentation of the variation of the emergency lighting output during the usage time. It is represented as a table of emitted luminous flux during corresponding hours</xs:documentation>
 							</xs:annotation>
 							<xs:complexType>
 								<xs:sequence>
 									<xs:element name="Flux" maxOccurs="unbounded">
 										<xs:annotation>
-											<xs:documentation>Flux in lumen</xs:documentation>
+											<xs:documentation>Flux (Unit: lumen)</xs:documentation>
 										</xs:annotation>
 										<xs:complexType>
 											<xs:simpleContent>
 												<xs:extension base="xs:int">
 													<xs:attribute name="hours" type="xs:int" use="required">
 														<xs:annotation>
-															<xs:documentation>Duration times in hours</xs:documentation>
+															<xs:documentation>Duration time (Unit: hour)</xs:documentation>
 														</xs:annotation>
 													</xs:attribute>
 												</xs:extension>
@@ -3790,7 +3790,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 						</xs:element>
 						<xs:element name="AmbientTemperature" type="TemperatureRange" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Recommended ambient temperature range, in Celsius</xs:documentation>
+								<xs:documentation>Recommended ambient temperature range</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 					</xs:sequence>
@@ -4060,7 +4060,7 @@ Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on applic
 						</xs:element>
 						<xs:element name="RatedAmbientTemperature" type="xs:int" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Rated ambient performance temperature in Celsius. It's the highest ambient temperature around the luminaire related to a rated performance of the luminaire under normal operating conditions</xs:documentation>
+								<xs:documentation>Rated ambient performance temperature. It's the highest ambient temperature around the luminaire related to a rated performance of the luminaire under normal operating conditions (Unit: celsius)</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="AcousticAbsorptionRates" minOccurs="0">
@@ -4078,7 +4078,7 @@ Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on applic
 												<xs:extension base="xs:double">
 													<xs:attribute name="hertz" use="required">
 														<xs:annotation>
-															<xs:documentation>Frequency in Hz</xs:documentation>
+															<xs:documentation>Frequency (Unit: hertz)</xs:documentation>
 														</xs:annotation>
 														<xs:simpleType>
 															<xs:restriction base="xs:int">
@@ -4314,12 +4314,12 @@ Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on applic
 		<xs:sequence>
 			<xs:element name="Lower" type="xs:int">
 				<xs:annotation>
-					<xs:documentation>Lower limit of the temperature (inclusive)</xs:documentation>
+					<xs:documentation>Lower inclusive limit of the temperature (Unit: celsius)</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="Upper" type="xs:int">
 				<xs:annotation>
-					<xs:documentation>Upper limit of the temperature (inclusive)</xs:documentation>
+					<xs:documentation>Upper inclusive limit of the temperature (Unit: celsius)</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
@@ -4332,13 +4332,13 @@ Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on applic
 			<xs:choice>
 				<xs:element name="VoltageRange">
 					<xs:annotation>
-						<xs:documentation>Voltage range, e.g. 220-240V</xs:documentation>
+						<xs:documentation>Voltage range, e.g. 220-240V (Unit: volt)</xs:documentation>
 					</xs:annotation>
 					<xs:complexType>
 						<xs:sequence>
 							<xs:element name="Min">
 								<xs:annotation>
-									<xs:documentation>Minimal value of the Voltage range</xs:documentation>
+									<xs:documentation>Minimal value of the Voltage range (Unit: volt)</xs:documentation>
 								</xs:annotation>
 								<xs:simpleType>
 									<xs:restriction base="xs:double">
@@ -4348,7 +4348,7 @@ Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on applic
 							</xs:element>
 							<xs:element name="Max">
 								<xs:annotation>
-									<xs:documentation>Maximum value of the Voltage range</xs:documentation>
+									<xs:documentation>Maximum value of the Voltage range (Unit: volt)</xs:documentation>
 								</xs:annotation>
 								<xs:simpleType>
 									<xs:restriction base="xs:double">
@@ -4361,7 +4361,7 @@ Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on applic
 				</xs:element>
 				<xs:element name="FixedVoltage">
 					<xs:annotation>
-						<xs:documentation>Single value, e.g. 230V</xs:documentation>
+						<xs:documentation>Single value, e.g. 230V (Unit: volt)</xs:documentation>
 					</xs:annotation>
 					<xs:simpleType>
 						<xs:restriction base="xs:double">
