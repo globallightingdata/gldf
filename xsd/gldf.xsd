@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" version="0.9-beta.9">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0.0-rc.1">
 	<xs:element name="Root">
 		<xs:annotation>
 			<xs:documentation>Root element for a configurable product</xs:documentation>
@@ -235,7 +235,7 @@
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-						<xs:enumeration value="0.9-beta.9"/>
+						<xs:enumeration value="1.0.0-rc.1"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
