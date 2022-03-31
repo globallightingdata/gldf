@@ -22,11 +22,6 @@
 					</xs:annotation>
 				</xs:element>
 			</xs:sequence>
-			<xs:attribute name="checksum" type="xs:string" use="optional">
-				<xs:annotation>
-					<xs:documentation>Checksum for structure and format. Could be signed with a tool developed by Relux and Dial</xs:documentation>
-				</xs:annotation>
-			</xs:attribute>
 		</xs:complexType>
 		<xs:key name="FileId">
 			<xs:selector xpath="GeneralDefinitions/Files/File"/>
