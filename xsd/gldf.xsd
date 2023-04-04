@@ -270,16 +270,10 @@
 							<xs:complexType>
 								<xs:simpleContent>
 									<xs:extension base="xs:string">
-										<xs:attribute name="application" use="required">
+										<xs:attribute name="application" type="xs:string" use="required">
 											<xs:annotation>
 												<xs:documentation>The application for which the licence key is intended</xs:documentation>
 											</xs:annotation>
-											<xs:simpleType>
-												<xs:restriction base="xs:string">
-													<xs:enumeration value="DIALux"/>
-													<xs:enumeration value="RELUX"/>
-												</xs:restriction>
-											</xs:simpleType>
 										</xs:attribute>
 									</xs:extension>
 								</xs:simpleContent>
