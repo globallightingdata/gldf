@@ -624,20 +624,18 @@
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:choice>
-							<xs:element name="PhotometryFileReference">
-								<xs:annotation>
-									<xs:documentation>Reference to a photometry File element defined under GeneralDefinitions/Files. Usually Eulumdat or IES</xs:documentation>
-								</xs:annotation>
-								<xs:complexType>
-									<xs:attribute name="fileId" type="xs:NCName" use="required">
-										<xs:annotation>
-											<xs:documentation>Id reference to a photometry File element defined under GeneralDefinitions/Files. Usually Eulumdat or IES</xs:documentation>
-										</xs:annotation>
-									</xs:attribute>
-								</xs:complexType>
-							</xs:element>
-						</xs:choice>
+						<xs:element name="PhotometryFileReference">
+							<xs:annotation>
+								<xs:documentation>Reference to a photometry File element defined under GeneralDefinitions/Files. Usually Eulumdat or IES</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:attribute name="fileId" type="xs:NCName" use="required">
+									<xs:annotation>
+										<xs:documentation>Id reference to a photometry File element defined under GeneralDefinitions/Files. Usually Eulumdat or IES</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:complexType>
+						</xs:element>
 						<xs:element name="DescriptivePhotometry" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>All child elements are solely descriptive values and not used in any calculations</xs:documentation>
