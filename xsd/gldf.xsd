@@ -3266,8 +3266,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 						</xs:element>
 						<xs:element name="SwitchingCapacity" type="xs:string" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Switching capacity of sensor. Power and cos phi. Example: "1E-1, W 1E0, unitless"
-</xs:documentation>
+								<xs:documentation>Switching capacity of sensor. Power and cos phi. Example: "1E-1, W 1E0, unitless"</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="ElectricalSafetyClass" minOccurs="0">
@@ -3544,8 +3543,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 								<xs:sequence>
 									<xs:element name="DesignAward" type="xs:string" maxOccurs="unbounded">
 										<xs:annotation>
-											<xs:documentation>Luminaire design award, e.g. 
-"Red Dot Award"</xs:documentation>
+											<xs:documentation>Luminaire design award, e.g. "Red Dot Award"</xs:documentation>
 										</xs:annotation>
 									</xs:element>
 								</xs:sequence>
