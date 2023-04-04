@@ -213,35 +213,71 @@
 			<xs:documentation>Metadata about the product and manufacturer</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="Author" type="xs:string" minOccurs="0">
-				<xs:annotation>
-					<xs:documentation>Author of this file</xs:documentation>
-				</xs:annotation>
-			</xs:element>
 			<xs:element name="Manufacturer" type="xs:string">
 				<xs:annotation>
 					<xs:documentation>Name of the manufacturer</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="CreationTimeCode" type="xs:dateTime">
+			<xs:element name="FormatVersion" fixed="">
 				<xs:annotation>
-					<xs:documentation>Date on which this file was created</xs:documentation>
+					<xs:documentation>Version of the luminaire data format used for this file. The GLDF is versioned according to SemVer 2.0 for major and minor version parts. See semver.org</xs:documentation>
 				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="major" use="required">
+								<xs:annotation>
+									<xs:documentation>MAJOR version of the GLDF. Will be raised on incompatible changes only (e.g. new required elements, deleted elements, new/changed restrictions)</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:int">
+										<xs:minInclusive value="0"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+							<xs:attribute name="minor" use="required">
+								<xs:annotation>
+									<xs:documentation>MINOR version of the GLDF.  Will be raised in a backwards compatible manner only</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:int">
+										<xs:minInclusive value="0"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+							<xs:attribute name="pre-release">
+								<xs:annotation>
+									<xs:documentation>Optional pre release version of the GLDF</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:int">
+										<xs:minInclusive value="0"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
 			</xs:element>
 			<xs:element name="CreatedWithApplication" type="xs:string">
 				<xs:annotation>
 					<xs:documentation>Software used to create this file</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="FormatVersion">
+			<xs:element name="GldfCreationTimeCode" type="xs:dateTime">
 				<xs:annotation>
-					<xs:documentation>Version of the luminaire data format used for this file</xs:documentation>
+					<xs:documentation>Date on which this GLDF file was created (not the product data - see ProductDataTimeCode)</xs:documentation>
 				</xs:annotation>
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:enumeration value="1.0.0-rc.1"/>
-					</xs:restriction>
-				</xs:simpleType>
+			</xs:element>
+			<xs:element name="UniqueGldfId" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Id of this GLDF file, which should be unique worldwide. To ensure this, UUID/GUID is strongly recommended</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ProductDataTimeCode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Date on which der product data was created (not the GLDF itself - see GldfCreationTimeCode)</xs:documentation>
+				</xs:annotation>
 			</xs:element>
 			<xs:element name="DefaultLanguage" type="xs:language" minOccurs="0">
 				<xs:annotation>
@@ -290,6 +326,11 @@
 			<xs:element name="DIALuxMemberId" type="xs:string" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>DIAL membership number </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Author" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Author of this file</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="Contact" minOccurs="0">
