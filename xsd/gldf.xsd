@@ -136,7 +136,7 @@
 			<xs:field xpath="@controlGearId"/>
 		</xs:keyref>
 		<xs:keyref name="Emitter-Sensor" refer="SensorId">
-			<xs:selector xpath="GeneralDefinitions/Emitters/Emitter/Sensor"/>
+			<xs:selector xpath="GeneralDefinitions/Emitters/Emitter/SensorEmitter/SensorReference"/>
 			<xs:field xpath="@sensorId"/>
 		</xs:keyref>
 		<xs:keyref name="GeoModelled-File" refer="FileId">
@@ -1995,7 +1995,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 								</xs:attribute>
 							</xs:complexType>
 						</xs:element>
-						<xs:element name="Sensor" maxOccurs="unbounded">
+						<xs:element name="SensorEmitter" maxOccurs="unbounded">
 							<xs:annotation>
 								<xs:documentation>Definition of an emission object for the sensor part of the product</xs:documentation>
 							</xs:annotation>
@@ -2059,12 +2059,19 @@ Note: These types are used in IES photometry files</xs:documentation>
 											</xs:sequence>
 										</xs:complexType>
 									</xs:element>
+									<xs:element name="SensorReference">
+										<xs:annotation>
+											<xs:documentation>Reference to a Sensor element defined under GeneralDefinitions/Sensors</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:attribute name="sensorId" type="xs:NCName" use="required">
+												<xs:annotation>
+													<xs:documentation>Id reference to a Sensor element defined under GeneralDefinitions/Sensors.</xs:documentation>
+												</xs:annotation>
+											</xs:attribute>
+										</xs:complexType>
+									</xs:element>
 								</xs:sequence>
-								<xs:attribute name="sensorId" type="xs:NCName" use="required">
-									<xs:annotation>
-										<xs:documentation>Id reference to a Sensor element defined under GeneralDefinitions/Sensors.</xs:documentation>
-									</xs:annotation>
-								</xs:attribute>
 							</xs:complexType>
 						</xs:element>
 					</xs:choice>
