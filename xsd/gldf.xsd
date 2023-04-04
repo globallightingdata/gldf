@@ -71,6 +71,10 @@
 			<xs:selector xpath="ProductDefinitions/Variants/Variant"/>
 			<xs:field xpath="@id"/>
 		</xs:key>
+		<xs:keyref name="Header-File" refer="FileId">
+			<xs:selector xpath="Header/ManufacturerLogo"/>
+			<xs:field xpath="@fileId"/>
+		</xs:keyref>
 		<xs:keyref name="Sensor-File" refer="FileId">
 			<xs:selector xpath="GeneralDefinitions/Sensors/Sensor/SensorFileReference"/>
 			<xs:field xpath="@fileId"/>
@@ -4386,6 +4390,11 @@ Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on applic
 							</xs:annotation>
 						</xs:element>
 					</xs:sequence>
+					<xs:attribute name="id" type="xs:ID" use="required">
+						<xs:annotation>
+							<xs:documentation>Unique identifier for the product series. Should be unique across multiple GLDFs</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
