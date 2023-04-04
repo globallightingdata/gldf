@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0.0-rc.1">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0.0-rc.2">
 	<xs:element name="Root">
 		<xs:annotation>
 			<xs:documentation>Root element for a configurable product</xs:documentation>
@@ -71,6 +71,10 @@
 			<xs:selector xpath="ProductDefinitions/Variants/Variant"/>
 			<xs:field xpath="@id"/>
 		</xs:key>
+		<xs:keyref name="Header-File" refer="FileId">
+			<xs:selector xpath="Header/ManufacturerLogo"/>
+			<xs:field xpath="@fileId"/>
+		</xs:keyref>
 		<xs:keyref name="Sensor-File" refer="FileId">
 			<xs:selector xpath="GeneralDefinitions/Sensors/Sensor/SensorFileReference"/>
 			<xs:field xpath="@fileId"/>
@@ -132,7 +136,7 @@
 			<xs:field xpath="@controlGearId"/>
 		</xs:keyref>
 		<xs:keyref name="Emitter-Sensor" refer="SensorId">
-			<xs:selector xpath="GeneralDefinitions/Emitters/Emitter/Sensor"/>
+			<xs:selector xpath="GeneralDefinitions/Emitters/Emitter/SensorEmitter/SensorReference"/>
 			<xs:field xpath="@sensorId"/>
 		</xs:keyref>
 		<xs:keyref name="GeoModelled-File" refer="FileId">
@@ -209,40 +213,85 @@
 			<xs:documentation>Metadata about the product and manufacturer</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="Author" type="xs:string" minOccurs="0">
-				<xs:annotation>
-					<xs:documentation>Author of this file</xs:documentation>
-				</xs:annotation>
-			</xs:element>
 			<xs:element name="Manufacturer" type="xs:string">
 				<xs:annotation>
 					<xs:documentation>Name of the manufacturer</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="CreationTimeCode" type="xs:dateTime">
+			<xs:element name="FormatVersion" fixed="">
 				<xs:annotation>
-					<xs:documentation>Date on which this file was created</xs:documentation>
+					<xs:documentation>Version of the luminaire data format used for this file. The GLDF is versioned according to SemVer 2.0 for major and minor version parts. See semver.org</xs:documentation>
 				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="major" use="required">
+								<xs:annotation>
+									<xs:documentation>MAJOR version of the GLDF. Will be raised on incompatible changes only (e.g. new required elements, deleted elements, new/changed restrictions)</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:int">
+										<xs:minInclusive value="0"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+							<xs:attribute name="minor" use="required">
+								<xs:annotation>
+									<xs:documentation>MINOR version of the GLDF.  Will be raised in a backwards compatible manner only</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:int">
+										<xs:minInclusive value="0"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+							<xs:attribute name="pre-release">
+								<xs:annotation>
+									<xs:documentation>Optional pre release version of the GLDF</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:int">
+										<xs:minInclusive value="0"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
 			</xs:element>
 			<xs:element name="CreatedWithApplication" type="xs:string">
 				<xs:annotation>
 					<xs:documentation>Software used to create this file</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="FormatVersion">
+			<xs:element name="GldfCreationTimeCode" type="xs:dateTime">
 				<xs:annotation>
-					<xs:documentation>Version of the luminaire data format used for this file</xs:documentation>
+					<xs:documentation>Date on which this GLDF file was created (not the product data - see ProductDataTimeCode)</xs:documentation>
 				</xs:annotation>
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:enumeration value="1.0.0-rc.1"/>
-					</xs:restriction>
-				</xs:simpleType>
+			</xs:element>
+			<xs:element name="UniqueGldfId" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Id of this GLDF file, which should be unique worldwide. To ensure this, UUID/GUID is strongly recommended</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ProductDataTimeCode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Date on which der product data was created (not the GLDF itself - see GldfCreationTimeCode)</xs:documentation>
+				</xs:annotation>
 			</xs:element>
 			<xs:element name="DefaultLanguage" type="xs:language" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Language in which this luminaire should initially be displayed</xs:documentation>
 				</xs:annotation>
+			</xs:element>
+			<xs:element name="ManufacturerLogo" minOccurs="0">
+				<xs:complexType>
+					<xs:attribute name="fileId" type="xs:NCName" use="required">
+						<xs:annotation>
+							<xs:documentation>Id reference to an image File element defined under GeneralDefinitions/Files</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
 			</xs:element>
 			<xs:element name="LicenseKeys" minOccurs="0">
 				<xs:annotation>
@@ -257,16 +306,10 @@
 							<xs:complexType>
 								<xs:simpleContent>
 									<xs:extension base="xs:string">
-										<xs:attribute name="application" use="required">
+										<xs:attribute name="application" type="xs:string" use="required">
 											<xs:annotation>
 												<xs:documentation>The application for which the licence key is intended</xs:documentation>
 											</xs:annotation>
-											<xs:simpleType>
-												<xs:restriction base="xs:string">
-													<xs:enumeration value="DIALux"/>
-													<xs:enumeration value="RELUX"/>
-												</xs:restriction>
-											</xs:simpleType>
 										</xs:attribute>
 									</xs:extension>
 								</xs:simpleContent>
@@ -283,6 +326,11 @@
 			<xs:element name="DIALuxMemberId" type="xs:string" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>DIAL membership number </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Author" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Author of this file</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="Contact" minOccurs="0">
@@ -314,7 +362,7 @@
 									</xs:element>
 									<xs:element name="Number" type="xs:string" minOccurs="0">
 										<xs:annotation>
-											<xs:documentation>Number of the street</xs:documentation>
+											<xs:documentation>House number of the address</xs:documentation>
 										</xs:annotation>
 									</xs:element>
 									<xs:element name="ZIPCode" type="xs:string" minOccurs="0">
@@ -624,20 +672,18 @@
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:choice>
-							<xs:element name="PhotometryFileReference">
-								<xs:annotation>
-									<xs:documentation>Reference to a photometry File element defined under GeneralDefinitions/Files. Usually Eulumdat or IES</xs:documentation>
-								</xs:annotation>
-								<xs:complexType>
-									<xs:attribute name="fileId" type="xs:NCName" use="required">
-										<xs:annotation>
-											<xs:documentation>Id reference to a photometry File element defined under GeneralDefinitions/Files. Usually Eulumdat or IES</xs:documentation>
-										</xs:annotation>
-									</xs:attribute>
-								</xs:complexType>
-							</xs:element>
-						</xs:choice>
+						<xs:element name="PhotometryFileReference">
+							<xs:annotation>
+								<xs:documentation>Reference to a photometry File element defined under GeneralDefinitions/Files. Usually Eulumdat or IES</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:attribute name="fileId" type="xs:NCName" use="required">
+									<xs:annotation>
+										<xs:documentation>Id reference to a photometry File element defined under GeneralDefinitions/Files. Usually Eulumdat or IES</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:complexType>
+						</xs:element>
 						<xs:element name="DescriptivePhotometry" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>All child elements are solely descriptive values and not used in any calculations</xs:documentation>
@@ -1990,7 +2036,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 								</xs:attribute>
 							</xs:complexType>
 						</xs:element>
-						<xs:element name="Sensor" maxOccurs="unbounded">
+						<xs:element name="SensorEmitter" maxOccurs="unbounded">
 							<xs:annotation>
 								<xs:documentation>Definition of an emission object for the sensor part of the product</xs:documentation>
 							</xs:annotation>
@@ -2054,12 +2100,19 @@ Note: These types are used in IES photometry files</xs:documentation>
 											</xs:sequence>
 										</xs:complexType>
 									</xs:element>
+									<xs:element name="SensorReference">
+										<xs:annotation>
+											<xs:documentation>Reference to a Sensor element defined under GeneralDefinitions/Sensors</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:attribute name="sensorId" type="xs:NCName" use="required">
+												<xs:annotation>
+													<xs:documentation>Id reference to a Sensor element defined under GeneralDefinitions/Sensors.</xs:documentation>
+												</xs:annotation>
+											</xs:attribute>
+										</xs:complexType>
+									</xs:element>
 								</xs:sequence>
-								<xs:attribute name="sensorId" type="xs:NCName" use="required">
-									<xs:annotation>
-										<xs:documentation>Id reference to a Sensor element defined under GeneralDefinitions/Sensors.</xs:documentation>
-									</xs:annotation>
-								</xs:attribute>
 							</xs:complexType>
 						</xs:element>
 					</xs:choice>
@@ -2297,6 +2350,11 @@ Note: These types are used in IES photometry files</xs:documentation>
 			<xs:documentation>Definition of global properties of the product</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
+			<xs:element name="UniqueProductId" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Global, Gldf specific product Id. Used to identify same products of one brand across multiple GLDFs (e.g. on product data updates). UUID/GUID strongly recommended</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 			<xs:element name="ProductNumber" type="Locale">
 				<xs:annotation>
 					<xs:documentation>Global product number. See also Variant GTIN and Variant ProductNumber</xs:documentation>
@@ -3268,8 +3326,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 						</xs:element>
 						<xs:element name="SwitchingCapacity" type="xs:string" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Switching capacity of sensor. Power and cos phi. Example: "1E-1, W 1E0, unitless"
-</xs:documentation>
+								<xs:documentation>Switching capacity of sensor. Power and cos phi. Example: "1E-1, W 1E0, unitless"</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="ElectricalSafetyClass" minOccurs="0">
@@ -3546,8 +3603,7 @@ Note: These types are used in IES photometry files</xs:documentation>
 								<xs:sequence>
 									<xs:element name="DesignAward" type="xs:string" maxOccurs="unbounded">
 										<xs:annotation>
-											<xs:documentation>Luminaire design award, e.g. 
-"Red Dot Award"</xs:documentation>
+											<xs:documentation>Luminaire design award, e.g. "Red Dot Award"</xs:documentation>
 										</xs:annotation>
 									</xs:element>
 								</xs:sequence>
@@ -4381,6 +4437,11 @@ Recommend fixed time values are 35k, 50k, 75k or 100k hours (depending on applic
 							</xs:annotation>
 						</xs:element>
 					</xs:sequence>
+					<xs:attribute name="id" type="xs:ID" use="required">
+						<xs:annotation>
+							<xs:documentation>Unique identifier for the product series. Should be unique across multiple GLDFs</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
