@@ -321,7 +321,7 @@
 									</xs:element>
 									<xs:element name="Number" type="xs:string" minOccurs="0">
 										<xs:annotation>
-											<xs:documentation>Number of the street</xs:documentation>
+											<xs:documentation>House number of the address</xs:documentation>
 										</xs:annotation>
 									</xs:element>
 									<xs:element name="ZIPCode" type="xs:string" minOccurs="0">
