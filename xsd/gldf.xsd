@@ -276,7 +276,7 @@
 			</xs:element>
 			<xs:element name="ProductDataTimeCode" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Date on which der product data was created (not the GLDF itself - see GldfCreationTimeCode)</xs:documentation>
+					<xs:documentation>Date on which the product data was created (not the GLDF itself - see GldfCreationTimeCode)</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="DefaultLanguage" type="xs:language" minOccurs="0">
