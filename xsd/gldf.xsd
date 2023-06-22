@@ -1755,8 +1755,8 @@ Note: These types are used in IES photometry files</xs:documentation>
 		<xs:annotation>
 			<xs:documentation>Definition of Emitters (light/sensor radiation) used in this product</xs:documentation>
 		</xs:annotation>
-		<xs:sequence maxOccurs="unbounded">
-			<xs:element name="Emitter">
+		<xs:sequence>
+			<xs:element name="Emitter" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>Single Emitter (light/sensor radiation). Emitters are groups of LightEmitters or Sensors</xs:documentation>
 				</xs:annotation>
