@@ -2203,18 +2203,6 @@ Note: These types are used in IES photometry files</xs:documentation>
 											</xs:simpleType>
 										</xs:element>
 									</xs:sequence>
-									<xs:attribute name="plane" use="required">
-										<xs:annotation>
-											<xs:documentation>Direction axis of the cylinder in the coordinate system. Possible values: X|Y|Z</xs:documentation>
-										</xs:annotation>
-										<xs:simpleType>
-											<xs:restriction base="xs:string">
-												<xs:enumeration value="X"/>
-												<xs:enumeration value="Y"/>
-												<xs:enumeration value="Z"/>
-											</xs:restriction>
-										</xs:simpleType>
-									</xs:attribute>
 								</xs:complexType>
 							</xs:element>
 						</xs:choice>
